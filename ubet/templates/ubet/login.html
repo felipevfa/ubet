@@ -1,0 +1,15 @@
+
+<main>
+	<div class="form-holder"> 
+		<p>{{ login_msg }}</p>
+		<form action="{% url 'login' %}" method="POST" name="login-form" class="form">
+			{% csrf_token %}
+
+			{{ form }} 
+
+			<input type="submit" value="Login" class="submit-button">
+		</form>
+
+	</div>	
+</main>
+

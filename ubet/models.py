@@ -55,7 +55,7 @@ class lolzinUserManager(BaseUserManager):
 class ubetUser(AbstractBaseUser):
 	nome = models.EmailField(max_length=120, unique=True)
 	nick = models.CharField(max_length=20, unique=True)
-	creditos = models.FloatField(default=0)
+	fichas = models.FloatField(default=0)
 	is_active = models.BooleanField(default=True)
 	is_superuser = models.BooleanField(default=False)
 	is_admin = models.BooleanField(default=False)
@@ -88,4 +88,9 @@ class relacao(object):
 	"""uma relacao descreve o conjunto de elementos de um grupo."""
 	usuario = models.ForeignKey('grupo', on_delete = models.CASCADE)
 	grupo = models.ForeignKey('ubetUser',on_delete = models.CASCADE)
+
+class divida(object):
+	devedor = models.ForeignKey('ubetUser', on_delete = models.CASCADE)
+	cobrador = models.ForeignKey('ubetUser', on_delete = models.CASCADE)
+	valor = models.IntegerField()
 
