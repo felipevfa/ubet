@@ -61,19 +61,19 @@ class ubetUser(AbstractBaseUser):
 	is_superuser = models.BooleanField(default=False)
 	is_admin = models.BooleanField(default=False)
 
-	USERNAME_FIELD = 'nick'
+	USERNAME_FIELD = 'nome'
 	REQUIRED_FIELDS = ['nome']
 
 	objects = ubetUserManager()
 
 	def get_full_name(self):
-		return self.nick
+		return self.nome_completo
 
 	def get_short_name(self):
-		return self.nick
+		return self.nome
 
 	def __str__(self):
-		return self.nick
+		return self.identifier
 
 class grupo(object):
 	"""Um grupo é uma coleção na qual ocorrem as apostas. 
