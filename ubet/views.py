@@ -1,14 +1,54 @@
+
 # coding: utf-8
 
 
 from django.shortcuts import render
 from ubet.forms import UserSignupForm, UserAuthenticationForm
+from django.contrib.auth import get_user_model, authenticate, login as auth_login, logout as auth_logout
 
 # Create your views here.
 
+
+def signup(request):
+	# logger.debug('signup')
+	error_msg = ''
+
+	if request.method == 'POST':
+		form = UserSignupForm(request.POST, request.FILES)
+		has_db_errors = False
+
+		if form.is_valid():
+			errors = form.check_values()
+
+			if errors['user_error']:
+				error_msg = error_msg + 'Usuário já cadastrado.<br>'
+				has_db_errors = True
+
+			if errors['email_error']:
+				error_msg = error_msg + 'E-mail já cadastrado.<br>'
+				has_db_errors = True
+
+			if has_db_errors:
+				return render(request, 'ubet/signup.html', { 'form': form, 'signup_msg': error_msg })
+			else:
+				user = form.save()
+				user.save()
+
+				new_user = authenticate(username=request.POST['nome'], 
+										password=request.POST['password1'])
+				auth_login(request, new_user)
+
+				return HttpResponseRedirect('/ubet/user_cp.html')
+	else:
+		form = UserSignupForm()
+
+	return render(request, 'ubet/signup.html', {'form': form })	
+	
+
+
 def login(request):
 	form = UserAuthenticationForm()
-	logger.debug('login')
+	# logger.debug('login')
 
 	if request.method == 'POST':
 		username = request.POST['username']

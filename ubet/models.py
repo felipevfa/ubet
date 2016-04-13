@@ -53,8 +53,9 @@ class ubetUserManager(BaseUserManager):
 		return user
 
 class ubetUser(AbstractBaseUser):
-	nome = models.EmailField(max_length=120, unique=True)
-	nick = models.CharField(max_length=20, unique=True)
+	identifier = models.EmailField(max_length=120,unique=True)
+	nome_completo = models.CharField(max_length=120)
+	nome = models.CharField(max_length=20, unique=True)
 	fichas = models.FloatField(default=0)
 	is_active = models.BooleanField(default=True)
 	is_superuser = models.BooleanField(default=False)

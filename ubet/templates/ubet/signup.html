@@ -1,0 +1,15 @@
+
+<main>
+	<div class="form-holder"> 
+		<p>{{ signup_msg }}</p>
+		<form enctype="multipart/form-data"  action="{% url 'signup' %}" method="POST" name="signup-form" class="form">
+			{% csrf_token %}
+
+			{{ form }} 
+			<br>
+			<input type="submit" value="Cadastrar" class="submit-button">
+		</form>
+
+	</div>	
+</main>
+

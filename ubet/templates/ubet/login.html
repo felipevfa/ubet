@@ -3,6 +3,7 @@
 	<div class="form-holder"> 
 		<p>{{ login_msg }}</p>
 		<form action="{% url 'login' %}" method="POST" name="login-form" class="form">
+			<a  href='{% url 'signup' %}'> Criar conta</a>
 			{% csrf_token %}
 
 			{{ form }} 
