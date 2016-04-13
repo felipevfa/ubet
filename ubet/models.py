@@ -2,7 +2,7 @@
 from django.db import models
 from django.contrib.auth.models import (BaseUserManager, AbstractBaseUser)
 
-class lolzinUserManager(BaseUserManager):
+class ubetUserManager(BaseUserManager):
 	def create_user(self, username, email, password):
 		if not username:
 			raise ValueError("Defina um nome de usuário.")
