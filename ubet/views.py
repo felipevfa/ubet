@@ -5,7 +5,8 @@
 from django.shortcuts import render
 from ubet.forms import UserSignupForm, UserAuthenticationForm
 from django.contrib.auth import get_user_model, authenticate, login as auth_login, logout as auth_logout
-
+from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse
 # Create your views here.
 
 
@@ -34,16 +35,16 @@ def signup(request):
 				user = form.save()
 				user.save()
 
-				new_user = authenticate(username=request.POST['nome'], 
+				new_user = authenticate(username=request.POST['nome'],
 										password=request.POST['password1'])
 				auth_login(request, new_user)
 
-				return HttpResponseRedirect('/ubet/user_cp.html')
+				return HttpResponseRedirect(reverse('user_cp'))
 	else:
 		form = UserSignupForm()
 
-	return render(request, 'ubet/signup.html', {'form': form })	
-	
+	return render(request, 'ubet/signup.html', {'form': form })
+
 
 
 def login(request):
@@ -53,17 +54,17 @@ def login(request):
 	if request.method == 'POST':
 		username = request.POST['username']
 		password = request.POST['password']
-		
+
 
 		user = authenticate(username=username, password=password)
 
 		if user is not None:
 			if user.is_active:
 				auth_login(request, user)
-				return HttpResponseRedirect('ubet/user_cp.html')
+				return HttpResponseRedirect(reverse('user_cp'))
 
 				login(request, user)
-				return HttpResponseRedirect('ubet/user_cp.html')
+				return HttpResponseRedirect(reverse('user_cp'))
 			else:
 				return render(request, 'ubet/login.html', { 'login_msg': 'Conta desativada.', 'form': form })
 		else:
@@ -92,11 +93,9 @@ def profile(request,username):
 	return render(request,'lolzin/profile.html', contexto)
 
 def user_cp(request):
-	logger.debug('user_cp')
 	if request.user.is_authenticated():
 		return render(request, 'ubet/user_cp.html')
 	else:
 		form = UserAuthenticationForm()
-		return render(request, 'ubet/login.html', { 'login_msg': 'Você precisa estar logado para acessar essa página.', 
+		return render(request, 'ubet/login.html', { 'login_msg': 'Você precisa estar logado para acessar essa página.',
 												 'form': form })
-
