@@ -51,15 +51,15 @@ from django.contrib.auth.models import User,BaseUserManager, AbstractBaseUser
 # 		user.save(using=self._db)
 # 		return user
 
-class ubet_user(models.Model):
+class Ubet_user(models.Model):
 
 
 	django_user = models.OneToOneField(User,
 		on_delete = models.CASCADE)
 	full_name = models.CharField(max_length=100)
-	date_of_birth = models.DateTimeField()
+	date_of_birth = models.DateField()
 	creditos = models.FloatField(default=0)
-	def __str__(self):
+	def __unicode__(self):
 		return self.django_user.username+'\n'+ \
 			self.django_user.first_name+'\n'+ \
 			self.django_user.password+'\n'+\
@@ -70,23 +70,35 @@ class ubet_user(models.Model):
 			str(self.creditos)
 		
 
-#
-# class grupo(models.Model):
-# 	"""Um grupo é uma coleção na qual ocorrem as apostas.
-# 	Possui um numero maximo de membros, o numero atual de membros, um valor de aposta, e
-# 	data_inicio sendo um datetime indicando quando o primeiro membro entrou no grupo.
-# 	"""
-# 	size = models.IntegerField()
-# 	max_size = models.IntegerField()
-# 	bet = models.IntegerField()
-# 	data_inicio = models.DateTimeField(auto_now = True)
-#
-# class relacao(models.Model):
+
+class Group(models.Model):
+	"""Um grupo é uma coleção na qual ocorrem as apostas.
+	Possui um numero maximo de membros, o numero atual de membros, um valor de aposta, e
+	data_inicio sendo um datetime indicando quando o primeiro membro entrou no grupo.
+	"""
+
+	status_list = (('END','FINISHED'),('ABORT','CANCELED'),('WAIT','WAITING'))
+	creator = models.ForeignKey(User,null=True,on_delete=models.SET_NULL,related_name='group_creator_user')
+	winner = models.ForeignKey(User,null=True,on_delete=models.SET_NULL,related_name='group_winner_user')
+	name = models.CharField(max_length=50)
+	cur_size = models.IntegerField()
+	max_size = models.IntegerField()
+	bet_value = models.IntegerField()
+	date_of_birth = models.DateTimeField(auto_now = True)
+	status = models.CharField(choices=status_list,default='WAIT',max_length=50)
+	link = models.ManyToManyField(User,symmetrical=True)
+
+# class Group_Link(models.Model):
 # 	"""uma relacao descreve o conjunto de elementos de um grupo."""
-# 	usuario = models.ForeignKey('grupo', on_delete = models.CASCADE)
-# 	grupo = models.ForeignKey('ubetUser',on_delete = models.CASCADE)
-#
+# 	# user = models.ForeignKey(User, on_delete = models.CASCADE)
+# 	# group = models.ForeignKey(Group,on_delete = models.CASCADE)
+# 	link = models.ManyToManyField(User,Group,symmetrical=True)
+# 	position = models.IntegerField()
+# 	creation_time = models.DateTimeField(auto_now=True)
+
+
 # class divida(models.Model):
 # 	devedor = models.ForeignKey('ubetUser', on_delete = models.CASCADE)
 # 	cobrador = models.ForeignKey('ubetUser', on_delete = models.CASCADE)
 # 	valor = models.IntegerField()
+	

@@ -4,7 +4,7 @@ clean:
 	find . -name '*.pyc' -type f -delete
 local:
 	python manage.py runserver
-migration:
+migrations:
 	python manage.py makemigrations ubet
 migrate:
 	python manage.py migrate

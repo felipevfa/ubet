@@ -1,7 +1,7 @@
 #coding: utf-8
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm,UserCreationForm
-from ubet.models import ubet_user
+from ubet.models import Ubet_user
 from django.contrib.auth.models import User, UserManager
 
 class UserSignupForm(UserCreationForm):
@@ -25,7 +25,7 @@ class UserSignupForm(UserCreationForm):
 			password = self.cleaned_data['password1'],
 			first_name = self.cleaned_data['first_name'])
 #		.set_password(self.cleaned_data["password1"])
-		uu = ubet_user()
+		uu = Ubet_user()
 		uu.django_user = user
 		uu.date_of_birth = self.cleaned_data['nascimento']
 
