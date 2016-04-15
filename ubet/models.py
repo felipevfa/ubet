@@ -51,16 +51,25 @@ from django.contrib.auth.models import User,BaseUserManager, AbstractBaseUser
 # 		user.save(using=self._db)
 # 		return user
 
-class ubetUser(models.Model):
+class ubet_user(models.Model):
 
 
-	usuario_django = models.OneToOneField(User,
-		on_delete = models.CASCADE,
-		primary_key = True)
-
-	idade = models.IntegerField()
+	django_user = models.OneToOneField(User,
+		on_delete = models.CASCADE)
+	full_name = models.CharField(max_length=100)
+	date_of_birth = models.DateTimeField()
+	creditos = models.FloatField(default=0)
 	def __str__(self):
-		return usuario_django.__str__()
+		return self.django_user.username+'\n'+ \
+			self.django_user.first_name+'\n'+ \
+			self.django_user.password+'\n'+\
+			self.django_user.email+'\n'+\
+			str(self.django_user.date_joined)+'\n'+\
+			self.full_name+'\n'+\
+			str(self.date_of_birth)+'\n'+\
+			str(self.creditos)
+		
+
 #
 # class grupo(models.Model):
 # 	"""Um grupo é uma coleção na qual ocorrem as apostas.

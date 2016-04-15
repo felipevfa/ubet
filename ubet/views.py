@@ -7,8 +7,8 @@ from ubet.forms import UserSignupForm, UserAuthenticationForm
 from django.contrib.auth import get_user_model, authenticate, login as auth_login, logout as auth_logout
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from ubet.models import ubet_user
 # Create your views here.
-
 
 def signup(request):
 	# logger.debug('signup')
@@ -35,7 +35,7 @@ def signup(request):
 				user = form.save()
 				user.save()
 
-				new_user = authenticate(username=request.POST['nome'],
+				new_user = authenticate(username=request.POST['username'],
 										password=request.POST['password1'])
 				auth_login(request, new_user)
 
@@ -71,6 +71,8 @@ def login(request):
 			return render(request, 'ubet/login.html', { 'login_msg': 'Combinação de usuário e senha incorreta.', 'form': form })
 	else:
 		return render(request, 'ubet/login.html', { 'form': form })
+def listall(request):
+	return render(request,'ubet/listall.html',{'li':ubet_user.objects.all()})
 
 
 def logout(request):

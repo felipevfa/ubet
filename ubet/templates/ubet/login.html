@@ -2,11 +2,13 @@
 <main>
 	<div class="form-holder"> 
 		<p>{{ login_msg }}</p>
+		<a href ='{% url 'listall' %}' > listall </a>
+		<br>
+		<a  href='{% url 'signup' %}'> Criar conta</a>
 		<form action="{% url 'login' %}" method="POST" name="login-form" class="form">
-			<a  href='{% url 'signup' %}'> Criar conta</a>
 			{% csrf_token %}
 
-			{{ form }} 
+			{{ form.as_ul }} 
 
 			<input type="submit" value="Login" class="submit-button">
 		</form>

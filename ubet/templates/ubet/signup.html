@@ -5,7 +5,7 @@
 		<form enctype="multipart/form-data"  action="{% url 'signup' %}" method="POST" name="signup-form" class="form">
 			{% csrf_token %}
 
-			{{ form }} 
+			{{ form.as_ul }} 
 			<br>
 			<input type="submit" value="Cadastrar" class="submit-button">
 		</form>
