@@ -3,18 +3,26 @@ from django import forms
 from django.contrib.auth.forms import AuthenticationForm,UserCreationForm
 from ubet.models import Ubet_user
 from django.contrib.auth.models import User, UserManager
+from django.core.exceptions import ValidationError
+from django.utils.translation import ugettext_lazy as _
+import datetime
+def validate_maioridade(arg):
+	now = datetime.datetime.now()
+	now = datetime.date(now.year,now.month,now.day)
+	year = (now-arg)/365
+	if year.days < 18:
+		raise ValidationError( _('Apenas usuarios acima de 18 anos podem participar'), params={'year': year})
+
 
 class UserSignupForm(UserCreationForm):
 	# photo = forms.FileField(label="Avatar", required=False)
-	nascimento = forms.DateField(required=True)
-	nomec = forms.CharField(max_length=100)
-
-
+	nascimento = forms.DateField(required=True,validators=[validate_maioridade])
+	nomec = forms.CharField(label = 'Nome completo',max_length=100)
 	class Meta:
 		model = User
 		fields = ("username","email",'first_name', "password1", "password2",)
 		labels = { 'username': 'Nome de Usuario',
-				   'email' : 'e-mail',
+				   'email' : 'e-mail',	
 				   'first_name' : 'Nome publico',
 		}
 

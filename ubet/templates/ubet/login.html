@@ -1,9 +1,8 @@
-
 <main>
-	<div class="form-holder"> 
 		<p>{{ login_msg }}</p>
 		<a href ='{% url 'listall' %}' > listall </a>
 		<br>
+		<a href='{% url 'logout'%}'> logout </a> <br>
 		<a  href='{% url 'signup' %}'> Criar conta</a>
 		<form action="{% url 'login' %}" method="POST" name="login-form" class="form">
 			{% csrf_token %}
@@ -11,8 +10,6 @@
 			{{ form.as_ul }} 
 
 			<input type="submit" value="Login" class="submit-button">
-		</form>
-
-	</div>	
+		</form>	
 </main>
 

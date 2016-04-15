@@ -1,14 +1,17 @@
 
 # coding: utf-8
-
-
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from ubet.forms import UserSignupForm, UserAuthenticationForm
 from django.contrib.auth import get_user_model, authenticate, login as auth_login, logout as auth_logout
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
-from ubet.models import Ubet_user
+from ubet.models import Ubet_user,User,Group
 # Create your views here.
+@login_required
+def list_all_groups(request):
+	return render(request,'ubet/listallgroups',{'grupos':Group.objects.all()})
+
 
 def signup(request):
 	# logger.debug('signup')
@@ -74,9 +77,8 @@ def login(request):
 def listall(request):
 	return render(request,'ubet/listall.html',{'li':Ubet_user.objects.all()})
 
-
 def logout(request):
-	logger.debug('logout')
+	# logger.debug('logout')
 	auth_logout(request)
 	return HttpResponseRedirect(reverse('login'))
 

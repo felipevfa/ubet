@@ -1,6 +1,7 @@
 from django.test import TransactionTestCase
 from django.contrib.auth import authenticate, login
 # Create your tests here.
+from ubet.forms import UserSignupForm
 from random import sample,randint
 import string
 from .models import Ubet_user,User,Group,Group_link
@@ -169,3 +170,29 @@ class testes(TransactionTestCase):
 		self.assertEqual(200,client.get(reverse('signup')).status_code)
 		self.assertEqual(200,client.get(reverse('login')).status_code)
 		self.assertEqual(200,client.get(reverse('listall')).status_code)
+
+	def test_signupform(self):
+		password = random_string(8)
+		form_data = {'username' : random_string(10),
+			'email' : random_string(6)+'@mail.com',
+			'first_name' : random_string(6),
+			'password1' : password,
+			'password2' : password,
+			'nascimento' : datetime.date(randint(1,10),randint(1,10),randint(1,10)),
+			'nomec' : random_string(10)
+			}
+		form = UserSignupForm(data=form_data)
+		self.assertTrue(form.is_valid())
+
+		password = random_string(8)
+		form_data = {'username' : random_string(10),
+			'email' : random_string(6)+'@mail.com',
+			'first_name' : random_string(6),
+			'password1' : password,
+			'password2' : password,
+			'nascimento' : datetime.date(2015,randint(1,10),randint(1,10)),
+			'nomec' : random_string(10)
+			}
+		form = UserSignupForm(data=form_data)
+		self.assertFalse(form.is_valid())
+
