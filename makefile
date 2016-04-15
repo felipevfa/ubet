@@ -1,3 +1,5 @@
+test:
+	python manage.py test
 clean:
 	find . -name '*.pyc' -type f -delete
 local:
