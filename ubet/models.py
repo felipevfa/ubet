@@ -85,16 +85,17 @@ class Group(models.Model):
 	max_size = models.IntegerField()
 	bet_value = models.IntegerField()
 	date_of_birth = models.DateTimeField(auto_now = True)
-	status = models.CharField(choices=status_list,default='WAIT',max_length=50)
-	link = models.ManyToManyField(User,symmetrical=True)
+	status = models.CharField(choices=status_list,default='WAITING',max_length=50)
+	group_user = models.ManyToManyField(User,symmetrical=True,through='Group_link')
 
-# class Group_Link(models.Model):
-# 	"""uma relacao descreve o conjunto de elementos de um grupo."""
-# 	# user = models.ForeignKey(User, on_delete = models.CASCADE)
-# 	# group = models.ForeignKey(Group,on_delete = models.CASCADE)
-# 	link = models.ManyToManyField(User,Group,symmetrical=True)
-# 	position = models.IntegerField()
-# 	creation_time = models.DateTimeField(auto_now=True)
+class Group_link(models.Model):
+	"""uma relacao descreve o conjunto de elementos de um grupo."""
+	class Meta:
+		unique_together = (	( "group",'position'),('user','group'))
+	user = models.ForeignKey(User, on_delete = models.CASCADE)
+	group = models.ForeignKey(Group,on_delete = models.CASCADE)
+	position = models.IntegerField()
+	creation_time = models.DateTimeField(auto_now=True)
 
 
 # class divida(models.Model):

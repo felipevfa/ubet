@@ -1,22 +1,23 @@
-from django.test import TestCase
+from django.test import TransactionTestCase
 from django.contrib.auth import authenticate, login
 # Create your tests here.
 from random import sample,randint
 import string
-from .models import Ubet_user,User,Group
+from .models import Ubet_user,User,Group,Group_link
 import	 datetime
 from django.utils import timezone
 from django.test.utils import setup_test_environment
 setup_test_environment()
 from django.test import Client
 from django.core.urlresolvers import reverse
+from django.db import IntegrityError
 def random_string(arg):
 	return ''.join(sample(string.lowercase+string.digits,arg))
 
 
 
 client = Client()
-class testes(TestCase):
+class testes(TransactionTestCase):
 		###
 		#	Cria usuario aleatorio e salva no banco
 		###
@@ -33,18 +34,18 @@ class testes(TestCase):
 			password=password,
 			first_name=first_name)
 		x.save()
-		return x.full_name,x.date_of_birth,email,password,username,first_name
+		return username,x.full_name,x.date_of_birth,email,password,first_name
 	def grupo_aleatorio(self):
 		x = Group()
 		x.bet_value = 10
 		x.max_size = 10
 		x.cur_size = 0
-		x.name = 'mamao'
+		x.name = random_string(4)
 		x.save() 
 		return x.name	
 	def test_usuario(self):
 
-		full_name,date_of_birth,email,password,username,first_name = self.random_user()
+		username,full_name,date_of_birth,email,password,first_name = self.random_user()
 
 		###
 		#	verifica se as caracteristicas criadas foram encontradas no banco
@@ -71,21 +72,93 @@ class testes(TestCase):
 
 
 	def test_grupos(self):
-		full_name,date_of_birth,email,password,username,first_name = self.random_user()
-		(,,,,username2,) = self.random_user()
+
+		#####################################################################
+		#	gerando users e grupos aleatorios,							 	#
+		#####################################################################
+		username,full_name,date_of_birth,email,password,first_name = self.random_user()
+		username2 = self.random_user()[0]
+		username3 = self.random_user()[0]
 		
 		nome_do_grupo = self.grupo_aleatorio()
+		nome_do_grupo2 = self.grupo_aleatorio()
+		nome_do_grupo3 = self.grupo_aleatorio()
+		nome_do_grupo4 = self.grupo_aleatorio()
+		
 		user = User.objects.get(username=username)
+		user2 = User.objects.get(username=username2)
+		user3 = User.objects.get(username=username3)
+
 		self.assertNotEqual(None,user)
+		self.assertNotEqual(None,user2)
+		self.assertNotEqual(None,user3)
+
 		meu_grupo = Group.objects.get(name=nome_do_grupo)
-		# n2 = self.grupo_aleatorio()
+		meu_grupo2 = Group.objects.get(name=nome_do_grupo2)
+		meu_grupo3 = Group.objects.get(name=nome_do_grupo3)
+		meu_grupo4 = Group.objects.get(name=nome_do_grupo4)
+
+
 		self.assertNotEqual(None,meu_grupo)
 		self.assertEqual(10,meu_grupo.bet_value)
 		self.assertEqual(10,meu_grupo.max_size)
-		meu_grupo.link.add(user)
+		self.assertEqual('WAITING',meu_grupo.status)
 		# print Group.objects.filter(link__username__startswith=username)
-		self.assertEqual(User.objects.filter(group=meu_grupo)[0],user)
-		self.assertEqual(Group.objects.filter(link__username__in=[username])[0],meu_grupo)
+		
+		#####################################################################
+		#	 incluindo usuarios a grupos 								 	#
+		#####################################################################
+		link11 = Group_link(user=user,group = meu_grupo,position=9)
+		link11.save()
+		
+		link13 = Group_link(user=user,group = meu_grupo3,position=1)
+		link13.save()
+
+		link22 = Group_link(user=user2,group=meu_grupo2,position=2)
+		link22.save()
+		
+		link33 = Group_link(user=user3,group=meu_grupo3,position=3)
+		link33.save()
+
+		
+		link31 = Group_link(user=user3,group=meu_grupo,position=3)
+		link31.save()
+		#####	isso nao pode acontecer
+		##
+		#	
+		#	dois caras numa mesma posicao
+		link12 = Group_link(user=user,group=meu_grupo2,position=2)
+		self.assertRaises(IntegrityError,link12.save)
+		
+		#	o mesmo cara no mesmo grupo numa posicao diferente
+		link11 = Group_link(user=user,group=meu_grupo,position=10)
+		self.assertRaises(IntegrityError,link11.save)
+		#
+		##
+		###
+
+
+		
+		#####################################################################
+		#	verificando se usuarios estao nos grupos e suas posicoes	 	#
+		#####################################################################		
+		self.assertEqual(user in list(User.objects.filter(group=meu_grupo)) , True)
+		self.assertEqual(Group_link.objects.get(group=meu_grupo,user=user).position , 9)
+
+		self.assertEqual(user in list(User.objects.filter(group=meu_grupo3)) , True)
+		self.assertEqual(user2 in list(User.objects.filter(group=meu_grupo2)) , True)
+		self.assertEqual(user3 in list(User.objects.filter(group=meu_grupo3)) , True)
+		self.assertEqual(user2 in list(User.objects.filter(group=meu_grupo2)) , True)
+		self.assertEqual(user3 in list(User.objects.filter(group=meu_grupo2)) , False)
+		self.assertEqual(user2 in list(User.objects.filter(group=meu_grupo2)) , True)
+		self.assertEqual(user in list(User.objects.filter(group=meu_grupo4)) , False)
+
+		self.assertEqual(Group_link.objects.get(group=meu_grupo,user=user).position , 9)
+
+
+		
+
+		# self.assertEqual(Group.objects.filter(link__username__in=[username])[0],meu_grupo)
 
 	def test_enderecos(self):
 		###
