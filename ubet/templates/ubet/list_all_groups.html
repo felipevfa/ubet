@@ -1,0 +1,11 @@
+<body>
+	<ul>
+	<a href= {% url 'new_group' %}> Novo Grupo </a>
+	{% for g in groups %}
+		{g.name}
+		{% for u in g.user %}
+			{u.username}
+		{% endfor %}
+	{%endfor%}
+	</ul>
+</body>

@@ -1,9 +1,9 @@
 <main>
 		<p>{{ login_msg }}</p>
-		<a href ='{% url 'listall' %}' > listall </a>
+		<a href = {% url 'list_all_groups' %} > listall </a>
 		<br>
-		<a href='{% url 'logout'%}'> logout </a> <br>
-		<a  href='{% url 'signup' %}'> Criar conta</a>
+		<a href= {% url 'logout'%}> logout </a> <br>
+		<a  href= {% url 'signup' %}> Criar conta</a>
 		<form action="{% url 'login' %}" method="POST" name="login-form" class="form">
 			{% csrf_token %}
 

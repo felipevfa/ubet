@@ -22,13 +22,13 @@ class testes(TransactionTestCase):
 		###
 		#	Cria usuario aleatorio e salva no banco
 		###
-	def random_user(self):
+	def random_user(self,uname=random_string(5)):
 		x = Ubet_user()
 		x.full_name = random_string(30)
-		x.date_of_birth = datetime.date(randint(1900,2000),randint(1,12),randint(1,29))
+		x.date_of_birth = datetime.date(randint(1900,2000),randint(1,12),randint(1,28))
 		email = random_string(6) + '@' +random_string(6) + '.com'
 		password = random_string(10)
-		username = random_string(10)
+		username = uname
 		first_name = random_string(10)
 		x.django_user = User.objects.create_user(username,
 			email=email,
@@ -36,12 +36,12 @@ class testes(TransactionTestCase):
 			first_name=first_name)
 		x.save()
 		return username,x.full_name,x.date_of_birth,email,password,first_name
-	def grupo_aleatorio(self):
+	def grupo_aleatorio(self,nome=random_string(4)):
 		x = Group()
 		x.bet_value = 10
 		x.max_size = 10
 		x.cur_size = 0
-		x.name = random_string(4)
+		x.name = nome
 		x.save() 
 		return x.name	
 	def test_usuario(self):
@@ -77,14 +77,14 @@ class testes(TransactionTestCase):
 		#####################################################################
 		#	gerando users e grupos aleatorios,							 	#
 		#####################################################################
-		username,full_name,date_of_birth,email,password,first_name = self.random_user()
-		username2 = self.random_user()[0]
-		username3 = self.random_user()[0]
+		username,full_name,date_of_birth,email,password,first_name = self.random_user(uname='username1')
+		username2 = self.random_user(uname='username2')[0]
+		username3 = self.random_user(uname='username3')[0]
 		
-		nome_do_grupo = self.grupo_aleatorio()
-		nome_do_grupo2 = self.grupo_aleatorio()
-		nome_do_grupo3 = self.grupo_aleatorio()
-		nome_do_grupo4 = self.grupo_aleatorio()
+		nome_do_grupo = self.grupo_aleatorio(nome='nome_do_grupo1')
+		nome_do_grupo2 = self.grupo_aleatorio(nome='nome_do_grupo2')
+		nome_do_grupo3 = self.grupo_aleatorio(nome='nome_do_grupo3')
+		nome_do_grupo4 = self.grupo_aleatorio(nome='nome_do_grupo4')
 		
 		user = User.objects.get(username=username)
 		user2 = User.objects.get(username=username2)
@@ -107,8 +107,10 @@ class testes(TransactionTestCase):
 		# print Group.objects.filter(link__username__startswith=username)
 		
 		#####################################################################
-		#	 incluindo usuarios a grupos 								 	#
+		#	incluindo usuarios a grupos 								 	#
+		#	g1 = {1,3}, g2 = {2}, g3 = {1,3}								#
 		#####################################################################
+
 		link11 = Group_link(user=user,group = meu_grupo,position=9)
 		link11.save()
 		
@@ -124,6 +126,8 @@ class testes(TransactionTestCase):
 		
 		link31 = Group_link(user=user3,group=meu_grupo,position=3)
 		link31.save()
+
+
 		#####	isso nao pode acontecer
 		##
 		#	
@@ -146,30 +150,41 @@ class testes(TransactionTestCase):
 		self.assertEqual(user in list(User.objects.filter(group=meu_grupo)) , True)
 		self.assertEqual(Group_link.objects.get(group=meu_grupo,user=user).position , 9)
 
-		self.assertEqual(user in list(User.objects.filter(group=meu_grupo3)) , True)
-		self.assertEqual(user2 in list(User.objects.filter(group=meu_grupo2)) , True)
-		self.assertEqual(user3 in list(User.objects.filter(group=meu_grupo3)) , True)
-		self.assertEqual(user2 in list(User.objects.filter(group=meu_grupo2)) , True)
+		self.assertTrue(user in list(User.objects.filter(group=meu_grupo3)) )
+		self.assertTrue(user2 in list(User.objects.filter(group=meu_grupo2)) )
+		self.assertTrue(user3 in list(User.objects.filter(group=meu_grupo3)) )
+		self.assertTrue(user2 in list(User.objects.filter(group=meu_grupo2)) )
 		self.assertEqual(user3 in list(User.objects.filter(group=meu_grupo2)) , False)
 		self.assertEqual(user2 in list(User.objects.filter(group=meu_grupo2)) , True)
 		self.assertEqual(user in list(User.objects.filter(group=meu_grupo4)) , False)
 
 		self.assertEqual(Group_link.objects.get(group=meu_grupo,user=user).position , 9)
 
+		# g = Group.objects.all()[0]
+		print Group.users_by_group(meu_grupo)
 
+		# for i in Group.users_by_group(meu_grupo):
+				# print i.username
+		
+		self.assertTrue(meu_grupo in Group.groups_by_user(user))
+		self.assertFalse(meu_grupo2 in Group.groups_by_user(user))
+		self.assertTrue(meu_grupo3 in Group.groups_by_user(user))
 		
 
-		# self.assertEqual(Group.objects.filter(link__username__in=[username])[0],meu_grupo)
+
+
 
 	def test_enderecos(self):
 		###
-		#	Verifica se os enderecos disponiveis estao dando certo
-		###
+		#	Verifica se os enderecos disponiveis estao dando certo.
+		#	Alguns enderecos devem ser encontrados apenas por usuarios, mas agora nao esta assim.
+		##
 		
 		self.assertEqual(200,client.get('').status_code)
 		self.assertEqual(200,client.get(reverse('signup')).status_code)
 		self.assertEqual(200,client.get(reverse('login')).status_code)
-		self.assertEqual(200,client.get(reverse('listall')).status_code)
+		self.assertEqual(200,client.get(reverse('list_all_users')).status_code)
+		self.assertEqual(200,client.get(reverse('list_all_groups')).status_code)
 
 	def test_signupform(self):
 		password = random_string(8)

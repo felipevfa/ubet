@@ -8,10 +8,11 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from ubet.models import Ubet_user,User,Group
 # Create your views here.
-@login_required
 def list_all_groups(request):
-	return render(request,'ubet/listallgroups',{'grupos':Group.objects.all()})
+	return render(request,'ubet/list_all_groups.html',{'grupos':list(Group.objects.all())})
 
+def new_group(request):
+	return render(request,'ubet/new_group.html',{'user_id': request.user.pid })
 
 def signup(request):
 	# logger.debug('signup')
@@ -74,8 +75,8 @@ def login(request):
 			return render(request, 'ubet/login.html', { 'login_msg': 'Combinação de usuário e senha incorreta.', 'form': form })
 	else:
 		return render(request, 'ubet/login.html', { 'form': form })
-def listall(request):
-	return render(request,'ubet/listall.html',{'li':Ubet_user.objects.all()})
+def list_all_users(request):
+	return render(request,'ubet/list_all_users.html',{'li':Ubet_user.objects.all()})
 
 def logout(request):
 	# logger.debug('logout')

@@ -1,59 +1,8 @@
 # coding: utf-8
 from django.db import models
 from django.contrib.auth.models import User,BaseUserManager, AbstractBaseUser
-# class ubetUserManager(BaseUserManager):
-# 	def create_user(self, username, email, password):
-# 		if not username:
-# 			raise ValueError("Defina um nome de usuário.")
-#
-# 		if not email:
-# 			raise ValueError("Forneça um e-mail válido.")
-#
-# 		if not password or len(password) < 6:
-# 			raise ValueError("Por favor, insira uma senha entre 6 e 16 caracteres.")
-#
-# 		# if not photo:
-# 		# 	user = self.model(nick=username,
-# 		# 				  	  identifier=self.normalize_email(email),
-# 		# 				 	 )
-# 		# else:
-# 		# 	user = self.model(nick=username,
-# 		# 					  identifier=self.normalize_email(email),
-# 		# 					  photo=photo
-# 		# 					 )
-#
-# 		user.set_password(password)
-# 		user.save(using=self._db)
-# 		return user
-#
-# 	def create_superuser(self, username, email, password, photo):
-# 		if not username:
-# 			raise ValueError("Defina um nome de usuário.")
-#
-# 		if not email:
-# 			raise ValueError("Forneça um e-mail válido.")
-#
-# 		if not password or len(password) < 6:
-# 			raise ValueError("Por favor, insira uma senha entre 6 e 16 caracteres.")
-#
-# 		# if not photo:
-# 		# 	user = self.model(identifier=username,
-# 		# 				  	  email=self.normalize_email(email),
-# 		# 				 	 )
-# 		# else:
-# 		# 	user = self.model(identifier=username,
-# 		# 					  email=self.normalize_email(email),
-# 		# 					  photo=photo
-# 		# 					 )
-#
-# 		user.is_admin = True
-# 		user.set_password(password)
-# 		user.save(using=self._db)
-# 		return user
-
+from random import choice
 class Ubet_user(models.Model):
-
-
 	django_user = models.OneToOneField(User,
 		on_delete = models.CASCADE)
 	full_name = models.CharField(max_length=100)
@@ -69,8 +18,6 @@ class Ubet_user(models.Model):
 			str(self.date_of_birth)+'\n'+\
 			str(self.creditos)
 		
-
-
 class Group(models.Model):
 	"""Um grupo é uma coleção na qual ocorrem as apostas.
 	Possui um numero maximo de membros, o numero atual de membros, um valor de aposta, e
@@ -86,20 +33,31 @@ class Group(models.Model):
 	bet_value = models.IntegerField()
 	date_of_birth = models.DateTimeField(auto_now = True)
 	status = models.CharField(choices=status_list,default='WAITING',max_length=50)
-	group_user = models.ManyToManyField(User,symmetrical=True,through='Group_link')
+	users = models.ManyToManyField(User,symmetrical=True,through='Group_link')
+
+	def update(self):
+		now = datetime.datime.now()
+		for i in Group.objects.all():
+			if (now - i.date_of_birth).minute >= 30:
+				if i.user.count() == i.max_size:
+					i.status =  'FINISHED'
+					i.winner = choice(i.users.all()).pid
+				else:
+					i.status = 'CANCELED'
+	@staticmethod
+	def groups_by_user(user):
+		return Group.objects.filter(users=user)
+
+	@staticmethod
+	def users_by_group(group):
+		return User.objects.filter(group__in=[group.id])
 
 class Group_link(models.Model):
-	"""uma relacao descreve o conjunto de elementos de um grupo."""
+	"""uma relacao descreve o conjunto de elementos de um grupo. Nao é possivel ter
+	dois usuarios numa mesma posicao, nem um mesmo usuario em duas posicoes."""
 	class Meta:
 		unique_together = (	( "group",'position'),('user','group'))
 	user = models.ForeignKey(User, on_delete = models.CASCADE)
 	group = models.ForeignKey(Group,on_delete = models.CASCADE)
 	position = models.IntegerField()
 	creation_time = models.DateTimeField(auto_now=True)
-
-
-# class divida(models.Model):
-# 	devedor = models.ForeignKey('ubetUser', on_delete = models.CASCADE)
-# 	cobrador = models.ForeignKey('ubetUser', on_delete = models.CASCADE)
-# 	valor = models.IntegerField()
-	
