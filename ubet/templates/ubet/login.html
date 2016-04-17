@@ -1,15 +1,23 @@
-<main>
-		<p>{{ login_msg }}</p>
-		<a href = {% url 'list_all_groups' %} > listall </a>
-		<br>
-		<a href= {% url 'logout'%}> logout </a> <br>
-		<a  href= {% url 'signup' %}> Criar conta</a>
-		<form action="{% url 'login' %}" method="POST" name="login-form" class="form">
-			{% csrf_token %}
+{% extends "ubet/base.html" %}
+{% block menu %} {% endblock menu %} 
 
-			{{ form.as_ul }} 
+{% block main_content %}
+	<h1 class="center-align">Ubet 0.1</h1>
+	<div class="hidden" id="toast">{{ toast }}</div>
+	<!-- <a href = {% url 'list_all_groups' %} > listall </a> -->
 
-			<input type="submit" value="Login" class="submit-button">
-		</form>	
-</main>
+	<!-- <a href= {% url 'logout'%}> logout </a> <br> -->
+	<!-- <a  href= {% url 'signup' %}> Criar conta</a> -->
+	
+	<form action="{% url 'login' %}" method="POST" name="login-form" class="form" id="login-form">
+		{% csrf_token %}
 
+		<ul id="form-fields">{{ form.as_ul }}</ul>
+
+		<div class="btn-wrapper">
+			<a href="{% url 'signup' %}"><button type="button" class="btn left" name="signup-btn">Cadastrar</button></a>
+			<input type="submit" value="Login" class="submit-button btn left" id="login-btn">
+		</div>
+		
+	</form>
+{% endblock main_content %}	

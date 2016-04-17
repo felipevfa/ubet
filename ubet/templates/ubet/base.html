@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		{% load staticfiles %}
+		<title>{% block app_title %}Ubet 0.1{% endblock %}</title>
+		<meta charset="utf-8">
+		<meta name="description" content="Primeiro protótipo do projeto.">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+
+		<link rel="stylesheet" type="text/css" href="{% static 'ubet/css/materialize.css' %}">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+		<link rel="stylesheet" type="text/css" href="{% static 'ubet/css/styles.css' %}">
+	</head>
+	<body>
+		<header>
+			{% block menu %}
+				<nav>
+					<div class="nav-wrapper">
+  						<a href="#!" class="brand-logo" id="page-title">{% block page_title %}Grupos{% endblock page_title %}</a>
+  						<a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+
+						<ul class="right hide-on-med-and-down">
+				       		<li><a href="{% url 'user_cp' %}">Perfil</a></li>
+				       		<li><a href="{% url 'list_all_groups' %}">Grupos</a></li>
+				       		<li><a href="{% url 'logout' %}">Sair</a></li>
+				     	</ul>
+
+				     	<ul id="nav-mobile" class="side-nav">
+				       		<li><a href="{% url 'user_cp' %}">Perfil</a></li>
+				       		<li><a href="{% url 'list_all_groups' %}">Grupos</a></li>
+				       		<li><a href="{% url 'logout' %}">Sair</a></li>
+				     	</ul>
+					</div>
+				</nav>
+			{% endblock menu %}
+		</header>
+
+		<main class="container">
+			{% block main_content %} {% endblock main_content %}
+		</main>
+
+		<footer>
+			{% block page_footer %} {% endblock page_footer %}
+		</footer>
+
+		<script type="text/javascript" src="{% static 'ubet/js/jquery-2.2.3.js' %}"></script>
+		<script type="text/javascript" src="{% static 'ubet/js/materialize.js' %}"></script>
+		<script type="text/javascript" src="{% static 'ubet/js/view.js' %}"></script>
+	</body>
+</html>

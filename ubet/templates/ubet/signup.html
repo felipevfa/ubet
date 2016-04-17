@@ -1,15 +1,24 @@
+{% extends "ubet/base.html" %}
 
-<main>
-	<div class="form-holder"> 
-		<p>{{ signup_msg }}</p>
-		<form enctype="multipart/form-data"  action="{% url 'signup' %}" method="POST" name="signup-form" class="form">
-			{% csrf_token %}
+{% block menu %} {% endblock menu %}
 
-			{{ form.as_ul }} 
-			<br>
-			<input type="submit" value="Cadastrar" class="submit-button">
-		</form>
+{% block main_content %}
+	<main class="container">
+		<h1 class="center-align">Cadastro</h1>
+		<div class="hidden" id="toast">{{ toast }}</div>
 
-	</div>	
-</main>
+		<div class="form-holder"> 
+			<form enctype="multipart/form-data"  action="{% url 'signup' %}" method="POST" name="signup-form" class="form">
+				{% csrf_token %}
+
+				<ul id="form-fields">{{ form.as_ul }}</ul>				
+
+				<div class="btn-wrapper">
+					<input type="submit" value="Concluir Cadastro" class="submit-button btn" id="signup-btn">
+				</div>
+			</form>
+
+		</div>	
+	</main>
+{% endblock %}
 

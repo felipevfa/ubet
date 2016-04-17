@@ -1,11 +1,17 @@
-<body>
+{% extends "ubet/base.html" %}
+
+{% block page_title %} Grupos {% endblock page_title %}
+
+{% block main_content %}
 	<ul>
 	<a href= {% url 'new_group' %}> Novo Grupo </a>
 	{% for g in groups %}
 		{g.name}
+		
 		{% for u in g.user %}
 			{u.username}
 		{% endfor %}
+
 	{%endfor%}
 	</ul>
-</body>
+{% endblock main_content %}

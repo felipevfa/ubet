@@ -9,7 +9,7 @@ from django.core.urlresolvers import reverse
 from ubet.models import Ubet_user,User,Group
 # Create your views here.
 def list_all_groups(request):
-	return render(request,'ubet/list_all_groups.html',{'grupos':list(Group.objects.all())})
+	return render(request,'ubet/list_all_groups.html', {'grupos': list(Group.objects.all())})
 
 def new_group(request):
 	return render(request,'ubet/new_group.html',{'user_id': request.user.pid })
@@ -70,9 +70,9 @@ def login(request):
 				login(request, user)
 				return HttpResponseRedirect(reverse('user_cp'))
 			else:
-				return render(request, 'ubet/login.html', { 'login_msg': 'Conta desativada.', 'form': form })
+				return render(request, 'ubet/login.html', { 'toast': 'Conta desativada.', 'form': form })
 		else:
-			return render(request, 'ubet/login.html', { 'login_msg': 'Combinação de usuário e senha incorreta.', 'form': form })
+			return render(request, 'ubet/login.html', { 'toast': 'Combinação de usuário e senha incorreta.', 'form': form })
 	else:
 		return render(request, 'ubet/login.html', { 'form': form })
 def list_all_users(request):
