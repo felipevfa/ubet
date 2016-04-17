@@ -1,7 +1,7 @@
 #coding: utf-8
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm,UserCreationForm
-from ubet.models import Ubet_user
+from ubet.models import Group,Ubet_user
 from django.contrib.auth.models import User, UserManager
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
@@ -78,5 +78,48 @@ class UserAuthenticationForm(AuthenticationForm):
 		fields = ('nome', 'password')
 		labels = { 'username': 'Nome de Usuário', 'password': 'Senha' }
 
+class newgroupForm(forms.Form):
+	"""docstring for newgroupForm"""
 
+	position = forms.IntegerField(label = 'Em que numero voce apostara')
 
+	class Meta:
+		model = Group	
+		fields = {'name', 'max_size','bet_value'}
+		labels = {
+			'name' : 'Nome do Grupo',
+			'max_size' : 'Quantidade de membros',
+			'bet_value' : 'Valor da Aposta',
+		}		
+	def check_values(self):
+		tamanho = self.cleaned_data['max_size']
+		posicao = self.cleaned_data['position']
+		bet_value = self.cleaned_data['bet_value']
+		errors = {
+			'bet_error' : False,
+			'size_error' : False,
+			'position_error' : False,
+		}
+		if position < 1 or position > tamanho:
+			errors['position_error']  = True
+
+		if tamanho <= 1 or tamanho > 10:
+			errors['size_error'] = True
+		
+		if bet_value < 1:
+			errors['bet_value'] = True
+
+		return errors
+
+	def save(self,criador_id,commit=True):
+		g = Group(
+			creator = criador_id,
+			name = self.cleaned_data['name'],
+			max_size = self.cleaned_data['max_size'],
+			bet_value = self.cleaned_data['bet_value'],
+			cur_size = 1,
+			)
+		g.users
+		if commit:
+			g.save()
+		return g

@@ -154,9 +154,9 @@ class testes(TransactionTestCase):
 		self.assertTrue(user2 in list(User.objects.filter(group=meu_grupo2)) )
 		self.assertTrue(user3 in list(User.objects.filter(group=meu_grupo3)) )
 		self.assertTrue(user2 in list(User.objects.filter(group=meu_grupo2)) )
-		self.assertEqual(user3 in list(User.objects.filter(group=meu_grupo2)) , False)
-		self.assertEqual(user2 in list(User.objects.filter(group=meu_grupo2)) , True)
-		self.assertEqual(user in list(User.objects.filter(group=meu_grupo4)) , False)
+		self.assertTrue(user2 in list(User.objects.filter(group=meu_grupo2)) )
+		self.assertFalse(user3 in list(User.objects.filter(group=meu_grupo2)) )
+		self.assertFalse(user in list(User.objects.filter(group=meu_grupo4)) )
 
 		self.assertEqual(Group_link.objects.get(group=meu_grupo,user=user).position , 9)
 
@@ -169,8 +169,16 @@ class testes(TransactionTestCase):
 		self.assertTrue(meu_grupo in Group.groups_by_user(user))
 		self.assertFalse(meu_grupo2 in Group.groups_by_user(user))
 		self.assertTrue(meu_grupo3 in Group.groups_by_user(user))
-		
 
+		self.assertTrue(meu_grupo in Group.active_groups() )
+		self.assertTrue(meu_grupo2 in Group.active_groups())
+		print meu_grupo.available_positions()
+				
+		self.assertTrue(5 in meu_grupo.available_positions())
+		self.assertFalse(9 in meu_grupo.available_positions())
+		self.assertFalse(0 in meu_grupo.available_positions())
+		self.assertFalse(-1 in meu_grupo.available_positions())
+		self.assertFalse(meu_grupo.max_size+1 in meu_grupo.available_positions())
 
 
 

@@ -2,6 +2,8 @@
 from django.db import models
 from django.contrib.auth.models import User,BaseUserManager, AbstractBaseUser
 from random import choice
+from django.db import IntegrityError
+
 class Ubet_user(models.Model):
 	django_user = models.OneToOneField(User,
 		on_delete = models.CASCADE)
@@ -44,9 +46,30 @@ class Group(models.Model):
 					i.winner = choice(i.users.all()).pid
 				else:
 					i.status = 'CANCELED'
+	def add_user(self,user,position):
+		gp = Group_link(user=user,group=self,position=position)
+		try:
+			gp.save()
+			self.cur_size += 1
+			self.save()
+		except:
+			raise
+
+	def available_positions(self):
+		usuarios= Group.users_by_group(self)
+		user_positions = [Group_link.objects.get(user=u,group=self).position for u in usuarios]
+		posicoes = range(1,self.max_size+1)
+		for i in user_positions:
+			posicoes.remove(i)
+		return posicoes
+
 	@staticmethod
 	def groups_by_user(user):
 		return Group.objects.filter(users=user)
+	
+	@staticmethod
+	def active_groups():
+		return Group.objects.filter(status='WAITING')
 
 	@staticmethod
 	def users_by_group(group):
