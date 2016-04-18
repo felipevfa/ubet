@@ -30,7 +30,6 @@ class Group(models.Model):
 	creator = models.ForeignKey(User,null=True,on_delete=models.SET_NULL,related_name='group_creator_user')
 	winner = models.ForeignKey(User,null=True,on_delete=models.SET_NULL,related_name='group_winner_user')
 	name = models.CharField(max_length=50)
-	cur_size = models.IntegerField(default=10)
 	max_size = models.IntegerField(default=10)
 	bet_value = models.IntegerField(default=10)
 	date_of_birth = models.DateTimeField(auto_now = True)
@@ -52,7 +51,6 @@ class Group(models.Model):
 		gp = Group_link(user=user,group=self,position=position)
 		try:
 			gp.save()
-			self.cur_size += 1
 			self.save()
 		except:
 			raise
@@ -67,10 +65,12 @@ class Group(models.Model):
 
 
 	def users_by_group(self):
-		user_list = User.objects.filter(group__in=[self.id])
+		user_list = self.users.all()
 		position_list = [Group_link.objects.get(user=u,group=self).position for u in user_list]
 		return user_list,position_list
 
+	def cur_size(self):
+		return self.users.count()
 	@staticmethod
 	def groups_by_user(user):
 		return Group.objects.filter(users=user)

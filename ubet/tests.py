@@ -193,6 +193,7 @@ class testes(TransactionTestCase):
 			user = User.objects.get(username=usename)
 			x.append(user)
 			meu_grupo4.add_user(user,i)
+			self.assertTrue(meu_grupo4.cur_size() == len(x))
 			self.assertFalse(i in meu_grupo4.available_positions())
 		
 		for i in l:

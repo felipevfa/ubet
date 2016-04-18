@@ -77,11 +77,12 @@ def populate():
 
 	try:
 		p = 'pikachu'
-		p = random_user(p)[0]
-		p = User.objects.get(username=p,senha='senhaforte')
+		p = random_user(uname=p,senha='senhaforte')[0]
+		p = User.objects.get(username=p)
 		meu_grupo.add_user(p,4)
+		print 'pikachu dentro'
 	except:
-		pass
+		print 'pikachu n incluso'
 	
 def test():
 	print 'usuarios'
