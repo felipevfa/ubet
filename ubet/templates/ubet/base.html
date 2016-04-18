@@ -17,7 +17,9 @@
 				<nav>
 					<div class="nav-wrapper">
   						<a href="#!" class="brand-logo" id="page-title">{% block page_title %}Grupos{% endblock page_title %}</a>
-  						<a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+  						{% block menu_action %}
+  							<a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+  						{% endblock menu_action %}
 
 						<ul class="right hide-on-med-and-down">
 				       		<li><a href="{% url 'user_cp' %}">Perfil</a></li>

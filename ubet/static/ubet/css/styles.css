@@ -15,8 +15,12 @@
  * NAVBAR STYLES
  */
 
-.button-collapse {
+.button-collapse, .nav-collapse {
 	margin-left: 0.5em;
+}
+
+.nav-collapse {
+	cursor: pointer;
 }
 
 @media (min-width: 992px) {
@@ -37,6 +41,7 @@ form li {
 
 #signup-btn {
 	width: 100%;
+	margin-bottom: 0.5em;
 }
 
 .btn-wrapper {
@@ -48,3 +53,11 @@ form li {
 .helptext {
 	font-size: 0.8em;
 }
+
+/** 
+ * GROUP LIST STYLES
+ */
+
+.group-info h5 { margin-top: 0; }
+.group-options { height: inherit; }
+

@@ -3,15 +3,24 @@
 {% block page_title %} Grupos {% endblock page_title %}
 
 {% block main_content %}
-	<ul>
-	<a href= {% url 'new_group' %}> Novo Grupo </a>
-	{% for g in groups %}
-		{g.name}
-		
-		{% for u in g.user %}
-			{u.username}
-		{% endfor %}
 
+	<ul>
+	{% for g in grupos %}
+		<li>
+			<div class="card-panel">
+				<div class="group-info left">
+					<h5 class="group-name">{{g.name}}</h5> 
+					<p><strong>Membros:</strong> {{ g.user_list|length }} / {{ g.max_size }}</p>
+				</div>
+				
+				<div class="group-options right">
+					<a href="{% url 'group_info' %}?g_id={{g.id}}" class="waves-effect btn">Ver mais</a>
+				</div>
+			
+				<div class="clear"></div>
+			</div>
+		</li>
 	{%endfor%}
 	</ul>
+	
 {% endblock main_content %}

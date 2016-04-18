@@ -9,5 +9,6 @@ urlpatterns = [
     url(r'^list_all_users$',views.list_all_users,name='list_all_users'),
     url(r'^logout$',views.logout,name='logout'),
     url(r'^list_all_groups$',views.list_all_groups,name='list_all_groups'),
-    url(r'^new_group$',views.new_group,name='new_group')
+    url(r'^new_group$',views.new_group,name='new_group'),
+    url(r'^group_info$', views.group_info,name='group_info'),
 ]

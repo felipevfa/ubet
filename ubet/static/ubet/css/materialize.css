@@ -4111,19 +4111,20 @@ nav .nav-wrapper {
 }
 
 @media only screen and (min-width: 993px) {
-  nav a.button-collapse {
+  nav a.button-collapse, nav a.nav-collapse {
     display: none;
   }
+
 }
 
-nav .button-collapse {
+nav .button-collapse, nav .nav-collapse {
   float: left;
   position: relative;
   z-index: 1;
   height: 56px;
 }
 
-nav .button-collapse i {
+nav .button-collapse i, nav .nav-collapse i {
   font-size: 2.7rem;
   height: 56px;
   line-height: 56px;

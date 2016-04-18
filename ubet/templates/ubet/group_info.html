@@ -1,0 +1,34 @@
+{% extends "ubet/base.html" %}
+
+{% block page_title %} {{ p_title }} {% endblock page_title %}
+
+
+{% block menu_action %} <a href="{% url 'list_all_groups' %}" class="nav-collapse"><i class="material-icons">arrow_back</i></a>{% endblock menu_action %}
+
+{% block main_content %}
+
+{% if error_msg %}
+
+	<p>{{ error_msg }}</p>
+
+{% else %}
+
+	<p><strong>Nome do Grupo:</strong> {{ group.name }}
+	<p><strong>Quantidade de Membros:</strong> {{ group.cur_size }} / {{ group.max_size }}</p>
+	<p><strong>Membros:</strong>
+
+	<ul>
+	{% if users|length < 1 %}
+		<li>Não há membros nesse grupo.</li>
+	{% else %}	
+		{% for u in users %}
+			<li>{{ u.username }}</li>
+		{% endfor %}
+	{% endif %}
+	</ul>
+
+	<button class="btn">Apostar</button>
+
+{% endif %}
+
+{% endblock main_content %}

@@ -6,10 +6,18 @@ from ubet.forms import UserSignupForm, UserAuthenticationForm
 from django.contrib.auth import get_user_model, authenticate, login as auth_login, logout as auth_logout
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.core.exceptions import ObjectDoesNotExist
 from ubet.models import Ubet_user,User,Group
 # Create your views here.
 def list_all_groups(request):
-	return render(request,'ubet/list_all_groups.html', {'grupos': list(Group.objects.all())})
+	groups = Group.active_groups();
+
+	users_by_group = {}
+
+	for g in groups:
+		g.user_list = list(Group.users_by_group(g))
+
+	return render(request,'ubet/list_all_groups.html', {'grupos': groups })
 
 def new_group(request):
 	return render(request,'ubet/new_group.html',{'user_id': request.user.pid })
@@ -104,3 +112,23 @@ def user_cp(request):
 		form = UserAuthenticationForm()
 		return render(request, 'ubet/login.html', { 'login_msg': 'Você precisa estar logado para acessar essa página.',
 												 'form': form })
+
+def group_info(request):
+	if 'g_id' in request.GET:
+		try:
+			g = Group.objects.get(id=request.GET['g_id'])
+		except ObjectDoesNotExist:
+			return render(request, 'ubet/group_info.html', { 'error_msg': 'Desculpe, não encontramos informações desse grupo.', 'p_title': 'Erro' })			
+
+		u = Group.users_by_group(g)
+
+		return render(request, 'ubet/group_info.html', {'group': g, 'users': u, 'p_title': g.name })
+	
+	return render(request, 'ubet/group_info.html', { 'error_msg': 'Desculpe, ocorreu um erro.', 'p_title': 'Erro'})
+
+	#else:
+	#	form = UserAuthenticationForm()
+	#	return render(request, reverse('login'), { 'login_msg': 'Você precisa conectar-se para ver os grupos.',
+	#												'form': form })
+
+
