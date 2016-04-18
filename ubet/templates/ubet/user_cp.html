@@ -8,7 +8,7 @@
 		<li><strong>Nome Completo:</strong> {{ user.full_name }}</li>
 		<li><strong>E-mail:</strong> {{ user.email }}</li>
 		<li><strong>Data de Nascimento:</strong> {{ user.date_of_birth }}</li>
-		<li><strong>Cadastrado desde {{ user.django_user.date_joined }}</strong></li>
+		<li><strong>Cadastrado desde {{ user.django_user.id }}</strong></li>
 	</ul>
 
 	<ul>
@@ -16,7 +16,7 @@
 		<li><strong>Meus grupos:</strong></li>
 		<ul>
 			{% for g in user_groups %}
-				<li>{{ g.name }}</li>
+				<li><a href="{% url 'group_info' %}?g_id={{g.id}}">{{ g.name }}</a></li>
 			{% endfor %}
 	</ul>
 

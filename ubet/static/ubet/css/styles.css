@@ -45,9 +45,8 @@ form li {
 }
 
 .btn-wrapper {
-	width: 80%;
+	text-align: center;
 	margin: 0 auto;
-	height: 100px;
 }
 
 .helptext {
