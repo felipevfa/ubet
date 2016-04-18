@@ -176,6 +176,7 @@ class testes(TransactionTestCase):
 		self.assertTrue(meu_grupo in Group.active_groups() )
 		self.assertTrue(meu_grupo2 in Group.active_groups())
 				
+
 		self.assertTrue(5 in meu_grupo.available_positions())
 		self.assertFalse(9 in meu_grupo.available_positions())
 		self.assertFalse(0 in meu_grupo.available_positions())
@@ -186,9 +187,12 @@ class testes(TransactionTestCase):
 		#	testando se para quaisquer posicoes, a lista de disponiveis esta correta
 		#	e se ele retorna corretamente como nao disponivel
 		l = random.sample(range(1,10),5)
+		x = []
 		for i in l:
 			usename = self.random_user()[0]
-			meu_grupo4.add_user(User.objects.get(username=usename),i)
+			user = User.objects.get(username=usename)
+			x.append(user)
+			meu_grupo4.add_user(user,i)
 			self.assertFalse(i in meu_grupo4.available_positions())
 		
 		for i in l:
@@ -197,11 +201,19 @@ class testes(TransactionTestCase):
 
 
 
-		# user_list = [ User.objects.get(username=self.random_user()[0]) for i in range(10) ]
-		# g = self.grupo_aleatorio(name=random_string(5))
-		# for u,i in zip(user_list,range(1,11)):
-		# 	g.add_user(u,i)
-		# self.assertRaises(Exception,g.add_user,(user_list[-1],4))
+		retorno_usuarios,posicoes = meu_grupo4.users_by_group()
+		for u in x:
+			self.assertTrue(u in retorno_usuarios)
+		for u,p in zip(retorno_usuarios,posicoes):
+			self.assertTrue(Group_link.objects.get(user=u,group=meu_grupo4).position == p)
+
+
+		user_list = [ User.objects.get(username=self.random_user()[0]) for i in range(10) ]
+		g = self.grupo_aleatorio()
+		g = Group.objects.get(name=g)
+		for u,i in zip(user_list,range(1,11)):
+			g.add_user(u,i)
+		self.assertRaises(Exception,g.add_user,(user_list[-1],4))
 
 
 	def test_enderecos(self):

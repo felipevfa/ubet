@@ -37,6 +37,8 @@ class Group(models.Model):
 	status = models.CharField(choices=status_list,default='WAITING',max_length=50)
 	users = models.ManyToManyField(User,symmetrical=True,through='Group_link')
 
+	def __unicode__(self):
+		return self.name
 	def update(self):
 		now = datetime.datime.now()
 		for i in Group.objects.all():
@@ -56,12 +58,18 @@ class Group(models.Model):
 			raise
 
 	def available_positions(self):
-		usuarios= Group.users_by_group(self)
+		usuarios= Group.users_by_group(self)[0]
 		user_positions = [Group_link.objects.get(user=u,group=self).position for u in usuarios]
 		posicoes = range(1,self.max_size+1)
 		for i in user_positions:
 			posicoes.remove(i)
 		return posicoes
+
+
+	def users_by_group(self):
+		user_list = User.objects.filter(group__in=[self.id])
+		position_list = [Group_link.objects.get(user=u,group=self).position for u in user_list]
+		return user_list,position_list
 
 	@staticmethod
 	def groups_by_user(user):
@@ -70,10 +78,6 @@ class Group(models.Model):
 	@staticmethod
 	def active_groups():
 		return Group.objects.filter(status='WAITING')
-
-	@staticmethod
-	def users_by_group(group):
-		return User.objects.filter(group__in=[group.id])
 
 class Group_link(models.Model):
 	"""uma relacao descreve o conjunto de elementos de um grupo. Nao é possivel ter
