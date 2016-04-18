@@ -104,6 +104,7 @@ class testes(TransactionTestCase):
 
 
 		self.assertNotEqual(None,meu_grupo)
+		
 		self.assertEqual(10,meu_grupo.bet_value)
 		self.assertEqual(10,meu_grupo.max_size)
 		self.assertEqual('WAITING',meu_grupo.status)
@@ -181,6 +182,9 @@ class testes(TransactionTestCase):
 		self.assertFalse(-1 in meu_grupo.available_positions())
 		self.assertFalse(meu_grupo.max_size+1 in meu_grupo.available_positions())
 
+
+		#	testando se para quaisquer posicoes, a lista de disponiveis esta correta
+		#	e se ele retorna corretamente como nao disponivel
 		l = random.sample(range(1,10),5)
 		for i in l:
 			usename = self.random_user()[0]
@@ -191,11 +195,13 @@ class testes(TransactionTestCase):
 			usename = self.random_user()[0]
 			self.assertRaises(Exception,meu_grupo4.add_user,(User.objects.get(username=usename),i))
 
-		ul = [ User.objects.get(username=self.random_user()[0]) for i in range(11) ]
-		g = Group(name=random_string(5))
-		for i in range(1,11):
-			g.add_user(ul[i-1],i)
-		self.assertRaises(Exception,g.add_user,(ul[-1],4))
+
+
+		# user_list = [ User.objects.get(username=self.random_user()[0]) for i in range(10) ]
+		# g = self.grupo_aleatorio(name=random_string(5))
+		# for u,i in zip(user_list,range(1,11)):
+		# 	g.add_user(u,i)
+		# self.assertRaises(Exception,g.add_user,(user_list[-1],4))
 
 
 	def test_enderecos(self):
