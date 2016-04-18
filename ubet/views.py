@@ -8,6 +8,8 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
 from ubet.models import Ubet_user,User,Group
+from django.contrib import messages
+
 # Create your views here.
 def list_all_groups(request):
 	groups = Group.active_groups();
@@ -73,10 +75,12 @@ def login(request):
 		if user is not None:
 			if user.is_active:
 				auth_login(request, user)
-				return HttpResponseRedirect(reverse('user_cp'))
+				msg = "Olá, {}".format(user.username)
+				return render (request, 'ubet/user_cp.html', {'user': user, 'toast': msg, 'user_groups': Group.groups_by_user(user) })
 
 				login(request, user)
-				return HttpResponseRedirect(reverse('user_cp'))
+				msg = "Olá, {}".format(user.username)
+				return render (request, 'ubet/user_cp.html', {'user': user, 'toast': msg})
 			else:
 				return render(request, 'ubet/login.html', { 'toast': 'Conta desativada.', 'form': form })
 		else:
@@ -107,7 +111,7 @@ def profile(request,username):
 
 def user_cp(request):
 	if request.user.is_authenticated():
-		return render(request, 'ubet/user_cp.html')
+		return render(request, 'ubet/user_cp.html', { 'user': request.user, 'user_groups': Group.groups_by_user(request.user) })
 	else:
 		form = UserAuthenticationForm()
 		return render(request, 'ubet/login.html', { 'login_msg': 'Você precisa estar logado para acessar essa página.',
@@ -120,9 +124,11 @@ def group_info(request):
 		except ObjectDoesNotExist:
 			return render(request, 'ubet/group_info.html', { 'error_msg': 'Desculpe, não encontramos informações desse grupo.', 'p_title': 'Erro' })			
 
-		u = Group.users_by_group(g)
+		u = g.users_by_group()
+		user_list = u[0]
+		position_list = u[1]
 
-		return render(request, 'ubet/group_info.html', {'group': g, 'users': u, 'p_title': g.name })
+		return render(request, 'ubet/group_info.html', {'group': g, 'users': zip(user_list, position_list), 'p_title': g.name })
 	
 	return render(request, 'ubet/group_info.html', { 'error_msg': 'Desculpe, ocorreu um erro.', 'p_title': 'Erro'})
 

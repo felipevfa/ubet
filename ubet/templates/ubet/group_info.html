@@ -22,7 +22,7 @@
 		<li>Não há membros nesse grupo.</li>
 	{% else %}	
 		{% for u in users %}
-			<li>{{ u.username }}</li>
+			<li>{{ u.0 }} (posição: {{ u.1 }})</li>
 		{% endfor %}
 	{% endif %}
 	</ul>

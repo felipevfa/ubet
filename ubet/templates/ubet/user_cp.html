@@ -1,7 +1,27 @@
+{% extends "ubet/base.html" %}
 
-<main>
-<ul>
-<li><a href="{% url 'login'%}">Home</a> </li>
-	<li>hello world</li>	
-</main>
+{% block page_title %} Meu Perfil {% endblock %}
+
+{% block main_content %}
+	<ul>
+		<li><strong>Apelido:</strong> {{ user.first_name }}</li>
+		<li><strong>Nome Completo:</strong> {{ user.full_name }}</li>
+		<li><strong>E-mail:</strong> {{ user.email }}</li>
+		<li><strong>Data de Nascimento:</strong> {{ user.date_of_birth }}</li>
+		<li><strong>Cadastrado desde {{ user.django_user.date_joined }}</strong></li>
+	</ul>
+
+	<ul>
+		<li><strong>Créditos:</strong> {{ user.creditos }}</li>
+		<li><strong>Meus grupos:</strong></li>
+		<ul>
+			{% for g in user_groups %}
+				<li>{{ g.name }}</li>
+			{% endfor %}
+	</ul>
+
+
+
+
+{% endblock main_content %}
 
