@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login
 # Create your tests here.
 from ubet.forms import UserSignupForm
 from random import sample,randint
-import string
+import string,random
 from .models import Ubet_user,User,Group,Group_link
 import	 datetime
 from django.utils import timezone
@@ -22,12 +22,15 @@ class testes(TransactionTestCase):
 		###
 		#	Cria usuario aleatorio e salva no banco
 		###
-	def random_user(self,uname=random_string(5)):
+	def random_user(self,uname=None):
+		
 		x = Ubet_user()
 		x.full_name = random_string(30)
 		x.date_of_birth = datetime.date(randint(1900,2000),randint(1,12),randint(1,28))
 		email = random_string(6) + '@' +random_string(6) + '.com'
 		password = random_string(10)
+		if uname is None:
+			uname = random_string(5)
 		username = uname
 		first_name = random_string(10)
 		x.django_user = User.objects.create_user(username,
@@ -161,8 +164,7 @@ class testes(TransactionTestCase):
 		self.assertEqual(Group_link.objects.get(group=meu_grupo,user=user).position , 9)
 
 		# g = Group.objects.all()[0]
-		print Group.users_by_group(meu_grupo)
-
+		
 		# for i in Group.users_by_group(meu_grupo):
 				# print i.username
 		
@@ -172,7 +174,6 @@ class testes(TransactionTestCase):
 
 		self.assertTrue(meu_grupo in Group.active_groups() )
 		self.assertTrue(meu_grupo2 in Group.active_groups())
-		print meu_grupo.available_positions()
 				
 		self.assertTrue(5 in meu_grupo.available_positions())
 		self.assertFalse(9 in meu_grupo.available_positions())
@@ -180,6 +181,21 @@ class testes(TransactionTestCase):
 		self.assertFalse(-1 in meu_grupo.available_positions())
 		self.assertFalse(meu_grupo.max_size+1 in meu_grupo.available_positions())
 
+		l = random.sample(range(1,10),5)
+		for i in l:
+			usename = self.random_user()[0]
+			meu_grupo4.add_user(User.objects.get(username=usename),i)
+			self.assertFalse(i in meu_grupo4.available_positions())
+		
+		for i in l:
+			usename = self.random_user()[0]
+			self.assertRaises(Exception,meu_grupo4.add_user,(User.objects.get(username=usename),i))
+
+		ul = [ User.objects.get(username=self.random_user()[0]) for i in range(11) ]
+		g = Group(name=random_string(5))
+		for i in range(1,11):
+			g.add_user(ul[i-1],i)
+		self.assertRaises(Exception,g.add_user,(ul[-1],4))
 
 
 	def test_enderecos(self):
