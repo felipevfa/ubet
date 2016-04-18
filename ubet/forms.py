@@ -6,6 +6,12 @@ from django.contrib.auth.models import User, UserManager
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 import datetime
+
+my_default_errors = {
+			'required' : 'Campo obrigatório.',
+			'invalid' : 'Insira um valor válido.',
+}
+
 def validate_maioridade(arg):
 	now = datetime.datetime.now()
 	now = datetime.date(now.year,now.month,now.day)
@@ -20,11 +26,28 @@ class UserSignupForm(UserCreationForm):
 	nomec = forms.CharField(label = 'Nome completo',max_length=100)
 	class Meta:
 		model = User
-		fields = ("username","email",'first_name', "password1", "password2",)
-		labels = { 'username': 'Nome de Usuario',
-				   'email' : 'e-mail',	
-				   'first_name' : 'Nome publico',
+		fields = ("username", "email", "password1", "password2", 'first_name',)
+		labels = { 'username': 'Nome de Usuário',
+				   'email' : 'E-mail',	
+				   'first_name' : 'Nome Público',
 		}
+		help_texts = {
+			'username' : '',
+		}
+
+	def __init__(self, *args, **kwargs):
+		super(UserSignupForm, self).__init__(*args, **kwargs)
+		self.fields['username'].error_messages = my_default_errors
+		self.fields['email'].error_messages = my_default_errors
+		self.fields['password1'].label = "Senha"
+		self.fields['password1'].error_messages = my_default_errors
+		self.fields['password2'].label = "Confirme sua senha"
+		self.fields['password2'].error_messages = my_default_errors
+		self.fields['password2'].help_text = ''
+		self.fields['nascimento'].label = "Data de Nascimento"
+		self.fields['nascimento'].error_messages = my_default_errors
+		self.fields['nomec'].error_messages = my_default_errors
+
 
 	def save(self, commit=True):
 #		user = super(UserCreationForm, self).save(commit=False)
