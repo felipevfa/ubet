@@ -40,6 +40,15 @@
 		<main class="container">
 			<div class="hidden" id="toast">{{ toast }}</div>
 			{% block main_content %} {% endblock main_content %}
+
+			<div class="fixed-action-btn click-to-toggle" style="bottom: 45px; right: 24px">
+				<a class="btn-floating btn-large red">
+					<i class="waves-effect large mdi-navigation-menu material-icons">create</i>
+				</a>
+				<ul id="fab-options">
+					<li><a class="btn-floating red" href="#"><i class="material-icons">group_add</i></a></li>
+				</ul>
+			</div>
 		</main>
 
 		<footer>

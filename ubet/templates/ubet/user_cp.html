@@ -5,14 +5,14 @@
 {% block main_content %}
 	<ul>
 		<li><strong>Apelido:</strong> {{ user.first_name }}</li>
-		<li><strong>Nome Completo:</strong> {{ user.full_name }}</li>
+		<li><strong>Nome Completo:</strong> {{ user.ubet_user.full_name }}</li>
 		<li><strong>E-mail:</strong> {{ user.email }}</li>
-		<li><strong>Data de Nascimento:</strong> {{ user.date_of_birth }}</li>
-		<li><strong>Cadastrado desde {{ user.django_user.id }}</strong></li>
+		<li><strong>Data de Nascimento:</strong> {{ user.ubet_user.date_of_birth|date:"d/m/Y" }}</li>
+		<li><strong>Cadastrado desde</strong> {{ user.date_joined|date:"d/m/Y" }}</li>
 	</ul>
 
 	<ul>
-		<li><strong>Créditos:</strong> {{ user.creditos }}</li>
+		<li><strong>Créditos:</strong> {{ user.ubet_user.creditos }}</li>
 		<li><strong>Meus grupos:</strong></li>
 		<ul>
 			{% for g in user_groups %}

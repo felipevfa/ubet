@@ -19,6 +19,15 @@ class Ubet_user(models.Model):
 			self.full_name+'\n'+\
 			str(self.date_of_birth)+'\n'+\
 			str(self.creditos)
+			
+	def create_group(self,name,bet_value,max_size,position):
+		g = Group(
+			creator = self.django_user,
+			name = name,
+			bet_value = bet_value,
+			max_size = max_size,
+			)
+		g.add_user(self.django_user,position)
 		
 class Group(models.Model):
 	"""Um grupo é uma coleção na qual ocorrem as apostas.
