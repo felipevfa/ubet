@@ -13,7 +13,8 @@
 
 {% else %}
 
-	<p><strong>Nome do Grupo:</strong> {{ group.name }}
+	<p><strong>Nome do Grupo:</strong> {{ group.name }}</p>
+	<p><strong>Valor da Aposta:</strong> {{ group.bet_value }}</p>
 	<p><strong>Quantidade de Membros:</strong> {{ group.cur_size }} / {{ group.max_size }}</p>
 	<p><strong>Membros:</strong>
 
@@ -27,7 +28,7 @@
 	{% endif %}
 	</ul>
 
-	<button class="btn">Apostar</button>
+	<button class="btn waves-effect">Apostar</button>
 
 {% endif %}
 

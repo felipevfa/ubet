@@ -57,6 +57,11 @@ form li {
  * GROUP LIST STYLES
  */
 
+.group-info { max-width: 50%; }
 .group-info h5 { margin-top: 0; }
 .group-options { height: inherit; }
+
+#group-list li {
+	cursor: pointer;
+}
 

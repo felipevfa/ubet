@@ -4,13 +4,14 @@
 
 {% block main_content %}
 
-	<ul>
+	<ul id="group-list">
 	{% for g in grupos %}
-		<li>
+		<li onclick="window.location.href='{% url 'group_info' %}?g_id={{g.id}}'">
 			<div class="card-panel">
 				<div class="group-info left">
 					<h5 class="group-name">{{g.name}}</h5> 
 					<p><strong>Membros:</strong> {{ g.cur_size }} / {{ g.max_size }}</p>
+					<p><strong>Valor da Aposta:</strong> {{ g.bet_value }}</p>
 				</div>
 				
 				<div class="group-options right">
