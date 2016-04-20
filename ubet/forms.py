@@ -18,7 +18,7 @@ def validate_maioridade(arg):
 	now = datetime.date(now.year,now.month,now.day)
 	year = (now-arg)/365
 	if year.days < 18:
-		raise ValidationError( _('Apenas usuarios acima de 18 anos podem participar'), params={'year': year})
+		raise ValidationError( _('Apenas usuarios acima de 18 anos podem participar'), params={'year': year},code='invalid')
 
 
 class UserSignupForm(UserCreationForm):
@@ -97,8 +97,7 @@ class UserAuthenticationForm(AuthenticationForm):
 class new_group_Form(ModelForm):
 	"""docstring for newgroupForm"""
 
-	position = forms.IntegerField(label = 'Em que numero voce apostara')
-	
+	position = forms.IntegerField(label = "Em que posicao voce aposta (a partir de 1)")
 	class Meta:
 		model = Group	
 		fields = {'name', 'max_size','bet_value'}
@@ -109,16 +108,34 @@ class new_group_Form(ModelForm):
 		}		
 	def __init__(self, *args, **kwargs):
 		super(ModelForm, self).__init__(*args, **kwargs)
-		# self.fields['name'].error_messages = my_default_errors
+		self.fields['position'].error_messages = my_default_errors
 		# self.fields['max_size'].error_messages = my_default_errors
-		# self.fields['bet_value'].error_messages = my_default_errors
+	# 	# self.fields['bet_value'].error_messages = my_default_errors
 
-		# self.fields['max_size'].help_text = "Valor maior que 1"
-		self.fields['position'].label = "Em que posicao voce aposta (a partir de 1)"
+	# 	# self.fields['max_size'].help_text = "Valor maior que 1"
+	# 	self.fields['position'].label = 
 
-	# 	# self.fields['password2'].error_messages = my_default_errors
-	# 	# self.fields['max_size'].help_text = 'Um valor maior que 1'
-		
+	# # 	# self.fields['password2'].error_messages = my_default_errors
+	# # 	# self.fields['max_size'].help_text = 'Um valor maior que 1'
+	def clean_max_size(self):
+		data = self.cleaned_data['max_size']
+		if data < 2 or  data > 10:
+			raise forms.ValidationError('Valor invalido de tamanho do grupo!')
+		return data
+
+	def clean_bet_value(self):
+		data = self.cleaned_data['bet_value']
+		if data < 1 :
+			raise forms.ValidationError('Valor invalido de aposta!')
+		return data
+	# def clean_position(self):
+	# 	data = self.cleaned_data['position']
+	# 	if data < 1 or data > self.cleaned_data['max_size']:
+	# 		raise forms.ValidationError("Valor invalido de posicao!")
+	# 	return data
+
+
+
 	def check_values(self):
 		tamanho = self.cleaned_data['max_size']
 		posicao = self.cleaned_data['position']
@@ -140,15 +157,8 @@ class new_group_Form(ModelForm):
 		return errors
 
 	def save(self,criador,commit=True):
-		posicao = self.cleaned_data['position']
-		g = Group(
-			creator = criador,
-			name = self.cleaned_data['name'],
-			max_size = self.cleaned_data['max_size'],
+		return criador.ubet_user.create_group(name = self.cleaned_data['name'],
 			bet_value = self.cleaned_data['bet_value'],
-			)
-		if commit:
-			g.save()
-			g.add_user(criador,posicao)
-			
-		return g
+			max_size = self.cleaned_data['max_size'],
+			position = self.cleaned_data['position'])
+		

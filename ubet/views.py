@@ -75,7 +75,7 @@ def signup(request):
 				has_db_errors = True
 
 			if has_db_errors:
-				return render(request, 'ubet/signup.html', { 'form': form, 'signup_msg': error_msg })
+				return render(request, 'ubet/signup.html', { 'form': form,  })
 			else:
 				user = form.save()
 				user.save()
@@ -107,17 +107,18 @@ def login(request):
 			if user.is_active:
 				auth_login(request, user)
 				msg = "Olá, {}".format(user.username)
-				return render (request, 'ubet/user_cp.html', {'user': user, 'toast': msg, 'user_groups': Group.groups_by_user(user) })
+				return HttpResponseRedirect(reverse(list_all_groups))
 
 				login(request, user)
 				msg = "Olá, {}".format(user.username)
-				return render (request, 'ubet/user_cp.html', {'user': user, 'toast': msg})
+				return HttpResponseRedirect(reverse(list_all_groups))
 			else:
 				return render(request, 'ubet/login.html', { 'toast': 'Conta desativada.', 'form': form })
 		else:
 			return render(request, 'ubet/login.html', { 'toast': 'Combinação de usuário e senha incorreta.', 'form': form })
 	else:
 		return render(request, 'ubet/login.html', { 'form': form })
+
 def list_all_users(request):
 	return render(request,'ubet/list_all_users.html',{'li':Ubet_user.objects.all()})
 

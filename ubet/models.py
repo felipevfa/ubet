@@ -27,8 +27,9 @@ class Ubet_user(models.Model):
 			bet_value = bet_value,
 			max_size = max_size,
 			)
+		g.save()
 		g.add_user(self.django_user,position)
-		
+		return g
 class Group(models.Model):
 	"""Um grupo é uma coleção na qual ocorrem as apostas.
 	Possui um numero maximo de membros, o numero atual de membros, um valor de aposta, e
@@ -59,7 +60,7 @@ class Group(models.Model):
 	def add_user(self,user,position):
 		gp = Group_link(user=user,group=self,position=position)
 		try:
-			self.save()
+			# self.save()
 			gp.save()
 		except:
 			raise
