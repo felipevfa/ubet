@@ -39,8 +39,8 @@ class Group(models.Model):
 	creator = models.ForeignKey(User,null=True,on_delete=models.SET_NULL,related_name='group_creator_user')
 	winner = models.ForeignKey(User,null=True,on_delete=models.SET_NULL,related_name='group_winner_user')
 	name = models.CharField(max_length=50)
-	max_size = models.IntegerField(default=10)
-	bet_value = models.IntegerField(default=10)
+	max_size = models.IntegerField()
+	bet_value = models.IntegerField()
 	date_of_birth = models.DateTimeField(auto_now = True)
 	status = models.CharField(choices=status_list,default='WAITING',max_length=50)
 	users = models.ManyToManyField(User,symmetrical=True,through='Group_link')
@@ -59,8 +59,8 @@ class Group(models.Model):
 	def add_user(self,user,position):
 		gp = Group_link(user=user,group=self,position=position)
 		try:
-			gp.save()
 			self.save()
+			gp.save()
 		except:
 			raise
 

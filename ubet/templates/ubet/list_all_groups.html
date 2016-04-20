@@ -5,6 +5,7 @@
 {% block main_content %}
 
 	<ul id="group-list">
+	<a href="{%url 'new_group' %}" class="waves-effect btn">Criar grupo</a>
 	{% for g in grupos %}
 		<li onclick="window.location.href='{% url 'group_info' %}?g_id={{g.id}}'">
 			<div class="card-panel">

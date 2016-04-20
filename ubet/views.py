@@ -2,7 +2,7 @@
 # coding: utf-8
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from ubet.forms import UserSignupForm, UserAuthenticationForm
+from ubet.forms import UserSignupForm, UserAuthenticationForm,new_group_Form
 from django.contrib.auth import get_user_model, authenticate, login as auth_login, logout as auth_logout
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
@@ -22,7 +22,38 @@ def list_all_groups(request):
 	return render(request,'ubet/list_all_groups.html', {'grupos': groups })
 
 def new_group(request):
-	return render(request,'ubet/new_group.html',{'user_id': request.user.pid })
+	error_msg = ''
+
+	if request.method == 'POST':
+		form = new_group_Form(request.POST, request.FILES)
+		has_db_errors = False
+
+		if form.is_valid():
+			errors = form.check_values()
+
+			if errors['position_error']:
+				error_msg = error_msg + 'Posicao invalida.<br>'
+				has_db_errors = True
+
+			if errors['max_size_error']:
+				error_msg = error_msg + 'Tamanho invalido.<br>'
+				has_db_errors = True
+
+			if errors['bet_value_error']:
+				error_msg = error_msg + 'Valor de aposta invalido.<br>'
+				has_db_errors = True
+
+
+			if has_db_errors:
+				return render(request, 'ubet/new_group.html', { 'form': form, 'new_groups_msg': error_msg })
+			else:
+				form.save(request.user)
+				
+				return HttpResponseRedirect(reverse('list_all_groups'))
+	else:
+		form = new_group_Form()
+
+	return render(request, 'ubet/new_group.html', {'form': form })
 
 def signup(request):
 	# logger.debug('signup')
