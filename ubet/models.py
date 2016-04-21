@@ -81,7 +81,7 @@ class Group(models.Model):
 						user.ubet_user.creditos += self.bet_value
 						user.ubet_user.save()
 						user.save()
-			i.save()
+				i.save()
 	
 	def add_user(self,user,position):
 		gp = Group_link(user=user,group=self,position=position)
