@@ -10,13 +10,14 @@
 		<div class="form-holder"> 
 			<form enctype="multipart/form-data"  action="{% url 'new_group' %}" method="POST" name="signup-form" class="form">
 				{% csrf_token %}
+				<p>{{ new_groups_msg}}</p>
 
 				<ul id="form-fields">{{ form.as_ul }}</ul>				
 
 				<div class="btn-wrapper">
-					<input type="submit" value="Concluir" class="submit-button btn" id="signup-btn">
+					<input type="submit" value="Criar Grupo" class="submit-button btn" id="signup-btn">
 					
-					<a href="{% url 'list_all_groups' %}" class="btn" id="signup-btn">Cancelar</a>
+					<a href="{% url 'list_all_groups' %}" class="btn red" id="signup-btn">Cancelar</a>
 				</div>
 			</form>
 

@@ -53,6 +53,18 @@ form li {
 	font-size: 0.8em;
 }
 
+#bet-options {
+	margin-top: 1.5em;
+	margin-bottom: 1em;
+}
+
+@media (max-width: 361px) {
+	#bet-options .btn {
+		width: 70%;
+		margin-bottom: 0.5em;
+	}
+}
+
 /** 
  * GROUP LIST STYLES
  */

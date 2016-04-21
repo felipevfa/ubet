@@ -28,6 +28,22 @@ class Ubet_user(models.Model):
 			max_size = max_size,
 			)
 		g.add_user(self.django_user,position)
+
+	def bet(self, value):
+		newValue = (self.creditos - value)
+
+		if newValue >= 0:
+			self.creditos = newValue
+
+			try:
+				self.save()
+			except:
+				raise
+			
+			return True
+
+		return False
+
 		
 class Group(models.Model):
 	"""Um grupo é uma coleção na qual ocorrem as apostas.
@@ -56,13 +72,18 @@ class Group(models.Model):
 					i.winner = choice(i.users.all()).pid
 				else:
 					i.status = 'CANCELED'
+	
 	def add_user(self,user,position):
 		gp = Group_link(user=user,group=self,position=position)
+
 		try:
 			self.save()
 			gp.save()
+			success = True
 		except:
-			raise
+			success = False
+		
+		return success
 
 	def available_positions(self):
 		usuarios= Group.users_by_group(self)[0]

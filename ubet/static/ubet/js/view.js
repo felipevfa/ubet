@@ -16,7 +16,7 @@ var toast = function() {
 	var toast = $('#toast').text();
 	
 	if (toast) {
-		Materialize.toast(toast, 2500);
+		Materialize.toast(toast, 3000);
 	}
 };
 
@@ -25,4 +25,5 @@ toast();
 
 $(document).ready(function() {
 	$(".button-collapse").sideNav();
+	$('select').material_select();
 });

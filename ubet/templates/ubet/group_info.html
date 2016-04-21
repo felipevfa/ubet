@@ -1,5 +1,5 @@
 {% extends "ubet/base.html" %}
-
+m
 {% block page_title %} {{ p_title }} {% endblock page_title %}
 
 
@@ -28,7 +28,20 @@
 	{% endif %}
 	</ul>
 
-	<button class="btn waves-effect">Apostar</button>
+	{% if canBet %}
+		<form name="bet-form" method="POST" action="{% url 'bet' %}" class="form">
+			{% csrf_token %}
+			<input type="hidden" name="g_id" value="{{ group.id }}">
+			
+			<div class="input-field">
+				<button type="submit" class="btn waves-effect">Apostar</button>
+			</div>
+		</form>
+	{% else %}
+		<p>{{warning}}</p>
+		<button class="btn disabled">Apostar</button>
+	{% endif %}
+
 
 {% endif %}
 

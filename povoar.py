@@ -16,6 +16,7 @@ def random_user(uname=None,senha=None):
 	x.full_name = random_nome()
 	x.date_of_birth = datetime.date(randint(1900,2000),randint(1,12),randint(1,28))
 	email = random_string(7) + '@email.com'
+	x.creditos = 20;
 	if senha is None:
 		password = random_string(10)
 	else:

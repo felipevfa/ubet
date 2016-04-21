@@ -97,7 +97,7 @@ class UserAuthenticationForm(AuthenticationForm):
 class new_group_Form(ModelForm):
 	"""docstring for newgroupForm"""
 
-	position = forms.IntegerField(label = 'Em que numero voce apostara')
+	# position = forms.IntegerField(label = 'Em que numero voce apostara')
 	
 	class Meta:
 		model = Group	
@@ -114,41 +114,42 @@ class new_group_Form(ModelForm):
 		# self.fields['bet_value'].error_messages = my_default_errors
 
 		# self.fields['max_size'].help_text = "Valor maior que 1"
-		self.fields['position'].label = "Em que posicao voce aposta (a partir de 1)"
+		#self.fields['position'].label = "Em que posicao voce aposta (a partir de 1)"
 
 	# 	# self.fields['password2'].error_messages = my_default_errors
 	# 	# self.fields['max_size'].help_text = 'Um valor maior que 1'
 		
 	def check_values(self):
 		tamanho = self.cleaned_data['max_size']
-		posicao = self.cleaned_data['position']
+		# posicao = self.cleaned_data['position']
 		bet_value = self.cleaned_data['bet_value']
 		errors = {
 			'bet_value_error' : False,
 			'max_size_error' : False,
-			'position_error' : False,
+			#'position_error' : False,
 		}
-		if posicao < 1 or posicao > tamanho:
-			errors['position_error']  = True
+		# if posicao < 1 or posicao > tamanho:
+			#errors['position_error']  = True
 
 		if tamanho <= 1 or tamanho > 10:
 			errors['max_size_error'] = True
 		
 		if bet_value < 1:
 			errors['bet_value_error'] = True
-
+		
 		return errors
 
 	def save(self,criador,commit=True):
-		posicao = self.cleaned_data['position']
+		#posicao = self.cleaned_data['position']
 		g = Group(
 			creator = criador,
 			name = self.cleaned_data['name'],
 			max_size = self.cleaned_data['max_size'],
 			bet_value = self.cleaned_data['bet_value'],
-			)
+		)
 		if commit:
 			g.save()
-			g.add_user(criador,posicao)
+			# g.add_user(criador,posicao)
 			
 		return g
+
