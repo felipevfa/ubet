@@ -74,7 +74,7 @@ class Group(models.Model):
 			if (now - i.date_of_birth).seconds / 60 >= expire:
 				if i.users.count() == i.max_size:
 					i.status =  'FINISHED'
-					i.winner = choice(i.users.all()).pid
+					i.winner = choice(i.users.all()).id
 				else:
 					i.status = 'CANCELED'
 					for user in i.users.all():
