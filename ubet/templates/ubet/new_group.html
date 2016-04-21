@@ -10,7 +10,11 @@
 		<div class="form-holder"> 
 			<form enctype="multipart/form-data"  action="{% url 'new_group' %}" method="POST" name="signup-form" class="form">
 				{% csrf_token %}
-				<p>{{ new_groups_msg}}</p>
+				
+				<ul>
+					<li>{{ new_groups_msg.size_error }}</li>
+					<li>{{ new_groups_msg.bet_error }}</li>
+				</ul>
 
 				<ul id="form-fields">{{ form.as_ul }}</ul>				
 

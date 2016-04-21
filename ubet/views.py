@@ -27,7 +27,9 @@ def list_all_groups(request):
 	return render(request, 'ubet/login.html', { 'form': form, 'toast': 'Você precisa estar logado para ver essa página. '})
 
 def new_group(request):
-	error_msg = ''
+	error_msg = { 'size_error': "",
+				  'bet_error': ""
+				}
 
 	if request.method == 'POST':
 		form = new_group_Form(request.POST, request.FILES)
@@ -41,11 +43,11 @@ def new_group(request):
 		#		has_db_errors = True
 
 			if errors['max_size_error']:
-				error_msg = error_msg + 'O grupo deve ter de 1 a 10 membros.'
+				error_msg['size_error'] = 'O grupo deve ter de 1 a 10 membros.'
 				has_db_errors = True
 
 			if errors['bet_value_error']:
-				error_msg = error_msg + 'O valor da aposta deve ser maior que 0.'
+				error_msg['bet_error'] = 'O valor da aposta deve ser maior que 0.'
 				has_db_errors = True
 
 
@@ -81,7 +83,7 @@ def signup(request):
 				has_db_errors = True
 
 			if has_db_errors:
-				return render(request, 'ubet/signup.html', { 'form': form, 'signup_msg': error_msg })
+				return render(request, 'ubet/signup.html', { 'form': form,  })
 			else:
 				user = form.save()
 				user.save()
@@ -113,11 +115,11 @@ def login(request):
 			if user.is_active:
 				auth_login(request, user)
 				msg = "Olá, {}".format(user.username)
-				return render (request, 'ubet/user_cp.html', {'user': user, 'toast': msg, 'user_groups': Group.groups_by_user(user) })
+				return HttpResponseRedirect(reverse(list_all_groups))
 
 				login(request, user)
 				msg = "Olá, {}".format(user.username)
-				return render (request, 'ubet/user_cp.html', {'user': user, 'toast': msg})
+				return HttpResponseRedirect(reverse(list_all_groups))
 			else:
 				return render(request, 'ubet/login.html', { 'toast': 'Conta desativada.', 'form': form })
 		else:
@@ -240,7 +242,7 @@ def bet(request):
 
 			else:
 				# Caso contrário, mostra as posições possíveis para aposta.
-				available = [None]*10
+				available = [None]*group.max_size
 
 				for (u, p) in user_list:
 					available[p-1] = u

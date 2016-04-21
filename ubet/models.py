@@ -20,14 +20,18 @@ class Ubet_user(models.Model):
 			str(self.date_of_birth)+'\n'+\
 			str(self.creditos)
 			
-	def create_group(self,name,bet_value,max_size,position):
+	def create_group(self,name,bet_value,max_size):
 		g = Group(
 			creator = self.django_user,
 			name = name,
 			bet_value = bet_value,
 			max_size = max_size,
 			)
-		g.add_user(self.django_user,position)
+		
+		g.save()
+		# g.add_user(self.django_user,position)
+		
+		return g
 
 	def bet(self, value):
 		newValue = (self.creditos - value)
@@ -44,7 +48,7 @@ class Ubet_user(models.Model):
 
 		return False
 
-		
+	
 class Group(models.Model):
 	"""Um grupo é uma coleção na qual ocorrem as apostas.
 	Possui um numero maximo de membros, o numero atual de membros, um valor de aposta, e
@@ -77,7 +81,7 @@ class Group(models.Model):
 		gp = Group_link(user=user,group=self,position=position)
 
 		try:
-			self.save()
+			# self.save()
 			gp.save()
 			success = True
 		except:
