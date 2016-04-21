@@ -2,14 +2,15 @@
 from django.db import models
 from django.contrib.auth.models import User,BaseUserManager, AbstractBaseUser
 from random import choice
+import datetime
 from django.db import IntegrityError
-
+from rayquasa.settings import TIME_TO_EXPIRE as expire 
 class Ubet_user(models.Model):
 	django_user = models.OneToOneField(User,
 		on_delete = models.CASCADE)
 	full_name = models.CharField(max_length=100)
 	date_of_birth = models.DateField()
-	creditos = models.FloatField(default=0)
+	creditos = models.FloatField(default=100)
 	def __unicode__(self):
 		return self.django_user.username+'\n'+ \
 			self.django_user.first_name+'\n'+ \
@@ -68,14 +69,19 @@ class Group(models.Model):
 	def __unicode__(self):
 		return self.name
 	def update(self):
-		now = datetime.datime.now()
+		now = datetime.datetime.now()
 		for i in Group.objects.all():
-			if (now - i.date_of_birth).minute >= 30:
-				if i.user.count() == i.max_size:
+			if (now - i.date_of_birth).seconds / 60 >= expire:
+				if i.users.count() == i.max_size:
 					i.status =  'FINISHED'
 					i.winner = choice(i.users.all()).pid
 				else:
 					i.status = 'CANCELED'
+					for user in i.users.all():
+						user.ubet_user.creditos += self.bet_value
+						user.ubet_user.save()
+						user.save()
+			i.save()
 	
 	def add_user(self,user,position):
 		gp = Group_link(user=user,group=self,position=position)
@@ -107,10 +113,16 @@ class Group(models.Model):
 		return self.users.count()
 	@staticmethod
 	def groups_by_user(user):
-		return Group.objects.filter(users=user)
+		glist = Group.objects.filter(users=user)
+		for g in glist:
+			g.update()
+		return glist
 	
 	@staticmethod
 	def active_groups():
+		glist = Group.objects.all()
+		for g in glist:
+			g.update()
 		return Group.objects.filter(status='WAITING')
 
 class Group_link(models.Model):
