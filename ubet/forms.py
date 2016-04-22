@@ -22,7 +22,7 @@ def validate_maioridade(arg):
 
 
 class UserSignupForm(UserCreationForm):
-	nascimento = forms.DateField(required=True,validators=[validate_maioridade],widget=forms.TextInput(attrs=
+	nascimento = forms.DateField(required=True,validators=[validate_maioridade],widget=forms.DateInput(attrs=
                                 {
                                     'class':'datepicker'
                                 })

@@ -7,9 +7,35 @@
 		<meta name="description" content="Primeiro protótipo do projeto.">
 		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
 
+		<script type="text/javascript" src="{% static 'ubet/js/jquery-2.2.3.js' %}"></script>
+		<script type="text/javascript" src="{% static 'ubet/js/materialize.js' %}"></script>
+		<script type="text/javascript" src="{% static 'ubet/js/view.js' %}"></script>
+		<script   src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"   integrity="sha256-xNjb53/rY+WmG+4L6tTl9m6PpqknWZvRt0rO1SRnJzw="   crossorigin="anonymous"></script>
+  
+
+
 		<link rel="stylesheet" type="text/css" href="{% static 'ubet/css/materialize.css' %}">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 		<link rel="stylesheet" type="text/css" href="{% static 'ubet/css/styles.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'ubet/css/jquery-ui.min.css' %}">
+		
+
+		<script>
+
+  $(function() {
+    $.datepicker.setDefaults($.datepicker.regional["pt-br"]); 
+    $( ".datepicker" ).datepicker({  
+    	changeMonth:true,
+    	changeYear:true,
+    });
+  });
+
+
+
+  </script>
+	<script type="text/javascript" src="{% static 'ubet/js/jquery.ui.datepicker-pt-br.js' %}"></script>
+
+
 	</head>
 	<body>
 		<header>
@@ -59,8 +85,6 @@
 			{% block page_footer %} {% endblock page_footer %}
 		</footer>
 
-		<script type="text/javascript" src="{% static 'ubet/js/jquery-2.2.3.js' %}"></script>
-		<script type="text/javascript" src="{% static 'ubet/js/materialize.js' %}"></script>
-		<script type="text/javascript" src="{% static 'ubet/js/view.js' %}"></script>
+		
 	</body>
 </html>
