@@ -68,21 +68,24 @@ class Group(models.Model):
 
 	def __unicode__(self):
 		return self.name
+
 	def update(self):
 		now = datetime.datetime.now()
-		for i in Group.objects.all():
-			if (now - i.date_of_birth).seconds / 60 >= expire:
-				if i.users.count() == i.max_size:
-					i.status =  'FINISHED'
-					i.winner = choice(i.users.all()).id
+		if self.status == "WAITING":
+			if  (now - self.date_of_birth).seconds / 60 >= expire or self.users.count() == self.max_size:
+				if self.users.count() == self.max_size:
+					self.status =  'FINISHED'
+					self.winner = choice(self.users.all())	
+					self.winner.ubet_user.creditos += self.users.count()*self.bet_value
+					self.winner.ubet_user.save()
 				else:
-					i.status = 'CANCELED'
-					for user in i.users.all():
+					self.status = 'CANCELED'
+					for user in self.users.all():
 						user.ubet_user.creditos += self.bet_value
 						user.ubet_user.save()
 						user.save()
-				i.save()
-	
+				self.save()
+
 	def add_user(self,user,position):
 		gp = Group_link(user=user,group=self,position=position)
 

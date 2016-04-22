@@ -22,35 +22,44 @@ class testes(TransactionTestCase):
 		###
 		#	Cria usuario aleatorio e salva no banco
 		###
-	def random_user(self,uname=None):
+	def random_user(self,username=None,creditos=100):
 		
 		x = Ubet_user()
 		x.full_name = random_string(30)
+		x.creditos = 100
 		x.date_of_birth = datetime.date(randint(1900,2000),randint(1,12),randint(1,28))
 		email = random_string(6) + '@' +random_string(6) + '.com'
-		password = random_string(10)
-		if uname is None:
-			uname = random_string(5)
-		username = uname
+		password = "senhaforte"
+		if username is None:
+			username = random_string(5)
+		username = username
 		first_name = random_string(10)
-		x.django_user = User.objects.create_user(username,
+		u = User.objects.create_user(username,
 			email=email,
 			password=password,
-			first_name=first_name)
+			first_name=first_name,
+		)
+		u.ubet_user = x
 		x.save()
-		return username,x.full_name,x.date_of_birth,email,password,first_name
-	def grupo_aleatorio(self,nome=random_string(4)):
+		u.save()
+		return u 
+	def grupo_aleatorio(self,nome=None,bet_value=10,max_size=10):
+		if nome is None:
+			nome = random_string(4)
 		x = Group()
-		x.bet_value = 10
-		x.max_size = 10
-		x.cur_size = 0
+		x.bet_value = bet_value
+		x.max_size = max_size
 		x.name = nome
 		x.save() 
-		return x.name	
+		return x
 	def test_usuario(self):
 
-		username,full_name,date_of_birth,email,password,first_name = self.random_user()
-
+		u = self.random_user()
+		username = u.username
+		full_name = u.ubet_user.full_name
+		date_of_birth = u.ubet_user.date_of_birth
+		email = u.email
+		first_name = u.first_name
 		###
 		#	verifica se as caracteristicas criadas foram encontradas no banco
 		###
@@ -64,14 +73,14 @@ class testes(TransactionTestCase):
 		self.assertEqual(email,django_user_retrieved.email)
 		self.assertEqual(first_name,django_user_retrieved.first_name)
 		self.assertEqual(email,django_user_retrieved.email)
-		self.assertEqual(django_user_retrieved.ubet_user.creditos,0)
+		# self.assertEqual(django_user_retrieved.ubet_user.creditos,0)
 		
 		###
 		#	tenta logar o usuario
 		###
 		
 
-		try_login = authenticate(username=username,password=password)
+		try_login = authenticate(username=username,password="senhaforte")
 		self.assertEqual(try_login.is_active,True)
 
 
@@ -80,9 +89,9 @@ class testes(TransactionTestCase):
 		#####################################################################
 		#	gerando users e grupos aleatorios,							 	#
 		#####################################################################
-		username,full_name,date_of_birth,email,password,first_name = self.random_user(uname='username1')
-		username2 = self.random_user(uname='username2')[0]
-		username3 = self.random_user(uname='username3')[0]
+		username = self.random_user(username='username1').username
+		username2 = self.random_user(username='username2').username
+		username3 = self.random_user(username='username3').username
 		
 		nome_do_grupo = self.grupo_aleatorio(nome='nome_do_grupo1')
 		nome_do_grupo2 = self.grupo_aleatorio(nome='nome_do_grupo2')
@@ -189,7 +198,7 @@ class testes(TransactionTestCase):
 		l = random.sample(range(1,10),5)
 		x = []
 		for i in l:
-			usename = self.random_user()[0]
+			usename = self.random_user().username
 			user = User.objects.get(username=usename)
 			x.append(user)
 			meu_grupo4.add_user(user,i)
@@ -197,7 +206,7 @@ class testes(TransactionTestCase):
 			self.assertFalse(i in meu_grupo4.available_positions())
 		
 		for i in l:
-			usename = self.random_user()[0]
+			usename = self.random_user().username
 			self.assertRaises(Exception,meu_grupo4.add_user,(User.objects.get(username=usename),i))
 
 
@@ -209,7 +218,7 @@ class testes(TransactionTestCase):
 			self.assertTrue(Group_link.objects.get(user=u,group=meu_grupo4).position == p)
 
 
-		user_list = [ User.objects.get(username=self.random_user()[0]) for i in range(10) ]
+		user_list = [ User.objects.get(username=self.random_user().username) for i in range(10) ]
 		g = self.grupo_aleatorio()
 		g = Group.objects.get(name=g)
 		for u,i in zip(user_list,range(1,11)):
@@ -253,4 +262,14 @@ class testes(TransactionTestCase):
 			}
 		form = UserSignupForm(data=form_data)
 		self.assertFalse(form.is_valid())
+
+	def test_view(self):
+		response = client.get(reverse('login'))
+		# g = self.grupo_aleatorio(nome="novo grup",bet_value=10,max_size=2)
+		u = self.random_user(username="user",creditos=100)
+		g = u.ubet_user.create_group(name="novo grupo", bet_value=10,max_size=2)
+		#	nao eh pq ele cria o grupo que esta apostando
+		self.assertEqual(100,User.objects.get(username="user").ubet_user.creditos)
+
+
 

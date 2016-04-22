@@ -22,7 +22,11 @@ def validate_maioridade(arg):
 
 
 class UserSignupForm(UserCreationForm):
-	nascimento = forms.DateField(required=True,validators=[validate_maioridade])
+	nascimento = forms.DateField(required=True,validators=[validate_maioridade],widget=forms.TextInput(attrs=
+                                {
+                                    'class':'datepicker'
+                                })
+	)
 	nomec = forms.CharField(label = 'Nome completo',max_length=100)
 	class Meta:
 		model = User
@@ -36,6 +40,7 @@ class UserSignupForm(UserCreationForm):
 		help_texts = {
 			'username' : '',
 		}
+
 
 	def __init__(self, *args, **kwargs):
 		super(UserSignupForm, self).__init__(*args, **kwargs)
