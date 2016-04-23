@@ -1,5 +1,5 @@
 {% extends "ubet/base.html" %}
-m
+{% load i18n %}
 {% block page_title %} {{ p_title }} {% endblock page_title %}
 
 
@@ -12,23 +12,22 @@ m
 	<p>{{ error_msg }}</p>
 
 {% else %}
-	
-	<strong>Nome do Grupo:</strong> {{ group.name }}
-	<p><strong>Status:</strong> {{ strinfo }}</p>
-	<p><strong>Valor da Aposta:</strong> {{ group.bet_value }}</p>
-	<p><strong>Quantidade de Membros:</strong> {{ group.cur_size }} / {{ group.max_size }}</p>
-	<p><strong>Data de finalizacao:</strong> {{ group.date_of_death }} </p>
+	<strong>{% trans "Nome do Grupo" %}:</strong> {{ group.name }}
+	<p><strong>{% trans "Status" %}:</strong> {{ strinfo }}</p>
+	<p><strong>{% trans "Valor da Aposta" %}:</strong> {{ group.bet_value }}</p>
+	<p><strong>{% trans "Quantidade de Membros" %}:</strong> {{ group.cur_size }} / {{ group.max_size }}</p>
+	<p><strong>{% trans "Data de finalizacao" %}:</strong> {{ group.date_of_death }} </p>
 	<!-- {% if group.date_of_death %} -->
 	<!-- {% endif %} -->
 
-	<p><strong>Membros:</strong>
+	<p><strong>{% trans "Membros" %}:</strong>
 
 	<ul>
 	{% if users|length < 1 %}
-		<li>Não há membros nesse grupo.</li>
+		<li>{% trans "Não há membros nesse grupo" %}.</li>
 	{% else %}	
 		{% for u in users %}
-			<li>{{ u.0 }} (posição: {{ u.1 }})</li>
+			<li>{{ u.0 }} ({% trans "posição" %}: {{ u.1 }})</li>
 		{% endfor %}
 	{% endif %}
 	</ul>
@@ -38,12 +37,12 @@ m
 			{% csrf_token %}
 			
 			<div class="input-field">
-				<button type="submit" class="btn waves-effect">Apostar</button>
+				<button type="submit" class="btn waves-effect">{% trans "Apostar" %}</button>
 			</div>
 		</form>
 	{% else %}
 		<p>{{warning}}</p>
-		<button class="btn disabled">Apostar</button>
+		<button class="btn disabled">{% trans "Apostar" %}</button>
 	{% endif %}
 
 

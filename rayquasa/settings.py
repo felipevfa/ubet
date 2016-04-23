@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 
 import os
 
-TIME_TO_EXPIRE = 1
+TIME_TO_EXPIRE = 2
 LOGIN_URL = '/login'
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -29,7 +29,9 @@ SECRET_KEY = '$c6%&lymi%lmap2njy*5k#gfzg6_i8=e%9v(x%e(z!==v#m0fm'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)
 
 # Application definition
 
@@ -108,7 +110,55 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
-LANGUAGE_CODE = 'pt-br'
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.9/howto/static-files/
+
+STATIC_URL = '/static/'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+            'datefmt' : "%d/%b/%Y %H:%M:%S"
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'mysite.log',
+            'formatter': 'simple'
+        },
+        'file_aws': {
+            'level' :   'DEBUG',
+            'class' :   'logging.FileHandler',
+            #'filename'  :   '/opt/python/log/lolzin.log',
+            'filename'  :   'lolzin.log',
+            'formatter' :    'simple'
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers':['file'],
+            'propagate': True,
+            'level':'DEBUG',
+        },
+        'lolzin': {
+            'handlers': ['file_aws'],
+            'level': 'DEBUG',
+            'propagate':    True
+        },
+    }
+}
+
+
+LANGUAGE_CODE = 'en'
 
 TIME_ZONE = 'UTC'
 
@@ -117,9 +167,3 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.9/howto/static-files/
-
-STATIC_URL = '/static/'

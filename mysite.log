@@ -1,0 +1,212 @@
+DEBUG (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG (0.001) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."session_key" = 'vfdlj8lic8a6v34sy3roibv0z5foqoa4' AND "django_session"."expire_date" > '2016-04-23 03:56:36.727000'); args=('vfdlj8lic8a6v34sy3roibv0z5foqoa4', u'2016-04-23 03:56:36.727000')
+DEBUG (0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 2; args=(2,)
+DEBUG (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE "django_session"."session_key" = 'vfdlj8lic8a6v34sy3roibv0z5foqoa4'; args=('vfdlj8lic8a6v34sy3roibv0z5foqoa4',)
+DEBUG (0.000) BEGIN; args=None
+DEBUG (0.000) DELETE FROM "django_session" WHERE "django_session"."session_key" IN ('vfdlj8lic8a6v34sy3roibv0z5foqoa4'); args=(u'vfdlj8lic8a6v34sy3roibv0z5foqoa4',)
+DEBUG (0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."username" = 'pikachu'; args=(u'pikachu',)
+DEBUG (0.000) SELECT (1) AS "a" FROM "django_session" WHERE "django_session"."session_key" = 'uot5ieqznr5iw3o7jp5sw4u8varzsa3g' LIMIT 1; args=(u'uot5ieqznr5iw3o7jp5sw4u8varzsa3g',)
+DEBUG (0.000) BEGIN; args=None
+DEBUG (0.000) INSERT INTO "django_session" ("session_key", "session_data", "expire_date") SELECT 'uot5ieqznr5iw3o7jp5sw4u8varzsa3g', 'YWFiNjVkYTY0NGZkYzlmODkyYjM4OWFiMmIxMzAzZDI2MTEyNDQ4MTp7fQ==', '2016-05-07 03:56:39.967000'; args=(u'uot5ieqznr5iw3o7jp5sw4u8varzsa3g', u'YWFiNjVkYTY0NGZkYzlmODkyYjM4OWFiMmIxMzAzZDI2MTEyNDQ4MTp7fQ==', u'2016-05-07 03:56:39.967000')
+DEBUG (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE "django_session"."session_key" = 'uot5ieqznr5iw3o7jp5sw4u8varzsa3g'; args=(u'uot5ieqznr5iw3o7jp5sw4u8varzsa3g',)
+DEBUG (0.000) BEGIN; args=None
+DEBUG (0.000) DELETE FROM "django_session" WHERE "django_session"."session_key" IN ('uot5ieqznr5iw3o7jp5sw4u8varzsa3g'); args=(u'uot5ieqznr5iw3o7jp5sw4u8varzsa3g',)
+DEBUG (0.000) BEGIN; args=None
+DEBUG (0.000) UPDATE "auth_user" SET "last_login" = '2016-04-23 03:56:40.082000' WHERE "auth_user"."id" = 1; args=(u'2016-04-23 03:56:40.082000', 1)
+DEBUG Exception while resolving variable 'grupos' in template 'ubet/list_all_groups.html'.
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\django\template\base.py", line 905, in _resolve_lookup
+    (bit, current))  # missing attribute
+VariableDoesNotExist: Failed lookup for key [grupos] in u'[{\'False\': False, \'None\': None, \'True\': True}, {u\'csrf_token\': <SimpleLazyObject: <function _get_val at 0x03CE6470>>, \'user\': <User: pikachu>, \'perms\': <django.contrib.auth.context_processors.PermWrapper object at 0x03CDF430>, \'DEFAULT_MESSAGE_LEVELS\': {\'DEBUG\': 10, \'INFO\': 20, \'WARNING\': 30, \'SUCCESS\': 25, \'ERROR\': 40}, \'messages\': <django.contrib.messages.storage.fallback.FallbackStorage object at 0x03CB1F70>, u\'request\': <WSGIRequest: POST \'/login\'>}, {}, {\'toast\': \'Ol\\xc3\\xa1, pikachu\'}, {\'block\': <Block Node: main_content. Contents: [<TextNode: u\'\\n\\n\\t<ul id="group-list">\\n\\t\'>, <django.template.defaulttags.URLNode object at 0x03CEEDF0>, <TextNode: u\'" class="waves-effect btn\'>, <IfNode>, <TextNode: u\'\\n\\t</ul>\\n\\t\\n\'>]>}]'
+DEBUG (0.000) BEGIN; args=None
+DEBUG (0.000) UPDATE "django_session" SET "session_data" = 'MWZiZDI4MTRiZjU1YzMxYzMwYzZhNzVhMTIxNTg3NDZhYmVhODdhOTp7Il9hdXRoX3VzZXJfaGFzaCI6IjhmZGE4MTQ2Mjg1N2Q1YjUyMWIzMDBjY2FhNmE0YmVkYzM1MDE1NTAiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=', "expire_date" = '2016-05-07 03:56:40.151000' WHERE "django_session"."session_key" = 'uot5ieqznr5iw3o7jp5sw4u8varzsa3g'; args=(u'MWZiZDI4MTRiZjU1YzMxYzMwYzZhNzVhMTIxNTg3NDZhYmVhODdhOTp7Il9hdXRoX3VzZXJfaGFzaCI6IjhmZGE4MTQ2Mjg1N2Q1YjUyMWIzMDBjY2FhNmE0YmVkYzM1MDE1NTAiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=', u'2016-05-07 03:56:40.151000', u'uot5ieqznr5iw3o7jp5sw4u8varzsa3g')
+DEBUG (0.000) INSERT INTO "django_session" ("session_key", "session_data", "expire_date") SELECT 'uot5ieqznr5iw3o7jp5sw4u8varzsa3g', 'MWZiZDI4MTRiZjU1YzMxYzMwYzZhNzVhMTIxNTg3NDZhYmVhODdhOTp7Il9hdXRoX3VzZXJfaGFzaCI6IjhmZGE4MTQ2Mjg1N2Q1YjUyMWIzMDBjY2FhNmE0YmVkYzM1MDE1NTAiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=', '2016-05-07 03:56:40.151000'; args=(u'uot5ieqznr5iw3o7jp5sw4u8varzsa3g', u'MWZiZDI4MTRiZjU1YzMxYzMwYzZhNzVhMTIxNTg3NDZhYmVhODdhOTp7Il9hdXRoX3VzZXJfaGFzaCI6IjhmZGE4MTQ2Mjg1N2Q1YjUyMWIzMDBjY2FhNmE0YmVkYzM1MDE1NTAiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=', u'2016-05-07 03:56:40.151000')
+DEBUG (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."session_key" = 'uot5ieqznr5iw3o7jp5sw4u8varzsa3g' AND "django_session"."expire_date" > '2016-04-23 03:56:42.156000'); args=('uot5ieqznr5iw3o7jp5sw4u8varzsa3g', u'2016-04-23 03:56:42.156000')
+DEBUG (0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 1; args=(1,)
+DEBUG (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE "django_session"."session_key" = 'uot5ieqznr5iw3o7jp5sw4u8varzsa3g'; args=('uot5ieqznr5iw3o7jp5sw4u8varzsa3g',)
+DEBUG (0.000) BEGIN; args=None
+DEBUG (0.000) DELETE FROM "django_session" WHERE "django_session"."session_key" IN ('uot5ieqznr5iw3o7jp5sw4u8varzsa3g'); args=(u'uot5ieqznr5iw3o7jp5sw4u8varzsa3g',)
+DEBUG (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG (0.002) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."username" = 'pikachu'; args=(u'pikachu',)
+DEBUG (0.000) SELECT (1) AS "a" FROM "django_session" WHERE "django_session"."session_key" = 'bpj15yyk32m5pomt4tbg7mhvat9onajo' LIMIT 1; args=(u'bpj15yyk32m5pomt4tbg7mhvat9onajo',)
+DEBUG (0.000) BEGIN; args=None
+DEBUG (0.000) INSERT INTO "django_session" ("session_key", "session_data", "expire_date") SELECT 'bpj15yyk32m5pomt4tbg7mhvat9onajo', 'YWFiNjVkYTY0NGZkYzlmODkyYjM4OWFiMmIxMzAzZDI2MTEyNDQ4MTp7fQ==', '2016-05-07 03:58:23.765000'; args=(u'bpj15yyk32m5pomt4tbg7mhvat9onajo', u'YWFiNjVkYTY0NGZkYzlmODkyYjM4OWFiMmIxMzAzZDI2MTEyNDQ4MTp7fQ==', u'2016-05-07 03:58:23.765000')
+DEBUG (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE "django_session"."session_key" = 'bpj15yyk32m5pomt4tbg7mhvat9onajo'; args=(u'bpj15yyk32m5pomt4tbg7mhvat9onajo',)
+DEBUG (0.000) BEGIN; args=None
+DEBUG (0.000) DELETE FROM "django_session" WHERE "django_session"."session_key" IN ('bpj15yyk32m5pomt4tbg7mhvat9onajo'); args=(u'bpj15yyk32m5pomt4tbg7mhvat9onajo',)
+DEBUG (0.000) BEGIN; args=None
+DEBUG (0.000) UPDATE "auth_user" SET "last_login" = '2016-04-23 03:58:23.919000' WHERE "auth_user"."id" = 1; args=(u'2016-04-23 03:58:23.919000', 1)
+DEBUG Exception while resolving variable 'grupos' in template 'ubet/list_all_groups.html'.
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\django\template\base.py", line 905, in _resolve_lookup
+    (bit, current))  # missing attribute
+VariableDoesNotExist: Failed lookup for key [grupos] in u'[{\'False\': False, \'None\': None, \'True\': True}, {u\'csrf_token\': <SimpleLazyObject: <function _get_val at 0x03C04DB0>>, \'user\': <User: pikachu>, \'perms\': <django.contrib.auth.context_processors.PermWrapper object at 0x03C45EB0>, \'DEFAULT_MESSAGE_LEVELS\': {\'DEBUG\': 10, \'INFO\': 20, \'WARNING\': 30, \'SUCCESS\': 25, \'ERROR\': 40}, \'messages\': <django.contrib.messages.storage.fallback.FallbackStorage object at 0x03BF24B0>, u\'request\': <WSGIRequest: POST \'/login\'>}, {}, {\'toast\': \'Ol\\xc3\\xa1, pikachu\'}, {\'block\': <Block Node: main_content. Contents: [<TextNode: u\'\\n\\n\\t<ul id="group-list">\\n\\t\'>, <django.template.defaulttags.URLNode object at 0x03C452F0>, <TextNode: u\'" class="waves-effect btn\'>, <IfNode>, <TextNode: u\'\\n\\t</ul>\\n\\t\\n\'>]>}]'
+DEBUG (0.000) BEGIN; args=None
+DEBUG (0.000) UPDATE "django_session" SET "session_data" = 'MWZiZDI4MTRiZjU1YzMxYzMwYzZhNzVhMTIxNTg3NDZhYmVhODdhOTp7Il9hdXRoX3VzZXJfaGFzaCI6IjhmZGE4MTQ2Mjg1N2Q1YjUyMWIzMDBjY2FhNmE0YmVkYzM1MDE1NTAiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=', "expire_date" = '2016-05-07 03:58:23.997000' WHERE "django_session"."session_key" = 'bpj15yyk32m5pomt4tbg7mhvat9onajo'; args=(u'MWZiZDI4MTRiZjU1YzMxYzMwYzZhNzVhMTIxNTg3NDZhYmVhODdhOTp7Il9hdXRoX3VzZXJfaGFzaCI6IjhmZGE4MTQ2Mjg1N2Q1YjUyMWIzMDBjY2FhNmE0YmVkYzM1MDE1NTAiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=', u'2016-05-07 03:58:23.997000', u'bpj15yyk32m5pomt4tbg7mhvat9onajo')
+DEBUG (0.000) INSERT INTO "django_session" ("session_key", "session_data", "expire_date") SELECT 'bpj15yyk32m5pomt4tbg7mhvat9onajo', 'MWZiZDI4MTRiZjU1YzMxYzMwYzZhNzVhMTIxNTg3NDZhYmVhODdhOTp7Il9hdXRoX3VzZXJfaGFzaCI6IjhmZGE4MTQ2Mjg1N2Q1YjUyMWIzMDBjY2FhNmE0YmVkYzM1MDE1NTAiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=', '2016-05-07 03:58:23.997000'; args=(u'bpj15yyk32m5pomt4tbg7mhvat9onajo', u'MWZiZDI4MTRiZjU1YzMxYzMwYzZhNzVhMTIxNTg3NDZhYmVhODdhOTp7Il9hdXRoX3VzZXJfaGFzaCI6IjhmZGE4MTQ2Mjg1N2Q1YjUyMWIzMDBjY2FhNmE0YmVkYzM1MDE1NTAiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=', u'2016-05-07 03:58:23.997000')
+DEBUG (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG (0.016) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."session_key" = 'bpj15yyk32m5pomt4tbg7mhvat9onajo' AND "django_session"."expire_date" > '2016-04-23 04:00:33.301000'); args=('bpj15yyk32m5pomt4tbg7mhvat9onajo', u'2016-04-23 04:00:33.301000')
+DEBUG (0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 1; args=(1,)
+DEBUG (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE "django_session"."session_key" = 'bpj15yyk32m5pomt4tbg7mhvat9onajo'; args=('bpj15yyk32m5pomt4tbg7mhvat9onajo',)
+DEBUG (0.000) BEGIN; args=None
+DEBUG (0.016) DELETE FROM "django_session" WHERE "django_session"."session_key" IN ('bpj15yyk32m5pomt4tbg7mhvat9onajo'); args=(u'bpj15yyk32m5pomt4tbg7mhvat9onajo',)
+DEBUG (0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."username" = 'pikachu'; args=(u'pikachu',)
+DEBUG (0.000) SELECT (1) AS "a" FROM "django_session" WHERE "django_session"."session_key" = '0jwxt2mk4bb4hu3uxvn1kp03rnfk4jlr' LIMIT 1; args=(u'0jwxt2mk4bb4hu3uxvn1kp03rnfk4jlr',)
+DEBUG (0.000) BEGIN; args=None
+DEBUG (0.018) INSERT INTO "django_session" ("session_key", "session_data", "expire_date") SELECT '0jwxt2mk4bb4hu3uxvn1kp03rnfk4jlr', 'YWFiNjVkYTY0NGZkYzlmODkyYjM4OWFiMmIxMzAzZDI2MTEyNDQ4MTp7fQ==', '2016-05-07 04:00:36.540000'; args=(u'0jwxt2mk4bb4hu3uxvn1kp03rnfk4jlr', u'YWFiNjVkYTY0NGZkYzlmODkyYjM4OWFiMmIxMzAzZDI2MTEyNDQ4MTp7fQ==', u'2016-05-07 04:00:36.540000')
+DEBUG (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE "django_session"."session_key" = '0jwxt2mk4bb4hu3uxvn1kp03rnfk4jlr'; args=(u'0jwxt2mk4bb4hu3uxvn1kp03rnfk4jlr',)
+DEBUG (0.000) BEGIN; args=None
+DEBUG (0.000) DELETE FROM "django_session" WHERE "django_session"."session_key" IN ('0jwxt2mk4bb4hu3uxvn1kp03rnfk4jlr'); args=(u'0jwxt2mk4bb4hu3uxvn1kp03rnfk4jlr',)
+DEBUG (0.000) BEGIN; args=None
+DEBUG (0.000) UPDATE "auth_user" SET "last_login" = '2016-04-23 04:00:36.678000' WHERE "auth_user"."id" = 1; args=(u'2016-04-23 04:00:36.678000', 1)
+DEBUG Exception while resolving variable 'grupos' in template 'ubet/list_all_groups.html'.
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\django\template\base.py", line 905, in _resolve_lookup
+    (bit, current))  # missing attribute
+VariableDoesNotExist: Failed lookup for key [grupos] in u'[{\'False\': False, \'None\': None, \'True\': True}, {u\'csrf_token\': <SimpleLazyObject: <function _get_val at 0x03B745F0>>, \'user\': <User: pikachu>, \'perms\': <django.contrib.auth.context_processors.PermWrapper object at 0x03B7DE70>, \'DEFAULT_MESSAGE_LEVELS\': {\'DEBUG\': 10, \'INFO\': 20, \'WARNING\': 30, \'SUCCESS\': 25, \'ERROR\': 40}, \'messages\': <django.contrib.messages.storage.fallback.FallbackStorage object at 0x03B41C50>, u\'request\': <WSGIRequest: POST \'/login\'>}, {}, {\'toast\': \'Ol\\xc3\\xa1, pikachu\'}, {\'block\': <Block Node: main_content. Contents: [<TextNode: u\'\\n\\n\\t<ul id="group-list">\\n\\t\'>, <django.template.defaulttags.URLNode object at 0x03B7D4D0>, <TextNode: u\'" class="waves-effect btn\'>, <IfNode>, <TextNode: u\'\\n\\t</ul>\\n\\t\\n\'>]>}]'
+DEBUG (0.000) BEGIN; args=None
+DEBUG (0.002) UPDATE "django_session" SET "session_data" = 'MWZiZDI4MTRiZjU1YzMxYzMwYzZhNzVhMTIxNTg3NDZhYmVhODdhOTp7Il9hdXRoX3VzZXJfaGFzaCI6IjhmZGE4MTQ2Mjg1N2Q1YjUyMWIzMDBjY2FhNmE0YmVkYzM1MDE1NTAiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=', "expire_date" = '2016-05-07 04:00:36.758000' WHERE "django_session"."session_key" = '0jwxt2mk4bb4hu3uxvn1kp03rnfk4jlr'; args=(u'MWZiZDI4MTRiZjU1YzMxYzMwYzZhNzVhMTIxNTg3NDZhYmVhODdhOTp7Il9hdXRoX3VzZXJfaGFzaCI6IjhmZGE4MTQ2Mjg1N2Q1YjUyMWIzMDBjY2FhNmE0YmVkYzM1MDE1NTAiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=', u'2016-05-07 04:00:36.758000', u'0jwxt2mk4bb4hu3uxvn1kp03rnfk4jlr')
+DEBUG (0.001) INSERT INTO "django_session" ("session_key", "session_data", "expire_date") SELECT '0jwxt2mk4bb4hu3uxvn1kp03rnfk4jlr', 'MWZiZDI4MTRiZjU1YzMxYzMwYzZhNzVhMTIxNTg3NDZhYmVhODdhOTp7Il9hdXRoX3VzZXJfaGFzaCI6IjhmZGE4MTQ2Mjg1N2Q1YjUyMWIzMDBjY2FhNmE0YmVkYzM1MDE1NTAiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=', '2016-05-07 04:00:36.758000'; args=(u'0jwxt2mk4bb4hu3uxvn1kp03rnfk4jlr', u'MWZiZDI4MTRiZjU1YzMxYzMwYzZhNzVhMTIxNTg3NDZhYmVhODdhOTp7Il9hdXRoX3VzZXJfaGFzaCI6IjhmZGE4MTQ2Mjg1N2Q1YjUyMWIzMDBjY2FhNmE0YmVkYzM1MDE1NTAiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=', u'2016-05-07 04:00:36.758000')
+DEBUG (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG (0.001) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."session_key" = 'nt5v2vdj7uzyrg7px73fkpxjtxe8sl1k' AND "django_session"."expire_date" > '2016-04-23 13:04:35.130871'); args=('nt5v2vdj7uzyrg7px73fkpxjtxe8sl1k', u'2016-04-23 13:04:35.130871')
+DEBUG (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG (0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."username" = 'pikachu'; args=(u'pikachu',)
+DEBUG (0.000) SELECT (1) AS "a" FROM "django_session" WHERE "django_session"."session_key" = 's6evhaj3mrkbihf6x4ickq6vzumxjoq3' LIMIT 1; args=(u's6evhaj3mrkbihf6x4ickq6vzumxjoq3',)
+DEBUG (0.000) BEGIN; args=None
+DEBUG (0.000) INSERT INTO "django_session" ("session_key", "session_data", "expire_date") SELECT 's6evhaj3mrkbihf6x4ickq6vzumxjoq3', 'YWFiNjVkYTY0NGZkYzlmODkyYjM4OWFiMmIxMzAzZDI2MTEyNDQ4MTp7fQ==', '2016-05-07 14:40:22.924000'; args=(u's6evhaj3mrkbihf6x4ickq6vzumxjoq3', u'YWFiNjVkYTY0NGZkYzlmODkyYjM4OWFiMmIxMzAzZDI2MTEyNDQ4MTp7fQ==', u'2016-05-07 14:40:22.924000')
+DEBUG (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE "django_session"."session_key" = 's6evhaj3mrkbihf6x4ickq6vzumxjoq3'; args=(u's6evhaj3mrkbihf6x4ickq6vzumxjoq3',)
+DEBUG (0.000) BEGIN; args=None
+DEBUG (0.000) DELETE FROM "django_session" WHERE "django_session"."session_key" IN ('s6evhaj3mrkbihf6x4ickq6vzumxjoq3'); args=(u's6evhaj3mrkbihf6x4ickq6vzumxjoq3',)
+DEBUG (0.000) BEGIN; args=None
+DEBUG (0.016) UPDATE "auth_user" SET "last_login" = '2016-04-23 14:40:23.055000' WHERE "auth_user"."id" = 1; args=(u'2016-04-23 14:40:23.055000', 1)
+DEBUG Exception while resolving variable 'grupos' in template 'ubet/list_all_groups.html'.
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\django\template\base.py", line 905, in _resolve_lookup
+    (bit, current))  # missing attribute
+VariableDoesNotExist: Failed lookup for key [grupos] in u'[{\'False\': False, \'None\': None, \'True\': True}, {u\'csrf_token\': <SimpleLazyObject: <function _get_val at 0x03D93EB0>>, \'user\': <User: pikachu>, \'perms\': <django.contrib.auth.context_processors.PermWrapper object at 0x03DAD930>, \'DEFAULT_MESSAGE_LEVELS\': {\'DEBUG\': 10, \'INFO\': 20, \'WARNING\': 30, \'SUCCESS\': 25, \'ERROR\': 40}, \'messages\': <django.contrib.messages.storage.fallback.FallbackStorage object at 0x03DA37F0>, u\'request\': <WSGIRequest: POST \'/login\'>}, {}, {\'toast\': \'Ol\\xc3\\xa1, pikachu\'}, {\'block\': <Block Node: main_content. Contents: [<TextNode: u\'\\n\\n\\t<ul id="group-list">\\n\\t\'>, <django.template.defaulttags.URLNode object at 0x03DAD1F0>, <TextNode: u\'" class="waves-effect btn\'>, <IfNode>, <TextNode: u\'\\n\\t</ul>\\n\\t\\n\'>]>}]'
+DEBUG (0.000) BEGIN; args=None
+DEBUG (0.000) UPDATE "django_session" SET "session_data" = 'MWZiZDI4MTRiZjU1YzMxYzMwYzZhNzVhMTIxNTg3NDZhYmVhODdhOTp7Il9hdXRoX3VzZXJfaGFzaCI6IjhmZGE4MTQ2Mjg1N2Q1YjUyMWIzMDBjY2FhNmE0YmVkYzM1MDE1NTAiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=', "expire_date" = '2016-05-07 14:40:23.140000' WHERE "django_session"."session_key" = 's6evhaj3mrkbihf6x4ickq6vzumxjoq3'; args=(u'MWZiZDI4MTRiZjU1YzMxYzMwYzZhNzVhMTIxNTg3NDZhYmVhODdhOTp7Il9hdXRoX3VzZXJfaGFzaCI6IjhmZGE4MTQ2Mjg1N2Q1YjUyMWIzMDBjY2FhNmE0YmVkYzM1MDE1NTAiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=', u'2016-05-07 14:40:23.140000', u's6evhaj3mrkbihf6x4ickq6vzumxjoq3')
+DEBUG (0.000) INSERT INTO "django_session" ("session_key", "session_data", "expire_date") SELECT 's6evhaj3mrkbihf6x4ickq6vzumxjoq3', 'MWZiZDI4MTRiZjU1YzMxYzMwYzZhNzVhMTIxNTg3NDZhYmVhODdhOTp7Il9hdXRoX3VzZXJfaGFzaCI6IjhmZGE4MTQ2Mjg1N2Q1YjUyMWIzMDBjY2FhNmE0YmVkYzM1MDE1NTAiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=', '2016-05-07 14:40:23.140000'; args=(u's6evhaj3mrkbihf6x4ickq6vzumxjoq3', u'MWZiZDI4MTRiZjU1YzMxYzMwYzZhNzVhMTIxNTg3NDZhYmVhODdhOTp7Il9hdXRoX3VzZXJfaGFzaCI6IjhmZGE4MTQ2Mjg1N2Q1YjUyMWIzMDBjY2FhNmE0YmVkYzM1MDE1NTAiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=', u'2016-05-07 14:40:23.140000')
+DEBUG (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."session_key" = 's6evhaj3mrkbihf6x4ickq6vzumxjoq3' AND "django_session"."expire_date" > '2016-04-23 14:40:27.756000'); args=('s6evhaj3mrkbihf6x4ickq6vzumxjoq3', u'2016-04-23 14:40:27.756000')
+DEBUG (0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 1; args=(1,)
+DEBUG (0.000) SELECT "ubet_group"."id", "ubet_group"."creator_id", "ubet_group"."winner_id", "ubet_group"."name", "ubet_group"."max_size", "ubet_group"."bet_value", "ubet_group"."date_of_birth", "ubet_group"."date_of_death", "ubet_group"."status" FROM "ubet_group"; args=()
+DEBUG (0.000) SELECT "ubet_group"."id", "ubet_group"."creator_id", "ubet_group"."winner_id", "ubet_group"."name", "ubet_group"."max_size", "ubet_group"."bet_value", "ubet_group"."date_of_birth", "ubet_group"."date_of_death", "ubet_group"."status" FROM "ubet_group" WHERE "ubet_group"."status" = 'WAITING'; args=('WAITING',)
+DEBUG Exception while resolving variable 'toast' in template 'ubet/list_all_groups.html'.
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\django\template\base.py", line 905, in _resolve_lookup
+    (bit, current))  # missing attribute
+VariableDoesNotExist: Failed lookup for key [toast] in u"[{'False': False, 'None': None, 'True': True}, {u'csrf_token': <SimpleLazyObject: <function _get_val at 0x03E56DF0>>, 'user': <SimpleLazyObject: <User: pikachu>>, 'perms': <django.contrib.auth.context_processors.PermWrapper object at 0x03DEAD30>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'WARNING': 30, 'SUCCESS': 25, 'ERROR': 40}, 'messages': <django.contrib.messages.storage.fallback.FallbackStorage object at 0x03D926B0>, u'request': <WSGIRequest: GET '/list_all_groups'>}, {}, {'grupos': []}]"
+DEBUG (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."session_key" = 's6evhaj3mrkbihf6x4ickq6vzumxjoq3' AND "django_session"."expire_date" > '2016-04-23 14:40:31.168000'); args=('s6evhaj3mrkbihf6x4ickq6vzumxjoq3', u'2016-04-23 14:40:31.168000')
+DEBUG (0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 1; args=(1,)
+DEBUG (0.000) SELECT "ubet_group"."id", "ubet_group"."creator_id", "ubet_group"."winner_id", "ubet_group"."name", "ubet_group"."max_size", "ubet_group"."bet_value", "ubet_group"."date_of_birth", "ubet_group"."date_of_death", "ubet_group"."status" FROM "ubet_group" INNER JOIN "ubet_group_link" ON ("ubet_group"."id" = "ubet_group_link"."group_id") WHERE "ubet_group_link"."user_id" = 1; args=(1,)
+DEBUG (0.000) SELECT "ubet_notification"."id", "ubet_notification"."group_id", "ubet_notification"."user_id" FROM "ubet_notification" WHERE "ubet_notification"."user_id" = 1 LIMIT 21; args=(1,)
+DEBUG Exception while resolving variable 'toast' in template 'ubet/user_cp.html'.
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\django\template\base.py", line 905, in _resolve_lookup
+    (bit, current))  # missing attribute
+VariableDoesNotExist: Failed lookup for key [toast] in u"[{'False': False, 'None': None, 'True': True}, {u'csrf_token': <SimpleLazyObject: <function _get_val at 0x03D77EF0>>, 'user': <SimpleLazyObject: <User: pikachu>>, 'perms': <django.contrib.auth.context_processors.PermWrapper object at 0x03E57530>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'WARNING': 30, 'SUCCESS': 25, 'ERROR': 40}, 'messages': <django.contrib.messages.storage.fallback.FallbackStorage object at 0x03DAD0D0>, u'request': <WSGIRequest: GET '/user_cp'>}, {}, {'notification': [], 'user': <SimpleLazyObject: <User: pikachu>>, 'user_groups': [<Group: 1>, <Group: 2>, <Group: agora vai caraio>, <Group: lords>, <Group: finalmente caraio>, <Group: mais novo grupo>, <Group: agora eu sei que vai>, <Group: eh nois que voa bruxao>, <Group: agora eu sei que vai>, <Group: mais novo grupo>, <Group: finalmente caraio>, <Group: eh nois que voa bruxao>, <Group: mamao>, <Group: 3>]}]"
+DEBUG (0.000) SELECT "ubet_ubet_user"."id", "ubet_ubet_user"."django_user_id", "ubet_ubet_user"."full_name", "ubet_ubet_user"."date_of_birth", "ubet_ubet_user"."creditos" FROM "ubet_ubet_user" WHERE "ubet_ubet_user"."django_user_id" = 1; args=(1,)
+DEBUG (0.000) SELECT "ubet_notification"."id", "ubet_notification"."group_id", "ubet_notification"."user_id" FROM "ubet_notification" WHERE "ubet_notification"."user_id" = 1; args=(1,)
+DEBUG (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."session_key" = 's6evhaj3mrkbihf6x4ickq6vzumxjoq3' AND "django_session"."expire_date" > '2016-04-23 14:40:32.270000'); args=('s6evhaj3mrkbihf6x4ickq6vzumxjoq3', u'2016-04-23 14:40:32.270000')
+DEBUG (0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 1; args=(1,)
+DEBUG (0.000) SELECT "ubet_group"."id", "ubet_group"."creator_id", "ubet_group"."winner_id", "ubet_group"."name", "ubet_group"."max_size", "ubet_group"."bet_value", "ubet_group"."date_of_birth", "ubet_group"."date_of_death", "ubet_group"."status" FROM "ubet_group" WHERE "ubet_group"."id" = 26; args=(26,)
+DEBUG (0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" INNER JOIN "ubet_group_link" ON ("auth_user"."id" = "ubet_group_link"."user_id") WHERE "ubet_group_link"."group_id" = 26; args=(26,)
+DEBUG (0.000) SELECT "ubet_group_link"."id", "ubet_group_link"."user_id", "ubet_group_link"."group_id", "ubet_group_link"."position", "ubet_group_link"."creation_time" FROM "ubet_group_link" WHERE ("ubet_group_link"."group_id" = 26 AND "ubet_group_link"."user_id" = 1); args=(26, 1)
+DEBUG Exception while resolving variable 'error_msg' in template 'ubet/group_info.html'.
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\django\template\base.py", line 905, in _resolve_lookup
+    (bit, current))  # missing attribute
+VariableDoesNotExist: Failed lookup for key [error_msg] in u"[{'False': False, 'None': None, 'True': True}, {u'csrf_token': <SimpleLazyObject: <function _get_val at 0x03D93EB0>>, 'user': <SimpleLazyObject: <User: pikachu>>, 'perms': <django.contrib.auth.context_processors.PermWrapper object at 0x03E6B310>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'WARNING': 30, 'SUCCESS': 25, 'ERROR': 40}, 'messages': <django.contrib.messages.storage.fallback.FallbackStorage object at 0x03DA3250>, u'request': <WSGIRequest: GET '/group_info/26'>}, {}, {'toast': 'Grupo cancelado', 'warning': 'Voc\\xc3\\xaa j\\xc3\\xa1 apostou nesse grupo.', 'group': <Group: agora eu sei que vai>, 'users': [(<User: pikachu>, 1)], 'p_title': u'agora eu sei que vai', 'canBet': False, 'strinfo': 'Grupo cancelado. Apostas extornadas.'}, {'block': <Block Node: main_content. Contents: [<TextNode: u'\\n\\n'>, <IfNode>, <TextNode: u'\\n\\n'>]>}]"
+DEBUG (0.000) SELECT COUNT(*) AS "__count" FROM "auth_user" INNER JOIN "ubet_group_link" ON ("auth_user"."id" = "ubet_group_link"."user_id") WHERE "ubet_group_link"."group_id" = 26; args=(26,)
+DEBUG (0.000) 
+            SELECT name, type FROM sqlite_master
+            WHERE type in ('table', 'view') AND NOT name='sqlite_sequence'
+            ORDER BY name; args=None
+DEBUG (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+DEBUG (0.000) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."session_key" = 's6evhaj3mrkbihf6x4ickq6vzumxjoq3' AND "django_session"."expire_date" > '2016-04-23 14:41:05.685000'); args=('s6evhaj3mrkbihf6x4ickq6vzumxjoq3', u'2016-04-23 14:41:05.685000')
+DEBUG (0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 1; args=(1,)
+DEBUG (0.000) SELECT "ubet_group"."id", "ubet_group"."creator_id", "ubet_group"."winner_id", "ubet_group"."name", "ubet_group"."max_size", "ubet_group"."bet_value", "ubet_group"."date_of_birth", "ubet_group"."date_of_death", "ubet_group"."status" FROM "ubet_group" WHERE "ubet_group"."id" = 26; args=(26,)
+DEBUG (0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" INNER JOIN "ubet_group_link" ON ("auth_user"."id" = "ubet_group_link"."user_id") WHERE "ubet_group_link"."group_id" = 26; args=(26,)
+DEBUG (0.000) SELECT "ubet_group_link"."id", "ubet_group_link"."user_id", "ubet_group_link"."group_id", "ubet_group_link"."position", "ubet_group_link"."creation_time" FROM "ubet_group_link" WHERE ("ubet_group_link"."group_id" = 26 AND "ubet_group_link"."user_id" = 1); args=(26, 1)
+DEBUG Exception while resolving variable 'error_msg' in template 'ubet/group_info.html'.
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\django\template\base.py", line 905, in _resolve_lookup
+    (bit, current))  # missing attribute
+VariableDoesNotExist: Failed lookup for key [error_msg] in u"[{'False': False, 'None': None, 'True': True}, {u'csrf_token': <SimpleLazyObject: <function _get_val at 0x03A6C770>>, 'user': <SimpleLazyObject: <User: pikachu>>, 'perms': <django.contrib.auth.context_processors.PermWrapper object at 0x03E8DB10>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'WARNING': 30, 'SUCCESS': 25, 'ERROR': 40}, 'messages': <django.contrib.messages.storage.fallback.FallbackStorage object at 0x03A580D0>, u'request': <WSGIRequest: GET '/group_info/26'>}, {}, {'toast': 'Grupo cancelado', 'warning': 'Voc\\xc3\\xaa j\\xc3\\xa1 apostou nesse grupo.', 'group': <Group: agora eu sei que vai>, 'users': [(<User: pikachu>, 1)], 'p_title': u'agora eu sei que vai', 'canBet': False, 'strinfo': 'Grupo cancelado. Apostas extornadas.'}, {'block': <Block Node: main_content. Contents: [<TextNode: u'\\n\\n'>, <IfNode>, <TextNode: u'\\n\\n'>]>}]"
+DEBUG (0.000) SELECT COUNT(*) AS "__count" FROM "auth_user" INNER JOIN "ubet_group_link" ON ("auth_user"."id" = "ubet_group_link"."user_id") WHERE "ubet_group_link"."group_id" = 26; args=(26,)
+DEBUG (0.016) SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."session_key" = 's6evhaj3mrkbihf6x4ickq6vzumxjoq3' AND "django_session"."expire_date" > '2016-04-23 15:14:54.489000'); args=('s6evhaj3mrkbihf6x4ickq6vzumxjoq3', u'2016-04-23 15:14:54.489000')
+DEBUG (0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" WHERE "auth_user"."id" = 1; args=(1,)
+DEBUG (0.000) SELECT "ubet_group"."id", "ubet_group"."creator_id", "ubet_group"."winner_id", "ubet_group"."name", "ubet_group"."max_size", "ubet_group"."bet_value", "ubet_group"."date_of_birth", "ubet_group"."date_of_death", "ubet_group"."status" FROM "ubet_group" WHERE "ubet_group"."id" = 26; args=(26,)
+DEBUG (0.000) SELECT "auth_user"."id", "auth_user"."password", "auth_user"."last_login", "auth_user"."is_superuser", "auth_user"."username", "auth_user"."first_name", "auth_user"."last_name", "auth_user"."email", "auth_user"."is_staff", "auth_user"."is_active", "auth_user"."date_joined" FROM "auth_user" INNER JOIN "ubet_group_link" ON ("auth_user"."id" = "ubet_group_link"."user_id") WHERE "ubet_group_link"."group_id" = 26; args=(26,)
+DEBUG (0.000) SELECT "ubet_group_link"."id", "ubet_group_link"."user_id", "ubet_group_link"."group_id", "ubet_group_link"."position", "ubet_group_link"."creation_time" FROM "ubet_group_link" WHERE ("ubet_group_link"."group_id" = 26 AND "ubet_group_link"."user_id" = 1); args=(26, 1)
+DEBUG Exception while resolving variable 'error_msg' in template 'ubet/group_info.html'.
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\django\template\base.py", line 905, in _resolve_lookup
+    (bit, current))  # missing attribute
+VariableDoesNotExist: Failed lookup for key [error_msg] in u"[{'False': False, 'None': None, 'True': True}, {u'csrf_token': <SimpleLazyObject: <function _get_val at 0x03EB6C70>>, 'user': <SimpleLazyObject: <User: pikachu>>, 'perms': <django.contrib.auth.context_processors.PermWrapper object at 0x03F00BF0>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'WARNING': 30, 'SUCCESS': 25, 'ERROR': 40}, 'messages': <django.contrib.messages.storage.fallback.FallbackStorage object at 0x03E8DB50>, u'request': <WSGIRequest: GET '/group_info/26'>}, {}, {'toast': 'Grupo cancelado', 'warning': 'Voc\\xc3\\xaa j\\xc3\\xa1 apostou nesse grupo.', 'group': <Group: agora eu sei que vai>, 'users': [(<User: pikachu>, 1)], 'p_title': u'agora eu sei que vai', 'canBet': False, 'strinfo': 'Grupo cancelado. Apostas extornadas.'}, {'block': <Block Node: main_content. Contents: [<TextNode: u'\\n\\n'>, <IfNode>, <TextNode: u'\\n\\n'>]>}]"
+DEBUG (0.000) SELECT COUNT(*) AS "__count" FROM "auth_user" INNER JOIN "ubet_group_link" ON ("auth_user"."id" = "ubet_group_link"."user_id") WHERE "ubet_group_link"."group_id" = 26; args=(26,)

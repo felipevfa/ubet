@@ -11,10 +11,11 @@ from ubet.models import Ubet_user,User,Group,Notification
 from rayquasa.settings import TIME_TO_EXPIRE as expire
 from django.contrib import messages
 from django.template import RequestContext
-import datetime
+import datetime,logging
 from django.utils import timezone
 # Create your views here.
-
+from django.utils.translation import ugettext as _
+logger = logging.getLogger(__name__)
 @login_required()
 def list_all_groups(request):
 	if request.user.is_authenticated():
@@ -113,13 +114,14 @@ def signup(request):
 
 def login(request):
 	form = UserAuthenticationForm()
-	# logger.debug('login')
+	logger.debug('login')
+	logger.error('login')
 
 	if request.method == 'POST':
 		username = request.POST['username']
 		password = request.POST['password']
 
-
+		logger.debug(username + 'logandoo')
 		user = authenticate(username=username, password=password)
 
 		if user is not None:
@@ -134,7 +136,8 @@ def login(request):
 	else:
 		if request.user.is_active:
 			return HttpResponseRedirect(reverse(list_all_groups))
-		return render(request, 'ubet/login.html', { 'form': form })
+		msg = _("Bem Vindo")
+		return render(request, 'ubet/login.html', { 'form': form ,'toast':msg})
 
 @login_required()
 def list_all_users(request):
