@@ -4,14 +4,18 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from ubet.forms import UserSignupForm, UserAuthenticationForm,new_group_Form
 from django.contrib.auth import get_user_model, authenticate, login as auth_login, logout as auth_logout
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect,HttpResponse
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
-from ubet.models import Ubet_user,User,Group
+from ubet.models import Ubet_user,User,Group,Notification
+from rayquasa.settings import TIME_TO_EXPIRE as expire
 from django.contrib import messages
 from django.template import RequestContext
-
+import datetime
+from django.utils import timezone
 # Create your views here.
+
+@login_required()
 def list_all_groups(request):
 	if request.user.is_authenticated():
 		groups = Group.active_groups();
@@ -26,11 +30,11 @@ def list_all_groups(request):
 	form = UserAuthenticationForm()
 	return render(request, 'ubet/login.html', { 'form': form, 'toast': 'Você precisa estar logado para ver essa página. '})
 
+@login_required()
 def new_group(request):
 	error_msg = { 'size_error': "",
 				  'bet_error': ""
 				}
-
 	if request.method == 'POST':
 		form = new_group_Form(request.POST, request.FILES)
 		has_db_errors = False
@@ -55,12 +59,19 @@ def new_group(request):
 				return render(request, 'ubet/new_group.html', { 'form': form, 'new_groups_msg': error_msg })
 			else:
 				group = form.save(request.user)
+				return HttpResponseRedirect(reverse(bet,args=[group.id]))
+				# group.update()
 				available = [None]*group.max_size 
-
-				return render(request, 'ubet/bet.html', {'group': group, 'available': available, 'new': True })
+				# return HttpResponseRedirect(reverse(group_info,args=[group.id]))
+				if request.user.ubet_user.creditos < group.bet_value:
+					canBet = False
+					toast = 'Voce nao possui creditos para apostar nesse grupo.'
+				else:
+					toast = ""
+					canBet = True
+				return render(request, 'ubet/bet.html', {'group': group, 'available': available, 'new': True ,'canBet': canBet,'toast':toast})
 	else:
 		form = new_group_Form()
-
 	return render(request, 'ubet/new_group.html', {'form': form })
 
 def signup(request):
@@ -115,138 +126,158 @@ def login(request):
 			if user.is_active:
 				auth_login(request, user)
 				msg = "Olá, {}".format(user.username)
-				return HttpResponseRedirect(reverse(list_all_groups))
-
-				login(request, user)
-				msg = "Olá, {}".format(user.username)
-				return HttpResponseRedirect(reverse(list_all_groups))
+				return render(request,'ubet/list_all_groups.html',{'toast':msg})
 			else:
 				return render(request, 'ubet/login.html', { 'toast': 'Conta desativada.', 'form': form })
 		else:
 			return render(request, 'ubet/login.html', { 'toast': 'Combinação de usuário e senha incorreta.', 'form': form })
 	else:
+		if request.user.is_active:
+			return HttpResponseRedirect(reverse(list_all_groups))
 		return render(request, 'ubet/login.html', { 'form': form })
 
+@login_required()
 def list_all_users(request):
 	return render(request,'ubet/list_all_users.html', {'li':Ubet_user.objects.all()})
 
+@login_required()
 def logout(request):
 	# logger.debug('logout')
 	auth_logout(request)
 	return HttpResponseRedirect(reverse('login'))
 
-def profile(request,username):
-	user = lolzinUser.objects.get(nick=username)
-	liga_str = user.league.split()[0]
-	if liga_str == 'unranked':
-		liga_img_index = 0
-	else:
-		liga_img_index = lollib.ligas.index(liga_str)+1
-	contexto = {
-		'profile_user' : user,
-		'imgsrc_liga' : 'lolzin/img/rank'+str(liga_img_index)+'.png',
-		'background' : lollib.profile_background[liga_str]
-	}
-	return render(request,'lolzin/profile.html', contexto)
 
+@login_required()
 def user_cp(request):
+	user_groups = Group.groups_by_user(request.user)
+			
+	notificacoes =  Notification.objects.filter(user=request.user)
 	if request.user.is_authenticated():
-		return render(request, 'ubet/user_cp.html', { 'user': request.user, 'user_groups': Group.groups_by_user(request.user) })
+		contexto = {
+			'user': request.user, 
+			'user_groups': user_groups,
+			'notification' : notificacoes,
+		}
+		return render(request, 'ubet/user_cp.html', contexto)
 	else:
 		form = UserAuthenticationForm()
 		return render(request, 'ubet/login.html', { 'login_msg': 'Você precisa estar logado para acessar essa página.',
 												 'form': form })
 
-def group_info(request):
-	if 'g_id' in request.GET:
-		try:
-			g = Group.objects.get(id=request.GET['g_id'])
-		except ObjectDoesNotExist:
-			return render(request, 'ubet/group_info.html', { 'error_msg': 'Desculpe, não encontramos informações desse grupo.', 'p_title': 'Erro' })			
+@login_required()
+def notification(request,group_id):
+	n = Notification.objects.get(id=group_id)
+	g = n.group.id
+	n.delete()
 
-		u = g.users_by_group()
-		user_list = u[0]
-		position_list = u[1]
-		canBet = False
-		warning = ""
+	return HttpResponseRedirect(reverse(group_info,args=[g]))
+	
+@login_required()	
+def group_info(request,group_id):
+	try:
+		g = Group.objects.get(id=group_id)
+		g.update()
+	except ObjectDoesNotExist:
+		return render(request, 'ubet/group_info.html', { 'error_msg': 'Desculpe, não encontramos informações desse grupo.', 'p_title': 'Erro' })			
 
+	u = g.users_by_group()
+	user_list = u[0]
+	position_list = u[1]
+	canBet = False
+	warning = ""
+	toast = "masqbelo toast"
+	if g.status == 'WAITING':
+		remaining =  expire - (timezone.now() - g.date_of_birth).seconds / 60
+		strinfo = "Grupo ativo. Tempo restante para conclusao: " + str(remaining )+ "m."
 		if request.user in user_list:
-			warning = 'Você já apostou nesse grupo.'
+			toast = "Voce esta nese grupo"
 		else:
-			if request.user.ubet_user.creditos < g.bet_value:
-				warning = 'Você não tem créditos suficientes para apostar.'
+			toast = "Voce nao esta nesse grupo"
+	elif g.status == "FINISHED":
+		strinfo = "Grupo finalizado. Vencedor: "+ str(g.winner.first_name)
+		u = request.user
+		print u
+		print g.users_by_group()
+		if request.user in g.users_by_group()[0]:
+			if request.user != g.winner:
+				strinfo += "\n Voce perdeu: " + str(g.bet_value)
+				toast = "Voce perdeu essa aposta"
 			else:
-				canBet = True
+				strinfo += "\n Voce ganhou: " +str(g.bet_value*g.max_size)
+				toast = "Voce ganhou essa aposta"
+	elif g.status == "CANCELED":
+		strinfo = "Grupo cancelado. Apostas extornadas."
+		toast = "Grupo cancelado"
 
-		return render(request, 'ubet/group_info.html', {'group': g, 'users': zip(user_list, position_list), 'p_title': g.name, 'canBet': canBet, 'warning': warning })
+	if request.user in user_list:
+		warning = 'Você já apostou nesse grupo.'
+	else:
+		if request.user.ubet_user.creditos < g.bet_value:
+			warning = 'Você não tem créditos suficientes para apostar.'
+		else:
+			canBet = True
 
-	return render(request, 'ubet/group_info.html', { 'error_msg': 'Desculpe, ocorreu um erro.', 'p_title': 'Erro'})
+	if g.status == "CANCELED":
+		canBet = False
+	contexto = {'group': g, 
+		'users': zip(user_list, position_list), 
+		'p_title': g.name, 
+		'canBet': canBet, 
+	 	'warning': warning ,
+	 	'strinfo' : strinfo,
+	 	'toast' : toast,
+	 }
+	return render(request, 'ubet/group_info.html',contexto )
+
 
 	#else:
 	#	form = UserAuthenticationForm()
 	#	return render(request, reverse('login'), { 'login_msg': 'Você precisa conectar-se para ver os grupos.',
 	#												'form': form })
 
-def bet(request):
+@login_required()
+def bet(request,group_id):
 	# Se há um novo grupo sendo criado, recupera ele através de Sessions.
-	if request.method == 'POST':
+	if request.method == 'GET':
 		try:
-			group = Group.objects.get(id=request.POST.get("g_id", -1))
+			group = Group.objects.get(id=group_id)
 		except ObjectDoesNotExist:
 			group = None
-
 		# Verifica se o grupo foi encontrado.
 		if group is not None:
-
-			canBet = True
-			warning = ''	
-
-			ul = group.users_by_group()
+			ul = group.publicnames_by_group()
 			users = ul[0]
 			positions = ul[1]
-			user_list = zip(users, positions)	
+			user_list = zip(users, positions)		
+			# 	# Verifica se o usuário tem mesmo créditos para apostar
+			available = [None]*group.max_size
 
-			# Verifica se foi chamada para concretizar uma aposta.
-			if request.POST.get("betting", False):
-				bet_pos = request.POST.get("bet_position", False)
-				
-				# Verifica se o usuário tem mesmo créditos para apostar.
-				if request.user.ubet_user.creditos >= group.bet_value and bet_pos:
-					added_to_group = group.add_user(request.user, bet_pos)
-
-					# Verifica se a posição do usuário está mesmo livre, caso contrário, ele não é adicionado ao grupo.
-					if added_to_group:
-						bet_success = request.user.ubet_user.bet(group.bet_value)
-						
-						# Verifica que a alteração nos créditos foi feita com sucesso.
-						if bet_success:
-							toast = "Você apostou na posição " + str(bet_pos)
-
-							# Atualizando a lista de apostadores e posições disponiveis.
-							ul = group.users_by_group()
-							users = ul[0]
-							positions = ul[1]
-							user_list = zip(users, positions)
-
-							canBet = False
-							warning = 'Você já apostou nesse grupo.'
-						else:
-							toast = 'Houve um problema com sua aposta.'
-					else:
-						toast = 'Você tentou apostar numa posição ocupada.' + str(bet_pos)
-				else:
-					toast = 'Você não tem créditos para apostar nesse grupo.'
-					canBet = False
-				
-				return render(request, 'ubet/group_info.html', { 'group': group, 'users': user_list, 'p_title': group.name, 'canBet': canBet, 'toast': toast, 'warning': warning })
-
-			else:
-				# Caso contrário, mostra as posições possíveis para aposta.
-				available = [None]*group.max_size
-
-				for (u, p) in user_list:
-					available[p-1] = u
-
-				return render(request, 'ubet/bet.html', { 'group': group, 'available': available })
-
-	return HttpResponseRedirect(reverse('list_all_groups'))
+			for (u, p) in user_list:
+				available[p-1] = u
+			x = group.possible_bet(request.user)
+			canBet = x[0]
+			reason = x[1]
+			contexto = {
+				'group' : group,
+				'available' : available,
+				'canBet' : canBet,
+				'reason' : reason
+			}
+			return render(request, 'ubet/bet.html', contexto)
+	elif request.method == 'POST':
+		try:
+			print 'mamao'
+			betpos = request.POST['bet_position']
+			g = Group.objects.get(id=group_id)
+			b = request.user.ubet_user.bet(g,betpos)
+			if b[0]:
+				print 'melao'
+				return HttpResponseRedirect(reverse(group_info,args=[g.id]))
+			contexto = {
+				'toast' : b[1],
+			}
+			return render(request,'ubet/list_all_groups.html',contexto)
+		except:
+			print 'limao'
+			raise
+	return HttpResponse("welcome to limbo")

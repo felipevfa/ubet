@@ -12,10 +12,15 @@ m
 	<p>{{ error_msg }}</p>
 
 {% else %}
-
-	<p><strong>Nome do Grupo:</strong> {{ group.name }}</p>
+	
+	<strong>Nome do Grupo:</strong> {{ group.name }}
+	<p><strong>Status:</strong> {{ strinfo }}</p>
 	<p><strong>Valor da Aposta:</strong> {{ group.bet_value }}</p>
 	<p><strong>Quantidade de Membros:</strong> {{ group.cur_size }} / {{ group.max_size }}</p>
+	<p><strong>Data de finalizacao:</strong> {{ group.date_of_death }} </p>
+	<!-- {% if group.date_of_death %} -->
+	<!-- {% endif %} -->
+
 	<p><strong>Membros:</strong>
 
 	<ul>
@@ -29,9 +34,8 @@ m
 	</ul>
 
 	{% if canBet %}
-		<form name="bet-form" method="POST" action="{% url 'bet' %}" class="form">
+		<form name="bet-form" method="GET" action="{% url 'bet' group.id %}" class="form">
 			{% csrf_token %}
-			<input type="hidden" name="g_id" value="{{ group.id }}">
 			
 			<div class="input-field">
 				<button type="submit" class="btn waves-effect">Apostar</button>

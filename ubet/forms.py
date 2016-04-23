@@ -40,6 +40,7 @@ class UserSignupForm(UserCreationForm):
 		help_texts = {
 			'username' : '',
 		}
+	# nascimento.widget.attrs = {'type' : 'date'}
 
 
 	def __init__(self, *args, **kwargs):

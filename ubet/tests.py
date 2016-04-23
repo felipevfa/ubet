@@ -1,3 +1,5 @@
+# coding: utf-8
+import rayquasa.settings
 from django.test import TransactionTestCase
 from django.contrib.auth import authenticate, login
 # Create your tests here.
@@ -16,18 +18,17 @@ def random_string(arg):
 	return ''.join(sample(string.lowercase+string.digits,arg))
 
 
-
-client = Client()
-class testes(TransactionTestCase):
-		###
-		#	Cria usuario aleatorio e salva no banco
-		###
-	def random_user(self,username=None,creditos=100):
+def random_user(username=None,creditos=None,dt=None):
 		
 		x = Ubet_user()
 		x.full_name = random_string(30)
-		x.creditos = 100
-		x.date_of_birth = datetime.date(randint(1900,2000),randint(1,12),randint(1,28))
+		if creditos is None:
+			creditos = 100
+		x.creditos = creditos
+		if dt is None:
+			dt = datetime.date(randint(1900,2000),randint(1,12),randint(1,28))
+		x.date_of_birth = dt
+		
 		email = random_string(6) + '@' +random_string(6) + '.com'
 		password = "senhaforte"
 		if username is None:
@@ -43,18 +44,24 @@ class testes(TransactionTestCase):
 		x.save()
 		u.save()
 		return u 
-	def grupo_aleatorio(self,nome=None,bet_value=10,max_size=10):
-		if nome is None:
-			nome = random_string(4)
-		x = Group()
-		x.bet_value = bet_value
-		x.max_size = max_size
-		x.name = nome
-		x.save() 
-		return x
+def random_group(nome=None,bet_value=10,max_size=10):
+	if nome is None:
+		nome = random_string(4)
+	x = Group()
+	x.bet_value = bet_value
+	x.max_size = max_size
+	x.name = nome
+	x.save() 
+	return x
+client = Client()
+class testes(TransactionTestCase):
+		###
+		#	Cria usuario aleatorio e salva no banco
+		###
+	
 	def test_usuario(self):
 
-		u = self.random_user()
+		u = random_user()
 		username = u.username
 		full_name = u.ubet_user.full_name
 		date_of_birth = u.ubet_user.date_of_birth
@@ -89,14 +96,14 @@ class testes(TransactionTestCase):
 		#####################################################################
 		#	gerando users e grupos aleatorios,							 	#
 		#####################################################################
-		username = self.random_user(username='username1').username
-		username2 = self.random_user(username='username2').username
-		username3 = self.random_user(username='username3').username
+		username = random_user(username='username1').username
+		username2 = random_user(username='username2').username
+		username3 = random_user(username='username3').username
 		
-		nome_do_grupo = self.grupo_aleatorio(nome='nome_do_grupo1')
-		nome_do_grupo2 = self.grupo_aleatorio(nome='nome_do_grupo2')
-		nome_do_grupo3 = self.grupo_aleatorio(nome='nome_do_grupo3')
-		nome_do_grupo4 = self.grupo_aleatorio(nome='nome_do_grupo4')
+		nome_do_grupo = random_group(nome='nome_do_grupo1')
+		nome_do_grupo2 = random_group(nome='nome_do_grupo2')
+		nome_do_grupo3 = random_group(nome='nome_do_grupo3')
+		nome_do_grupo4 = random_group(nome='nome_do_grupo4')
 		
 		user = User.objects.get(username=username)
 		user2 = User.objects.get(username=username2)
@@ -198,7 +205,7 @@ class testes(TransactionTestCase):
 		l = random.sample(range(1,10),5)
 		x = []
 		for i in l:
-			usename = self.random_user().username
+			usename = random_user().username
 			user = User.objects.get(username=usename)
 			x.append(user)
 			meu_grupo4.add_user(user,i)
@@ -206,7 +213,7 @@ class testes(TransactionTestCase):
 			self.assertFalse(i in meu_grupo4.available_positions())
 		
 		for i in l:
-			usename = self.random_user().username
+			usename = random_user().username
 			self.assertRaises(Exception,meu_grupo4.add_user,(User.objects.get(username=usename),i))
 
 
@@ -218,8 +225,8 @@ class testes(TransactionTestCase):
 			self.assertTrue(Group_link.objects.get(user=u,group=meu_grupo4).position == p)
 
 
-		user_list = [ User.objects.get(username=self.random_user().username) for i in range(10) ]
-		g = self.grupo_aleatorio()
+		user_list = [ User.objects.get(username=random_user().username) for i in range(10) ]
+		g = random_group()
 		g = Group.objects.get(name=g)
 		for u,i in zip(user_list,range(1,11)):
 			g.add_user(u,i)
@@ -231,12 +238,119 @@ class testes(TransactionTestCase):
 		#	Verifica se os enderecos disponiveis estao dando certo.
 		#	Alguns enderecos devem ser encontrados apenas por usuarios, mas agora nao esta assim.
 		##
+		u = random_user()
+		self.client.login(username=u.username,password='senhaforte')
+		g = random_group()
+		r = self.client.get(reverse('user_cp')).content
+		self.assertTrue(u.first_name in r)
+		# self.assertTrue(u.email.split('@')[0] in r)
+		print '############ ',
+		print u.username,
+		print  ' ############'
+		self.assertTrue( str(u.ubet_user.date_of_birth.day) in r)
+		self.assertTrue( str(u.ubet_user.date_of_birth.month) in r)
+		self.assertTrue( str(u.ubet_user.date_of_birth.year) in r)
+		self.assertTrue( str(u.date_joined.day) in r)
+		self.assertTrue( str(u.date_joined.month) in r)
+		self.assertTrue( str(u.date_joined.year) in r)
+		self.assertTrue( str(u.ubet_user.creditos) in r)
+		self.assertTrue( str(u.first_name) in r)
+		self.assertTrue( str(u.ubet_user.full_name) in r)
+		g.delete()
+
+	def test_new_group(self):
+		cx = {
+			'bet_value' : '10',
+			'max_size' : 10,
+			'name' : 'meugrupo',
+		}
+		u = random_user()
+		self.client.login(username=u.username,password='senhaforte')
+		r = self.client.post(reverse('new_group'),data=cx,follow=False)
 		
-		self.assertEqual(200,client.get('').status_code)
-		self.assertEqual(200,client.get(reverse('signup')).status_code)
-		self.assertEqual(200,client.get(reverse('login')).status_code)
-		self.assertEqual(200,client.get(reverse('list_all_users')).status_code)
-		self.assertEqual(200,client.get(reverse('list_all_groups')).status_code)
+		self.assertTrue(Group.objects.get(name='meugrupo'))
+	def test_new_group_bet_fail(self):
+		cx = {
+			'bet_value' : '-1',
+			'max_size' : 10,
+			'name' : 'meugrupo',
+		}
+		u = random_user()
+		self.client.login(username=u.username,password='senhaforte')
+		r = self.client.post(reverse('new_group'),data=cx,follow=False)
+		self.assertTrue('' != r.context['new_groups_msg']['bet_error'])
+		self.assertTrue(len(Group.objects.all()) == 0)
+	def test_new_group_size_fail(self):
+		cx = {
+			'bet_value' : '1',
+			'max_size' : 1,
+			'name' : 'meugrupo',
+		}
+		u = random_user()
+		self.client.login(username=u.username,password='senhaforte')
+		r = self.client.post(reverse('new_group'),data=cx,follow=False)
+		self.assertTrue('' != r.context['new_groups_msg']['size_error'])
+		self.assertTrue(len(Group.objects.all()) == 0)
+	# def test_aposta_finished(self):
+	# 	apostadores = 10
+	# 	user_list = [random_user(creditos=100) for i in range(apostadores)]
+
+	# 	g = random_group(max_size=apostadores,bet_value=1)
+
+	# 	for i,u in enumerate(user_list,1):
+	# 		self.client.login(username=u.username,password='senhaforte')
+	# 		cx = {
+	# 			'bet_position' : i
+	# 		}
+	# 		r = self.client.post(reverse('bet',args=[1]),cx)
+		
+	# 	g.update()
+	# 	win = 0
+	# 	lose = 0
+	# 	for u in User.objects.all():
+	# 		if u.ubet_user.creditos == 99:
+	# 			lose += 1
+	# 		elif u.ubet_user.creditos == 100 + apostadores-1:
+	# 			win += 1
+	# 	self.assertEqual(lose,apostadores-1)
+	# 	self.assertEqual(win,1)
+	# 	self.assertEqual(g.cur_size(),apostadores)
+	# 	self.assertEqual(g.status,"FINISHED")
+
+	# def test_aposta_canceled(self):
+	# 	apostadores = 9
+	# 	user_list = [random_user(creditos=100) for i in range(apostadores)]
+
+	# 	g = random_group(max_size=apostadores+1,bet_value=1)
+
+	# 	for i,u in enumerate(user_list,1):
+	# 		self.client.login(username=u.username,password='senhaforte')
+	# 		cx = {
+	# 			'bet_position' : i
+	# 		}
+	# 		r = self.client.post(reverse('bet',args=[1]),cx)
+	# 	g.date_of_birth = datetime.datetime(1,1,1)
+	# 	g.update()
+	# 	win = 0
+	# 	anomalia = 0
+	# 	lose = 0
+	# 	normal = 0
+	# 	for u in User.objects.all():
+	# 		if u.ubet_user.creditos == 99:
+	# 			lose += 1
+	# 		elif u.ubet_user.creditos == 100 + apostadores-1:
+	# 			win += 1
+	# 		elif u.ubet_user.creditos == 100 :
+	# 			normal += 1
+	# 		else:
+	# 			anomalia += 1
+	# 	self.assertEqual(g.status,"CANCELED")
+	# 	self.assertEqual(lose,0)
+	# 	self.assertEqual(win,0)
+	# 	self.assertEqual(anomalia,0)
+	# 	self.assertEqual(normal,apostadores)
+
+	# 	self.assertEqual(g.cur_size(),apostadores)
 
 	def test_signupform(self):
 		password = random_string(8)
@@ -265,11 +379,12 @@ class testes(TransactionTestCase):
 
 	def test_view(self):
 		response = client.get(reverse('login'))
-		# g = self.grupo_aleatorio(nome="novo grup",bet_value=10,max_size=2)
-		u = self.random_user(username="user",creditos=100)
+		# g = random_group(nome="novo grup",bet_value=10,max_size=2)
+		u = random_user(username="user",creditos=100)
 		g = u.ubet_user.create_group(name="novo grupo", bet_value=10,max_size=2)
 		#	nao eh pq ele cria o grupo que esta apostando
 		self.assertEqual(100,User.objects.get(username="user").ubet_user.creditos)
 
 
-
+	def test_datetime(self):
+		u = random_user(dt=datetime.datetime(1,1,1))

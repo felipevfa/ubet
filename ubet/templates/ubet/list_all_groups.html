@@ -5,24 +5,28 @@
 {% block main_content %}
 
 	<ul id="group-list">
-	<a href="{%url 'new_group' %}" class="waves-effect btn">Criar grupo</a>
-	{% for g in grupos %}
-		<li onclick="window.location.href='{% url 'group_info' %}?g_id={{g.id}}'">
-			<div class="card-panel">
-				<div class="group-info left">
-					<h5 class="group-name">{{g.name}}</h5> 
-					<p><strong>Membros:</strong> {{ g.cur_size }} / {{ g.max_size }}</p>
-					<p><strong>Valor da Aposta:</strong> {{ g.bet_value }}</p>
-				</div>
-				
-				<div class="group-options right">
-					<a href="{% url 'group_info' %}?g_id={{g.id}}" class="waves-effect btn">Ver mais</a>
-				</div>
-			
-				<div class="clear"></div>
-			</div>
-		</li>
-	{%endfor%}
+		<a href="{%url 'new_group' %}" class="waves-effect btn">Criar grupo</a>
+		{% if grupos %}
+			{% for g in grupos %}
+				<li onclick="window.location.href= '{% url 'group_info' g.id%}' ">
+					<div class="card-panel">
+						<div class="group-info left">
+							<h5 class="group-name">{{g.name}}</h5> 
+							<p><strong>Membros:</strong> {{ g.cur_size }} / {{ g.max_size }}</p>
+							<p><strong>Valor da Aposta:</strong> {{ g.bet_value }}</p>
+						</div>
+						
+						<div class="group-options right">
+							<a href="{% url 'group_info' g.id%}" class="waves-effect btn">Ver mais</a>
+						</div>
+					
+						<div class="clear"></div>
+					</div>
+				</li>
+			{%endfor%}
+		{% else %}
+			<li > Nao ha grupos ativos no momento. </li>
+		{% endif %}
 	</ul>
 	
 {% endblock main_content %}

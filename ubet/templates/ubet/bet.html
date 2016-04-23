@@ -2,16 +2,13 @@
 
 {% block page_title %} Aposta {% endblock page_title %}
 
-{% block menu_action %} <a href="{% url 'group_info' %}?g_id={{ group.id }}" class="nav-collapse"><i class="material-icons">arrow_back</i></a> {% endblock menu_action %}
+{% block menu_action %} <a href="{% url 'group_info' group.id%}" class="nav-collapse"><i class="material-icons">arrow_back</i></a> {% endblock menu_action %}
 
 {% block main_content %} 
 	<p>Apostando no grupo <strong>{{group.name}}</strong>.</p>
 
-	<form id="bet-position-form" name="betPosition" enctype="multiform/form-data" method="POST" action="{% url 'bet' %}" class="form">
+	<form id="bet-position-form" name="betPosition" enctype="multiform/form-data" method="POST" action="{% url 'bet' group.id %}" class="form">
 		{% csrf_token %}
-
-		<input type="hidden" name="g_id" value="{{group.id}}">
-		<input type="hidden" name="betting" value="True">
 
 		<label for="positions">Escolha uma posição para apostar:</label>
 		
@@ -19,7 +16,7 @@
 				<div class="input-field">
 					{% if p %}
 							<input id="position-{{forloop.counter}}" type="radio" name="bet_position" value={{ forloop.counter }} class="with-gap" disabled="disabled">
-							<label for="position-{{ forloop.counter }}" class="red-text">Posição {{ forloop.counter }}: {{p.username}}</label>
+							<label for="position-{{ forloop.counter }}" class="red-text">Posição {{ forloop.counter }}: {{p}}</label>
 					{% else %}
 							<input id="position-{{forloop.counter}}" type="radio" name="bet_position" value={{ forloop.counter }} class="with-gap">
 							<label for="position-{{ forloop.counter }}" class="green-text">Posição {{ forloop.counter }}: Livre</label>
@@ -28,8 +25,12 @@
 			{% endfor %}
 
 		<div class="input-field center-align col s6" id="bet-options">
-			<button type="submit" id="bet-btn" class="btn waves-effect col s6">Apostar</button>
-			<a href="{% url 'group_info' %}?g_id={{ group.id }}" class="btn waves-effect red">{% if not new %} Cancelar {% else %} Não quero apostar {% endif %}</a>
+			{%if canBet %}
+				<button type="submit" id="bet-btn" class="btn waves-effect col s6">Apostar</button>
+			{% else %}
+				<button type="submit" disabled="True" id="bet-btn" class="btn waves-effect col s6 grey">{{reason}}</button>
+			{% endif %}
+			<a href="{% url 'group_info' group.id%}" class="btn waves-effect red">{% if not new %} Cancelar {% else %} Não quero apostar agora {% endif %}</a>
 		</div>
 
 		{% block fab %} {% endblock %}

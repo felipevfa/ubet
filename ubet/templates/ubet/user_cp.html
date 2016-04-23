@@ -4,7 +4,7 @@
 
 {% block main_content %}
 	<ul>
-		<li><strong>Apelido:</strong> {{ user.first_name }}</li>
+		<li><strong>Nome Publico:</strong> {{ user.first_name }}</li>
 		<li><strong>Nome Completo:</strong> {{ user.ubet_user.full_name }}</li>
 		<li><strong>E-mail:</strong> {{ user.email }}</li>
 		<li><strong>Data de Nascimento:</strong> {{ user.ubet_user.date_of_birth|date:"d/m/Y" }}</li>
@@ -13,11 +13,21 @@
 
 	<ul>
 		<li><strong>Créditos:</strong> {{ user.ubet_user.creditos }}</li>
-		<li><strong>Meus grupos:</strong></li>
+		<li><strong>Historico de grupos:</strong></li>
 		<ul>
 			{% for g in user_groups %}
-				<li><a href="{% url 'group_info' %}?g_id={{g.id}}">{{ g.name }}</a></li>
+				<li><a href="{% url 'group_info' g.id %}">{{ g.name }}</a></li>
 			{% endfor %}
+		</ul>
+		{% if notification %}
+			<li><strong>Resultados recentes:</strong></li>
+			<ul>
+				{% for n in notification %}
+					<li><a href="{% url 'notification' n.id %}">{{ n.group.name }}</a></li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+
 	</ul>
 
 
