@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect,HttpResponse
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
 from ubet.models import Ubet_user,User,Group,Notification
-from rayquasa.settings import TIME_TO_EXPIRE as expire
+from rayquasa.settings import TIME_TO_EXPIRE,GROUP_MAX_CAPATICY as expire,gmaxcap
 from django.contrib import messages
 from django.template import RequestContext
 import datetime,logging
@@ -29,7 +29,7 @@ def list_all_groups(request):
 		return render(request,'ubet/list_all_groups.html', {'grupos': groups })
 
 	form = UserAuthenticationForm()
-	return render(request, 'ubet/login.html', { 'form': form, 'toast': 'Você precisa estar logado para ver essa página. '})
+	return render(request, 'ubet/login.html', { 'form': form, 'toast': _('You need to be logged in to access this page.')})
 
 @login_required()
 def new_group(request):
@@ -48,11 +48,11 @@ def new_group(request):
 		#		has_db_errors = True
 
 			if errors['max_size_error']:
-				error_msg['size_error'] = 'O grupo deve ter de 1 a 10 membros.'
+				error_msg['size_error'] = _('A group must have two members at least, and at most '+ str(gmaxcap))
 				has_db_errors = True
 
 			if errors['bet_value_error']:
-				error_msg['bet_error'] = 'O valor da aposta deve ser maior que 0.'
+				error_msg['bet_error'] = _('The bet must has a positive value.')
 				has_db_errors = True
 
 
@@ -66,7 +66,7 @@ def new_group(request):
 				# return HttpResponseRedirect(reverse(group_info,args=[group.id]))
 				if request.user.ubet_user.creditos < group.bet_value:
 					canBet = False
-					toast = 'Voce nao possui creditos para apostar nesse grupo.'
+					toast = _('Not enough credits')
 				else:
 					toast = ""
 					canBet = True
@@ -87,11 +87,11 @@ def signup(request):
 			errors = form.check_values()
 
 			if errors['user_error']:
-				error_msg = error_msg + 'Usuário já cadastrado.<br>'
+				error_msg = error_msg + _('Username taken') + '.<br>'
 				has_db_errors = True
 
 			if errors['email_error']:
-				error_msg = error_msg + 'E-mail já cadastrado.<br>'
+				error_msg = error_msg + _('E-mail taken') + '.<br>'
 				has_db_errors = True
 
 			if has_db_errors:
@@ -130,13 +130,13 @@ def login(request):
 				msg = "Olá, {}".format(user.username)
 				return render(request,'ubet/list_all_groups.html',{'toast':msg})
 			else:
-				return render(request, 'ubet/login.html', { 'toast': 'Conta desativada.', 'form': form })
+				return render(request, 'ubet/login.html', { 'toast': _('Account disabled'), 'form': form })
 		else:
-			return render(request, 'ubet/login.html', { 'toast': 'Combinação de usuário e senha incorreta.', 'form': form })
+			return render(request, 'ubet/login.html', { 'toast': _('Username and assword do not match'), 'form': form })
 	else:
 		if request.user.is_active:
 			return HttpResponseRedirect(reverse(list_all_groups))
-		msg = _("Bem Vindo")
+		msg = _("Welcome")
 		return render(request, 'ubet/login.html', { 'form': form ,'toast':msg})
 
 @login_required()
@@ -164,7 +164,7 @@ def user_cp(request):
 		return render(request, 'ubet/user_cp.html', contexto)
 	else:
 		form = UserAuthenticationForm()
-		return render(request, 'ubet/login.html', { 'login_msg': 'Você precisa estar logado para acessar essa página.',
+		return render(request, 'ubet/login.html', { 'login_msg': _('Only logged users can access this page'),
 												 'form': form })
 
 @login_required()
@@ -181,7 +181,7 @@ def group_info(request,group_id):
 		g = Group.objects.get(id=group_id)
 		g.update()
 	except ObjectDoesNotExist:
-		return render(request, 'ubet/group_info.html', { 'error_msg': 'Desculpe, não encontramos informações desse grupo.', 'p_title': 'Erro' })			
+		return render(request, 'ubet/group_info.html', { 'error_msg': _('Sorry, this grops does not exist.'), 'p_title': 'Erro' })			
 
 	u = g.users_by_group()
 	user_list = u[0]
@@ -191,27 +191,28 @@ def group_info(request,group_id):
 	toast = "masqbelo toast"
 	if g.status == 'WAITING':
 		remaining =  expire - (timezone.now() - g.date_of_birth).seconds / 60
-		strinfo = "Grupo ativo. Tempo restante para conclusao: " + str(remaining )+ "m."
+		strinfo = _("Active group. Time remaining for conclusion: ") + str(remaining )+ "m."
 		if request.user in user_list:
-			toast = "Voce esta nese grupo"
+			toast = _("You are in this group")
 		else:
-			toast = "Voce nao esta nesse grupo"
+			toast = _("You are not in this group")
 	elif g.status == "FINISHED":
-		strinfo = "Grupo finalizado. Vencedor: "+ str(g.winner.first_name)
+		strinfo = _("Group finished. The winner is: ")+ str(g.winner.first_name)
 		u = request.user
 		if request.user in g.users_by_group()[0]:
+			strinfo += '\n'
 			if request.user != g.winner:
-				strinfo += "\n Voce perdeu: " + str(g.bet_value)
+				strinfo +=  _("Voce perdeu: ")  + str(g.bet_value)
 				toast = "Voce perdeu essa aposta"
 			else:
-				strinfo += "\n Voce ganhou: " +str(g.bet_value*g.max_size)
-				toast = "Voce ganhou essa aposta"
+				strinfo += _("Voce ganhou: ") +str(g.bet_value*g.max_size)
+				toast = _("Voce ganhou essa aposta")
 	elif g.status == "CANCELED":
-		strinfo = "Grupo cancelado. Apostas extornadas."
-		toast = "Grupo cancelado"
+		strinfo = _("Grupo cancelado. Apostas extornadas.")
+		toast = _("Grupo cancelado")
 
 	if request.user in user_list:
-		warning = 'Você já apostou nesse grupo.'
+		warning = _('Você já apostou nesse grupo.')
 	else:
 		if request.user.ubet_user.creditos < g.bet_value:
 			warning = 'Você não tem créditos suficientes para apostar.'
