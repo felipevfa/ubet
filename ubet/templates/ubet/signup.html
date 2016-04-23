@@ -1,26 +1,24 @@
 {% extends "ubet/base.html" %}
-
+{% load i18n %}
 {% block menu %} {% endblock menu %}
 
 {% block main_content %}
-	<main class="container">
-		<h1 class="center-align">Cadastro</h1>
-		<div class="hidden" id="toast">{{ toast }}</div>
+		<div class="form-wrapper">
+			<h1 class="center-align">{% trans "Register" %}</h1>
 
-		<div class="form-holder"> 
-			<form enctype="multipart/form-data"  action="{% url 'signup' %}" method="POST" name="signup-form" class="form">
+			<form enctype="multipart/form-data"  action="{% url 'signup' %}" method="POST" name="signup-form" class="form" id="signup-form">
 				{% csrf_token %}
 
 				<ul id="form-fields">{{ form.as_ul }}</ul>				
 
-				<div class="btn-wrapper">
-					<input type="submit" value="Concluir Cadastro" class="submit-button btn" id="signup-btn">
-					
-					<a href="{% url 'login' %}" class="btn" id="signup-btn">Cancelar</a>
-				</div>
-			</form>
+				<div class="input-field center-align">
+					<input type="submit" value="{% trans 'Submit' %}"  class="submit-button btn" id="signup-btn">
 
+					<a href="{% url 'login' %}" class="btn-flat">{% trans "Cancel" %}</a>
+				</div>
+					
+				
+			</form>
 		</div>	
-	</main>
 {% endblock %}
 

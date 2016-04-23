@@ -20,11 +20,24 @@ var toast = function() {
 	}
 };
 
-correct_forms();
-toast();
-
 $(document).ready(function() {
+	correct_forms();
+	toast();
+	
 	$(".button-collapse").sideNav();
+	
 	$('select').material_select();
+	
+	if ($('.datepicker')) {
+		$('.datepicker').pickadate({
+		selectMonths: true,
+		selectYears: 60,
+		max: true
+		});
+	}
+
+	if ($('#group-list')) {
+		$('main').removeClass('container');
+	}
 });
 
