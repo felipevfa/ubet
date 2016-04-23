@@ -8,7 +8,8 @@ from django.http import HttpResponseRedirect,HttpResponse
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
 from ubet.models import Ubet_user,User,Group,Notification
-from rayquasa.settings import TIME_TO_EXPIRE,GROUP_MAX_CAPATICY as expire,gmaxcap
+from rayquasa.settings import TIME_TO_EXPIRE as expire 
+from rayquasa.settings import GROUP_MAX_CAPACITY as gmaxcap
 from django.contrib import messages
 from django.template import RequestContext
 import datetime,logging

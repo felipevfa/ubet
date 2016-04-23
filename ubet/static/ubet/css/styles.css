@@ -128,6 +128,11 @@ nav {
 	right: 0%;
 }
 
+.no-groups {
+	background-color: white;
+	padding: 1em;
+}
+
 @media (max-width: 600px) {
 	#group-list-controller .row { width: 100%; }
 	#group-list-wrapper { width: 93%; }

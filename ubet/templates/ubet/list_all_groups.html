@@ -33,7 +33,9 @@
 				{%endfor%}
 			</ul>
 		{% else %}
-			<p>{% trans "There are no active groups." %}</p>
+			<div class="card-panel">
+				<p>{% trans "There are no active groups." %}</p>
+			</div>
 		{% endif %}
 		
 	</div>
