@@ -77,14 +77,13 @@ class Group(models.Model):
 					self.winner.ubet_user.save()
 				else:
 					self.status = 'CANCELED'
-					self.date_of_death = datetime.datetime.now()
+					self.date_of_death = timezone.now()
 					
 					for user in self.users.all():
 						user.ubet_user.creditos += self.bet_value
 						user.ubet_user.save()
 						user.save()
 				for u in self.users.all():
-					print 
 					a = Notification(group = self,user=u)
 					a.save()
 				self.save()

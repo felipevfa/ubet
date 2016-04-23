@@ -14,6 +14,7 @@ setup_test_environment()
 from django.test import Client
 from django.core.urlresolvers import reverse
 from django.db import IntegrityError
+import pytz
 def random_string(arg):
 	return ''.join(sample(string.lowercase+string.digits,arg))
 
@@ -244,9 +245,6 @@ class testes(TransactionTestCase):
 		r = self.client.get(reverse('user_cp')).content
 		self.assertTrue(u.first_name in r)
 		# self.assertTrue(u.email.split('@')[0] in r)
-		print '############ ',
-		print u.username,
-		print  ' ############'
 		self.assertTrue( str(u.ubet_user.date_of_birth.day) in r)
 		self.assertTrue( str(u.ubet_user.date_of_birth.month) in r)
 		self.assertTrue( str(u.ubet_user.date_of_birth.year) in r)
@@ -269,6 +267,7 @@ class testes(TransactionTestCase):
 		r = self.client.post(reverse('new_group'),data=cx,follow=False)
 		
 		self.assertTrue(Group.objects.get(name='meugrupo'))
+		self.assertTrue(len(Group.objects.all()) != 0)
 	def test_new_group_bet_fail(self):
 		cx = {
 			'bet_value' : '-1',
@@ -291,66 +290,66 @@ class testes(TransactionTestCase):
 		r = self.client.post(reverse('new_group'),data=cx,follow=False)
 		self.assertTrue('' != r.context['new_groups_msg']['size_error'])
 		self.assertTrue(len(Group.objects.all()) == 0)
-	# def test_aposta_finished(self):
-	# 	apostadores = 10
-	# 	user_list = [random_user(creditos=100) for i in range(apostadores)]
+	def test_aposta_finished(self):
+		apostadores = 10
+		user_list = [random_user(creditos=100) for i in range(apostadores)]
 
-	# 	g = random_group(max_size=apostadores,bet_value=1)
+		g = random_group(max_size=apostadores,bet_value=1)
 
-	# 	for i,u in enumerate(user_list,1):
-	# 		self.client.login(username=u.username,password='senhaforte')
-	# 		cx = {
-	# 			'bet_position' : i
-	# 		}
-	# 		r = self.client.post(reverse('bet',args=[1]),cx)
+		for i,u in enumerate(user_list,1):
+			self.client.login(username=u.username,password='senhaforte')
+			cx = {
+				'bet_position' : i
+			}
+			r = self.client.post(reverse('bet',args=[g.id]),cx)
 		
-	# 	g.update()
-	# 	win = 0
-	# 	lose = 0
-	# 	for u in User.objects.all():
-	# 		if u.ubet_user.creditos == 99:
-	# 			lose += 1
-	# 		elif u.ubet_user.creditos == 100 + apostadores-1:
-	# 			win += 1
-	# 	self.assertEqual(lose,apostadores-1)
-	# 	self.assertEqual(win,1)
-	# 	self.assertEqual(g.cur_size(),apostadores)
-	# 	self.assertEqual(g.status,"FINISHED")
+		g.update()
+		win = 0
+		lose = 0
+		for u in User.objects.all():
+			if u.ubet_user.creditos == 99:
+				lose += 1
+			elif u.ubet_user.creditos == 100 + apostadores-1:
+				win += 1
+		self.assertEqual(lose,apostadores-1)
+		self.assertEqual(win,1)
+		self.assertEqual(g.cur_size(),apostadores)
+		self.assertEqual(g.status,"FINISHED")
 
-	# def test_aposta_canceled(self):
-	# 	apostadores = 9
-	# 	user_list = [random_user(creditos=100) for i in range(apostadores)]
+	def test_aposta_canceled(self):
+		apostadores = 9
+		user_list = [random_user(creditos=100) for i in range(apostadores)]
 
-	# 	g = random_group(max_size=apostadores+1,bet_value=1)
+		g = random_group(max_size=apostadores+1,bet_value=1)
 
-	# 	for i,u in enumerate(user_list,1):
-	# 		self.client.login(username=u.username,password='senhaforte')
-	# 		cx = {
-	# 			'bet_position' : i
-	# 		}
-	# 		r = self.client.post(reverse('bet',args=[1]),cx)
-	# 	g.date_of_birth = datetime.datetime(1,1,1)
-	# 	g.update()
-	# 	win = 0
-	# 	anomalia = 0
-	# 	lose = 0
-	# 	normal = 0
-	# 	for u in User.objects.all():
-	# 		if u.ubet_user.creditos == 99:
-	# 			lose += 1
-	# 		elif u.ubet_user.creditos == 100 + apostadores-1:
-	# 			win += 1
-	# 		elif u.ubet_user.creditos == 100 :
-	# 			normal += 1
-	# 		else:
-	# 			anomalia += 1
-	# 	self.assertEqual(g.status,"CANCELED")
-	# 	self.assertEqual(lose,0)
-	# 	self.assertEqual(win,0)
-	# 	self.assertEqual(anomalia,0)
-	# 	self.assertEqual(normal,apostadores)
+		for i,u in enumerate(user_list,1):
+			self.client.login(username=u.username,password='senhaforte')
+			cx = {
+				'bet_position' : i
+			}
+			r = self.client.post(reverse('bet',args=[g.id]),cx)
+		g.date_of_birth = datetime.datetime(1,1,1,tzinfo=pytz.utc)
+		g.update()
+		win = 0
+		anomalia = 0
+		lose = 0
+		normal = 0
+		for u in User.objects.all():
+			if u.ubet_user.creditos == 99:
+				lose += 1
+			elif u.ubet_user.creditos == 100 + apostadores-1:
+				win += 1
+			elif u.ubet_user.creditos == 100 :
+				normal += 1
+			else:
+				anomalia += 1
+		self.assertEqual(g.status,"CANCELED")
+		self.assertEqual(lose,0)
+		self.assertEqual(win,0)
+		self.assertEqual(anomalia,0)
+		self.assertEqual(normal,apostadores)
 
-	# 	self.assertEqual(g.cur_size(),apostadores)
+		self.assertEqual(g.cur_size(),apostadores)
 
 	def test_signupform(self):
 		password = random_string(8)

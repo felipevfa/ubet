@@ -196,8 +196,6 @@ def group_info(request,group_id):
 	elif g.status == "FINISHED":
 		strinfo = "Grupo finalizado. Vencedor: "+ str(g.winner.first_name)
 		u = request.user
-		print u
-		print g.users_by_group()
 		if request.user in g.users_by_group()[0]:
 			if request.user != g.winner:
 				strinfo += "\n Voce perdeu: " + str(g.bet_value)
@@ -266,18 +264,15 @@ def bet(request,group_id):
 			return render(request, 'ubet/bet.html', contexto)
 	elif request.method == 'POST':
 		try:
-			print 'mamao'
 			betpos = request.POST['bet_position']
 			g = Group.objects.get(id=group_id)
 			b = request.user.ubet_user.bet(g,betpos)
 			if b[0]:
-				print 'melao'
 				return HttpResponseRedirect(reverse(group_info,args=[g.id]))
 			contexto = {
 				'toast' : b[1],
 			}
 			return render(request,'ubet/list_all_groups.html',contexto)
 		except:
-			print 'limao'
 			raise
 	return HttpResponse("welcome to limbo")
