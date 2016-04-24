@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-23 22:50+0000\n"
+"POT-Creation-Date: 2016-04-23 22:51+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,44 +19,44 @@ msgstr ""
 
 #: ubet/forms.py:21
 msgid "Apenas usuarios acima de 18 anos podem participar"
-msgstr "Only users above 18 can join"
+msgstr ""
 
 #: ubet/templates/ubet/group_info.html:15
 msgid "Nome do Grupo"
-msgstr "Group's Name"
+msgstr ""
 
 #: ubet/templates/ubet/group_info.html:16
 msgid "Status"
-msgstr "Status"
+msgstr ""
 
 #: ubet/templates/ubet/group_info.html:17
 msgid "Valor da Aposta"
-msgstr "Bet Value"
+msgstr ""
 
 #: ubet/templates/ubet/group_info.html:18
 msgid "Quantidade de Membros"
-msgstr "Number of Members"
+msgstr ""
 
 #: ubet/templates/ubet/group_info.html:19
 msgid "Data de finalizacao"
-msgstr "Date of termination"
+msgstr ""
 
 #: ubet/templates/ubet/group_info.html:23
 msgid "Membros"
-msgstr "Members"
+msgstr ""
 
 #: ubet/templates/ubet/group_info.html:27
 msgid "Não há membros nesse grupo"
-msgstr "There are no members in this group"
+msgstr ""
 
 #: ubet/templates/ubet/group_info.html:30
 msgid "posição"
-msgstr "position"
+msgstr ""
 
 #: ubet/templates/ubet/group_info.html:40
 #: ubet/templates/ubet/group_info.html:45
 msgid "Apostar"
-msgstr "Bet"
+msgstr ""
 
 #: ubet/views.py:33
 msgid "You need to be logged in to access this page."
@@ -100,7 +100,7 @@ msgstr ""
 
 #: ubet/views.py:181
 msgid "original"
-msgstr "traduzida to en"
+msgstr "traduzida pra ptbr"
 
 #: ubet/views.py:186
 msgid "Sorry, this grops does not exist."
@@ -145,6 +145,3 @@ msgstr ""
 #: ubet/views.py:217
 msgid "ja apostou nesse grupo."
 msgstr ""
-
-#~ msgid "Bem Vindo"
-#~ msgstr "Welcome"

@@ -8,13 +8,15 @@ from django.http import HttpResponseRedirect,HttpResponse
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
 from ubet.models import Ubet_user,User,Group,Notification
-from rayquasa.settings import TIME_TO_EXPIRE,GROUP_MAX_CAPATICY as expire,gmaxcap
+from rayquasa.settings import TIME_TO_EXPIRE as expire
+from rayquasa.settings import GROUP_MAX_CAPACITY as gmaxcap
+
 from django.contrib import messages
 from django.template import RequestContext
 import datetime,logging
 from django.utils import timezone
 # Create your views here.
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 logger = logging.getLogger(__name__)
 @login_required()
 def list_all_groups(request):
@@ -52,7 +54,7 @@ def new_group(request):
 				has_db_errors = True
 
 			if errors['bet_value_error']:
-				error_msg['bet_error'] = _('The bet must has a positive value.')
+				error_msg['bet_error'] = _('The bet must have a positive value.')
 				has_db_errors = True
 
 
@@ -116,8 +118,14 @@ def login(request):
 	form = UserAuthenticationForm()
 	logger.debug('login')
 	logger.error('login')
-
+	msg = _('original')
+	print msg
 	if request.method == 'POST':
+		try: 
+			print '>>>>>>>>>>>>>>>>>>>>>>'
+			print (request.LANGUAGE_CODE)
+		except:
+			pass
 		username = request.POST['username']
 		password = request.POST['password']
 
@@ -127,13 +135,21 @@ def login(request):
 		if user is not None:
 			if user.is_active:
 				auth_login(request, user)
-				msg = "Olá, {}".format(user.username)
+				msg = _('Hello, ')
+				msg += "{}".format(user.username)
+				# request.LANGUAGE_CODE = 'pt-br'
 				return render(request,'ubet/list_all_groups.html',{'toast':msg})
 			else:
 				return render(request, 'ubet/login.html', { 'toast': _('Account disabled'), 'form': form })
 		else:
-			return render(request, 'ubet/login.html', { 'toast': _('Username and assword do not match'), 'form': form })
+			return render(request, 'ubet/login.html', { 'toast': _('Username and password do not match'), 'form': form })
 	else:
+		try:
+			print '>>>>>>>>>>>>>>>>>>>>>>'
+			print (request.LANGUAGE_CODE)
+			print '>>>>>>>>>>>>>>>>>>>>>>'
+		except:
+			pass
 		if request.user.is_active:
 			return HttpResponseRedirect(reverse(list_all_groups))
 		msg = _("Welcome")
@@ -181,7 +197,7 @@ def group_info(request,group_id):
 		g = Group.objects.get(id=group_id)
 		g.update()
 	except ObjectDoesNotExist:
-		return render(request, 'ubet/group_info.html', { 'error_msg': _('Sorry, this grops does not exist.'), 'p_title': 'Erro' })			
+		return render(request, 'ubet/group_info.html', { 'error_msg': _('Sorry, this group does not exist.'), 'p_title': 'Erro' })			
 
 	u = g.users_by_group()
 	user_list = u[0]
@@ -197,25 +213,25 @@ def group_info(request,group_id):
 		else:
 			toast = _("You are not in this group")
 	elif g.status == "FINISHED":
-		strinfo = _("Group finished. The winner is: ")+ str(g.winner.first_name)
+		strinfo = _("Group finished. The winner is: ")+ str(g.winner.first_name) 
 		u = request.user
 		if request.user in g.users_by_group()[0]:
 			strinfo += '\n'
 			if request.user != g.winner:
-				strinfo +=  _("Voce perdeu: ")  + str(g.bet_value)
-				toast = "Voce perdeu essa aposta"
+				strinfo +=  _("You lost: ")  + str(g.bet_value)
+				toast = _("You lost this bet")
 			else:
-				strinfo += _("Voce ganhou: ") +str(g.bet_value*g.max_size)
-				toast = _("Voce ganhou essa aposta")
+				strinfo += _("You gained: ") +str(g.bet_value*g.max_size)
+				toast = _("You won this bet")
 	elif g.status == "CANCELED":
-		strinfo = _("Grupo cancelado. Apostas extornadas.")
-		toast = _("Grupo cancelado")
+		strinfo = _("Group canceled. Values returned.")
+		toast = _("Group canceled")
 
 	if request.user in user_list:
-		warning = _('Você já apostou nesse grupo.')
+		warning = _('You\'ve already betted in this group.')
 	else:
 		if request.user.ubet_user.creditos < g.bet_value:
-			warning = 'Você não tem créditos suficientes para apostar.'
+			warning = _('Not enough credits.')
 		else:
 			canBet = True
 

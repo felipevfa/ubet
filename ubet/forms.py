@@ -18,7 +18,7 @@ def validate_maioridade(arg):
 	now = datetime.date(now.year,now.month,now.day)
 	year = (now-arg)/365
 	if year.days < 18:
-		raise ValidationError( _('Apenas usuarios acima de 18 anos podem participar'), params={'year': year},code='invalid')
+		raise ValidationError( _('Only users above 18 can participate'), params={'year': year},code='invalid')
 
 
 class UserSignupForm(UserCreationForm):
@@ -27,15 +27,14 @@ class UserSignupForm(UserCreationForm):
                                     'class':'datepicker'
                                 })
 	)
-	nomec = forms.CharField(label = 'Nome completo',max_length=100)
+	nomec = forms.CharField(label = 'Full name',max_length=100)
 	class Meta:
 		model = User
 		fields = ("username", "email", "password1", "password2", 'first_name',)
-		labels = { 'username': 'Nome de Usuário',
-				   'email' : 'E-mail',	
-				   'first_name' : 'Nome Público',
-				   'password1' : 'Senha',
-				   'password2' : 'Confirme sua Senha'
+		labels = { 
+				   'first_name' : _('Public Name'),
+				   'password1' : _('Password'),
+				   'password2' : ('Password confirmation')
 		}
 		help_texts = {
 			'username' : '',
@@ -92,13 +91,11 @@ class UserSignupForm(UserCreationForm):
 		return errors;
 
 class UserAuthenticationForm(AuthenticationForm):
-	username = forms.CharField(label='Nome de Usuário', max_length=20)
-	password = forms.CharField(label='Senha', widget=forms.PasswordInput)
-
+	
 	class Meta:
 		model = User
 		fields = ('nome', 'password')
-		labels = { 'username': 'Nome de Usuário', 'password': 'Senha' }
+		labels = { 'username': _('Username'), 'password': _('Password') }
 
 class new_group_Form(ModelForm):
 	"""docstring for newgroupForm"""
@@ -109,9 +106,9 @@ class new_group_Form(ModelForm):
 		model = Group	
 		fields = {'name', 'max_size','bet_value'}
 		labels = {
-			'name' : 'Nome do Grupo',
-			'max_size' : 'Quantidade de membros',
-			'bet_value' : 'Valor da Aposta',
+			'name' : _('Nome do Grupo'),
+			'max_size' : _('Quantidade de membros'),
+			'bet_value' : _('Valor da Aposta'),
 		}		
 	def __init__(self, *args, **kwargs):
 		super(ModelForm, self).__init__(*args, **kwargs)

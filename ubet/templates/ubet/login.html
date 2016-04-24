@@ -11,6 +11,8 @@
 	
 	<form action="{% url 'login' %}" method="POST" name="login-form" class="form" id="login-form">
 		{% csrf_token %}
+		<a href="/en/">ENGLISH</a> <br>
+		<a href="/pt/">PORTUGUES</a> <br>
 
 		<ul id="form-fields">{{ form.as_ul }}</ul>
 

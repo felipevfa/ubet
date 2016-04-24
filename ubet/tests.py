@@ -328,6 +328,9 @@ class testes(TransactionTestCase):
 				'bet_position' : i
 			}
 			r = self.client.post(reverse('bet',args=[g.id]),cx)
+			if not u in g.users_by_group():
+				print i
+			# self.assertTrue(User.objects.get(id=u.id) in g.users_by_group())
 		g.date_of_birth = datetime.datetime(1,1,1,tzinfo=pytz.utc)
 		g.update()
 		win = 0

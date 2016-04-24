@@ -1,0 +1,172 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-04-23 22:15+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ubet/forms.py:21
+msgid "Apenas usuarios acima de 18 anos podem participar"
+msgstr ""
+
+#: ubet/templates/ubet/group_info.html:15
+#, fuzzy
+#| msgid "Group's Name"
+msgid "Grupo's Name"
+msgstr "Nome do Grupo"
+
+#: ubet/templates/ubet/group_info.html:16
+msgid "Status"
+msgstr ""
+
+#: ubet/templates/ubet/group_info.html:17
+msgid "Valor da Aposta"
+msgstr ""
+
+#: ubet/templates/ubet/group_info.html:18
+msgid "Quantidade de Membros"
+msgstr ""
+
+#: ubet/templates/ubet/group_info.html:19
+msgid "Data de finalizacao"
+msgstr ""
+
+#: ubet/templates/ubet/group_info.html:23
+msgid "Membros"
+msgstr ""
+
+#: ubet/templates/ubet/group_info.html:27
+msgid "Não há membros nesse grupo"
+msgstr ""
+
+#: ubet/templates/ubet/group_info.html:30
+msgid "posição"
+msgstr ""
+
+#: ubet/templates/ubet/group_info.html:40
+#: ubet/templates/ubet/group_info.html:45
+msgid "Apostar"
+msgstr ""
+
+#: ubet/templates/ubet/signup.html:7
+#, fuzzy
+#| msgid "original"
+msgid "originalnohtml"
+msgstr "traduzida"
+
+#: ubet/views.py:34
+msgid "You need to be logged in to access this page."
+msgstr "Você precisa estar logado para ver essa página."
+
+#: ubet/views.py:53
+msgid "A group must have two members at least, and at most "
+msgstr "Um grupo precisa de no mínimo 2 usuários, e no máximo"
+
+#: ubet/views.py:57
+msgid "The bet must have a positive value."
+msgstr "A aposta deve ser um valor maior que 0."
+
+#: ubet/views.py:71
+msgid "Not enough credits"
+msgstr "Créditos insuficientes"
+
+#: ubet/views.py:92
+msgid "Username taken"
+msgstr "Nome de usuário já cadastrado"
+
+#: ubet/views.py:96
+msgid "E-mail taken"
+msgstr "E-mail já cadastrado"
+
+#: ubet/views.py:121
+msgid "original"
+msgstr "traduzida"
+
+#: ubet/views.py:138
+msgid "Hello, "
+msgstr "Olá"
+
+#: ubet/views.py:143
+msgid "Account disabled"
+msgstr "Conta desativada"
+
+#: ubet/views.py:145
+msgid "Username and password do not match"
+msgstr "Nome de usuário e senha nao conferem"
+
+#: ubet/views.py:155
+msgid "Welcome"
+msgstr "Bem vindo"
+
+#: ubet/views.py:183
+msgid "Only logged users can access this page"
+msgstr "Apenas usuários logados tem acesso a essa página"
+
+#: ubet/views.py:200
+msgid "Sorry, this group does not exist."
+msgstr "Desculpe, esse grupo nao existe."
+
+#: ubet/views.py:210
+msgid "Active group. Time remaining for conclusion: "
+msgstr "Grupo ativo. Tempo restante para conclusãô:"
+
+#: ubet/views.py:212
+msgid "You are in this group"
+msgstr "Você está nesse grupo"
+
+#: ubet/views.py:214
+msgid "You are not in this group"
+msgstr "Você não está nesse grupo"
+
+#: ubet/views.py:216
+msgid "Group finished. The winner is: "
+msgstr "Grupo finalizado. O vencedor é:"
+
+#: ubet/views.py:221
+msgid "You lost: "
+msgstr "Você perdeu: "
+
+#: ubet/views.py:222
+msgid "You lost this bet"
+msgstr "Você perdeu essa aposta"
+
+#: ubet/views.py:224
+#, fuzzy
+#| msgid "You won: "
+msgid "You gained: "
+msgstr "Você ganhou: "
+
+#: ubet/views.py:225
+msgid "You won this bet"
+msgstr "Você venceu essa aposta"
+
+#: ubet/views.py:227
+msgid "Group canceled. Values returned."
+msgstr "Grupo cancelado. Valores retornados."
+
+#: ubet/views.py:228
+msgid "Group canceled"
+msgstr "Grupo cancelado"
+
+#: ubet/views.py:231
+msgid "You've already betted in this group."
+msgstr "Você já apostou nesse grupo."
+
+#: ubet/views.py:234
+msgid "Not enough credits."
+msgstr "Créditos insuficientes."
+
+#~ msgid "english"
+#~ msgstr "portugues"
