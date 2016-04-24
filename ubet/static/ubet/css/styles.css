@@ -20,7 +20,7 @@ body {
 
 .clear { clear: both; }
 .hidden { display: none; }
-.container { width: 85%; }
+.container { width: 85%; max-width: 900px; }
 .helptext { color: white; }
 
 /* 1. Navbar */
@@ -44,8 +44,8 @@ nav {
 .form-wrapper { 
 	position: relative; 
 	height: 100vh;
-	background-color: ;
 	padding: 1em;
+	background-color: rgb(68,55,79);
 }
 .form-wrapper h1 {
 	margin: 0; 
@@ -54,12 +54,15 @@ nav {
 	color: white;
 	
 }
-.form-wrapper.form {
-	max-width: 600px;
+.form-wrapper .form {
+	max-width: 350px;
 	margin: 0 auto;
+	padding: 10px;
+	
 }
 .form label { color: white; }
 .form input { color: rgb(255,230,153); border: none; border-bottom: 2px solid white; }
+
 .form input:focus:not([readonly]) { 
 	border-bottom: 2px solid rgb(255,230,153); 
 	box-shadow: 0 0 0 0 rgb(255,230,153);
@@ -70,7 +73,7 @@ nav {
 	border-bottom: none;
 	border-radius: 15px; 
 	box-shadow: none;
-	width: 80%;
+	width: 50%;
 	margin: 0 auto;
 }
 
@@ -120,8 +123,9 @@ nav {
 }
 #group-list-wrapper p { margin: 0; }
 
-#group-list .card-panel { position: relative; }
+#group-list .card-panel { position: relative; cursor: pointer; }
 
+.group-info h5 { margin-top: 0; }
 .group-options {
 	position: absolute;
 	bottom: 10%;
@@ -138,37 +142,97 @@ nav {
 	#group-list-wrapper { width: 93%; }
 }
 
-/**
- * FORM STYLE
- */
-
-form li {
-	list-style: none;
+/* 4. Group Profile */
+#group-data { 
+	position: relative;
+	margin-top: 2em;
+	margin: 2em auto;
+}
+#group-data h5 {
+	margin: 0;
+	color: rgb(68,55,79);
+}
+#group-data .status {
+	font-size: 1em;
+	margin: 0;
+	font-style: italic;
 }
 
-
-#bet-options {
-	margin-top: 1.5em;
-	margin-bottom: 1em;
+.toll {
+	position: absolute;
+	margin: 0;
+	top: 9%;
+	right: 10%;
 }
 
-@media (max-width: 361px) {
-	#bet-options .btn {
-		width: 70%;
-		margin-bottom: 0.5em;
+.members {
+	position: absolute;
+	margin: 0;
+	top: 21%;
+	right: 10%;
+}
+
+.toll i, .members i {
+	vertical-align: bottom;
+}
+
+#bet-btn { background-color: rgb(68, 55,79);}
+
+@media (min-width: 601px) {
+	#group-data h5 { font-size: 4em; }
+	#group-data .status { font-size: 2em; }
+	
+	.toll {
+		font-size: 4em;
+		top: 4%;
+		right: 5%;
+	}
+	.toll i { font-size: 1.5em; }
+
+	.members { 
+		font-size: 4em; 
+		top: 30%;
+		right: 5%;
+	}
+	.members i {
+		font-size: 1.5em;
 	}
 }
 
-/** 
- * GROUP LIST STYLES
- */
-
-#group-list li {
-	cursor: pointer;
+/* 5. Bet Page */
+#bet-info p { margin: 0; margin-bottom: 1em;}
+#bet-info label::before { display: none; }
+#bet-info label {
+	margin: 0 auto; 
+	width: 100%;
+	max-width: 400px;
+	background-color: rgb(68,55,79); 
+	display: block;
+	padding-left: 0;
+	padding-right: 0;
+	position: static;
+}
+#bet-info label.btn::after {
+	display: none;
+}
+#bet-info input[type="radio"] { padding: 0; display: hidden; }
+#bet-info input[type="radio"]:checked + label {
+	background-color: rgb(255,230,153);
+	color: black;
+}
+#bet-info .input-field {
+	position: static;
+}
+#bet-info .form a {
+	width: 100%;
+	text-align: center;
+	color: rgb(68,55,79);
+}
+#bet-options button[type="submit"] {
+	width: 100%;
+	max-width: 200px;
 }
 
-/**
- * FLOATING ACTION BUTTON
- */
 
-
+/* 6. User Profile */
+#user-profile h5 { margin: 0; }

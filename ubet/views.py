@@ -213,7 +213,7 @@ def group_info(request,group_id):
 		toast = _("Grupo cancelado")
 
 	if request.user in user_list:
-		warning = _('Você já apostou nesse grupo.')
+		warning = _('Voce ja apostou nesse grupo.')
 	else:
 		if request.user.ubet_user.creditos < g.bet_value:
 			warning = 'Você não tem créditos suficientes para apostar.'

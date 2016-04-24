@@ -1,40 +1,42 @@
 {% extends "ubet/base.html" %}
-
-{% block page_title %} Aposta {% endblock page_title %}
+{% load i18n %}
+{% block page_title %} {% trans "Betting" %} {% endblock page_title %}
 
 {% block menu_action %} <a href="{% url 'group_info' group.id%}" class="nav-collapse"><i class="material-icons">arrow_back</i></a> {% endblock menu_action %}
 
 {% block main_content %} 
-	<p>Apostando no grupo <strong>{{group.name}}</strong>.</p>
+	<div class="card-panel" id="bet-info">
+		{% blocktrans with name=group.name bet=group.bet_value %}
+			<p>Betting on group <strong>{{name}}</strong>.</p>
+			<p>The toll is {{bet}}.</p>
+		{% endblocktrans %}
 
-	<form id="bet-position-form" name="betPosition" enctype="multiform/form-data" method="POST" action="{% url 'bet' group.id %}" class="form">
-		{% csrf_token %}
-
-		<label for="positions">Escolha uma posição para apostar:</label>
-		
+		<form id="bet-position-form" name="betPosition" enctype="multiform/form-data" method="POST" action="{% url 'bet' group.id %}" class="form">
+			{% csrf_token %}
+			
 			{% for p in available %}
 				<div class="input-field">
 					{% if p %}
-							<input id="position-{{forloop.counter}}" type="radio" name="bet_position" value={{ forloop.counter }} class="with-gap" disabled="disabled">
-							<label for="position-{{ forloop.counter }}" class="red-text">Posição {{ forloop.counter }}: {{p}}</label>
+							<input id="position-{{forloop.counter}}" type="radio" name="bet_position" value={{ forloop.counter }} class="with-gap" disabled="disabled" required>
+							<label for="position-{{ forloop.counter }}" class="btn-disabled">{% trans "Position" %} {{ forloop.counter }}: {{p}}</label>
 					{% else %}
-							<input id="position-{{forloop.counter}}" type="radio" name="bet_position" value={{ forloop.counter }} class="with-gap">
-							<label for="position-{{ forloop.counter }}" class="green-text">Posição {{ forloop.counter }}: Livre</label>
+							<input id="position-{{forloop.counter}}" type="radio" name="bet_position" value={{ forloop.counter }} class="with-gap" required>
+							<label for="position-{{ forloop.counter }}" class="btn">{% trans "Position" %} {{ forloop.counter }}: {% trans "open" %}</label>
 					{% endif %}
 				</div>
 			{% endfor %}
 
-		<div class="input-field center-align col s6" id="bet-options">
-			{%if canBet %}
-				<button type="submit" id="bet-btn" class="btn waves-effect col s6">Apostar</button>
-			{% else %}
-				<button type="submit" disabled="True" id="bet-btn" class="btn waves-effect col s6 grey">{{reason}}</button>
-			{% endif %}
-			<a href="{% url 'group_info' group.id%}" class="btn waves-effect red">{% if not new %} Cancelar {% else %} Não quero apostar agora {% endif %}</a>
-		</div>
+			<div class="input-field center-align col s6" id="bet-options">
+				{%if canBet %}
+					<button type="submit" class="btn waves-effect col s6">{% trans "Confirm" %}</button>
+				{% else %}
+					<button type="submit" disabled="True" id="bet-btn" class="btn waves-effect col s6 grey">{{reason}}</button>
+				{% endif %}
+			</div>
+			<a href="{% url 'group_info' group.id %}" class="btn-flat">{% if not new %} {% trans "Cancel" %} {% else %} {% trans "Bet Later" %} {% endif %}</a>	
+		</form>
+	</div>
 
-		{% block fab %} {% endblock %}
-	</form>
-
+	{% block fab %} {% endblock %}
 	
 {% endblock main_content %}

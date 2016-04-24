@@ -3,49 +3,69 @@
 {% block page_title %} {% trans "Group Details" %} {% endblock page_title %}
 
 
-{% block menu_action %} <a href="{% url 'list_all_groups' %}" class="nav-collapse"><i class="material-icons">arrow_back</i></a>{% endblock menu_action %}
+{% block menu_action %}
+	<a href="{% url 'list_all_groups' %}" class="nav-collapse"><i class="material-icons">arrow_back</i></a>
+{% endblock menu_action %}
 
 {% block main_content %}
 
 {% if error_msg %}
 
-	<p>{{ error_msg }}</p>
+	<div class="card-panel">
+		<p>{{ error_msg }}</p>
+	</div>
 
 {% else %}
-	<strong>{% trans "Nome do Grupo" %}:</strong> {{ group.name }}
-	<p><strong>{% trans "Status" %}:</strong> {{ strinfo }}</p>
-	<p><strong>{% trans "Valor da Aposta" %}:</strong> {{ group.bet_value }}</p>
-	<p><strong>{% trans "Quantidade de Membros" %}:</strong> {{ group.cur_size }} / {{ group.max_size }}</p>
-	<p><strong>{% trans "Data de finalizacao" %}:</strong> {{ group.date_of_death }} </p>
-	<!-- {% if group.date_of_death %} -->
-	<!-- {% endif %} -->
+	<div class="card-panel" id="group-data">
+		<h5>{{ group.name }}</h5>
+		<p class="status">status:
+			{% if group.status == 'WAITING' %}
+				<i class="green-text">{% trans "active" %}</i>
+			{% elif group.status == 'CANCELED' %}
+				<i class="red-text">{% trans "canceled" %}</i> 
+			{% elif group.status == 'FINISHED' %}
+				{% if group.winner == request.user %}
+					{% blocktrans with d=group.date_of_death %}
+						<i class="grey-text">finished on {{ d }} (you won).</i>
+					{% endblocktrans %}
+				{% else %}
+					{% blocktrans with d=group.date_of_death %}
+						<i class="grey-text">finished on {{ d }}.</i>
+					{% endblocktrans %}
+				{% endif %}
+			{% endif %}
+		</p>
 
-	<p><strong>{% trans "Membros" %}:</strong>
+		<p class="toll"><i class="material-icons text-accent-4 yellow-text">toll</i> {{group.bet_value}}</p>
 
-	<ul>
-	{% if users|length < 1 %}
-		<li>{% trans "Não há membros nesse grupo" %}.</li>
-	{% else %}	
-		{% for u in users %}
-			<li>{{ u.0 }} ({% trans "posição" %}: {{ u.1 }})</li>
-		{% endfor %}
-	{% endif %}
-	</ul>
+		<p class="members"><i class="material-icons">people</i> {{ group.cur_size }} / {{ group.max_size }}</p>
+		
+		<p><strong>{% trans "Members" %}:</strong></p>
 
-	{% if canBet %}
-		<form name="bet-form" method="GET" action="{% url 'bet' group.id %}" class="form">
-			{% csrf_token %}
-			
-			<div class="input-field">
-				<button type="submit" class="btn waves-effect">{% trans "Apostar" %}</button>
-			</div>
-		</form>
-	{% else %}
-		<p>{{warning}}</p>
-		<button class="btn disabled">{% trans "Apostar" %}</button>
-	{% endif %}
+		<ul>
+		{% if users|length < 1 %}
+			<li>{% trans "There are no members in this group." %}</li>
+		{% else %}
+			{% for u in users %}
+				<li>{{ u.0 }} ({% trans "posição" %}: {{ u.1 }})</li>
+			{% endfor %}
+		{% endif %}
+		</ul>
 
+		{% if canBet %}
+			<form name="bet-form" method="GET" action="{% url 'bet' group.id %}" class="form">
+				{% csrf_token %}
 
+				<div class="input-field">
+					<button type="submit" class="btn" id="bet-btn">{% trans "I want to bet" %}</button>
+					<div class="clear"></div>
+				</div>
+			</form>
+		{% else %}
+			<p>{{warning}}</p>
+			<button class="btn disabled">{% trans "I want to bet" %}</button>
+		{% endif %}
+	</div>	
 {% endif %}
 
 {% endblock main_content %}
