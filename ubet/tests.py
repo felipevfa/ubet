@@ -302,6 +302,8 @@ class testes(TransactionTestCase):
 				'bet_position' : i
 			}
 			r = self.client.post(reverse('bet',args=[g.id]),cx)
+			# print '>>>>>'
+			# print Group.objects.get(id=g.id).users_by_group()
 		
 		g.update()
 		win = 0
@@ -317,19 +319,20 @@ class testes(TransactionTestCase):
 		self.assertEqual(g.status,"FINISHED")
 
 	def test_aposta_canceled(self):
+		c= Client()
+		setup_test_environment()
 		apostadores = 9
 		user_list = [random_user(creditos=100) for i in range(apostadores)]
-
 		g = random_group(max_size=apostadores+1,bet_value=1)
-
+		self.assertTrue(c.get('').status_code != 404)
 		for i,u in enumerate(user_list,1):
-			self.client.login(username=u.username,password='senhaforte')
+			c.login(username=u.username,password='senhaforte')
+			# self.assertTrue(c.get(reverse('list_all_groups')).request['user'].is_active)
 			cx = {
 				'bet_position' : i
 			}
-			r = self.client.post(reverse('bet',args=[g.id]),cx)
-			if not u in g.users_by_group():
-				print i
+			r = c.post(reverse('bet',args=[g.id]),cx)
+			self.assertTrue(r.status_code != 404)
 			# self.assertTrue(User.objects.get(id=u.id) in g.users_by_group())
 		g.date_of_birth = datetime.datetime(1,1,1,tzinfo=pytz.utc)
 		g.update()

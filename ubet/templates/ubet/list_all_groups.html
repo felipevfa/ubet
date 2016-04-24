@@ -1,32 +1,43 @@
 {% extends "ubet/base.html" %}
+{% load i18n %}
+{% block page_title %} {% trans "Groups" %} {% endblock page_title %}
 
-{% block page_title %} Grupos {% endblock page_title %}
 
 {% block main_content %}
-
-	<ul id="group-list">
-		<a href="{%url 'new_group' %}" class="waves-effect btn">Criar grupo</a>
+	<div id="group-list-controller">
+		<div class="row">
+			<button type="button" class="btn-flat col s6 active">{% trans "All" %}</button>
+			<button type="button" class="btn-flat col s6">{% trans "My Bets" %}</button>
+		</div>
+	</div>
+	<div id="group-list-wrapper">
 		{% if grupos %}
-			{% for g in grupos %}
-				<li onclick="window.location.href= '{% url 'group_info' g.id%}' ">
-					<div class="card-panel">
-						<div class="group-info left">
-							<h5 class="group-name">{{g.name}}</h5> 
-							<p><strong>Membros:</strong> {{ g.cur_size }} / {{ g.max_size }}</p>
-							<p><strong>Valor da Aposta:</strong> {{ g.bet_value }}</p>
-						</div>
+			<ul id="group-list">
+				{% for g in grupos %}
+					<li onclick="window.location.href= '{% url 'group_info' g.id %}' ">
+						<div class="card-panel">
+							<div class="group-info left">
+								<h5 class="group-name">{{g.name}}</h5> 
+								<p><strong>{% trans "Members:" %}</strong> {{ g.cur_size }} / {{ g.max_size }}</p>
+								<p><strong>{% trans "Value:" %}</strong> {{ g.bet_value }}</p>
+								<p>{% trans "The group ends in 10 minutes." %}</p>
+							</div>
+							
+							<div class="group-options">
+								<a href="{% url 'group_info' g.id%}" class="btn-flat">{% trans "More" %}</a>
+							</div>
 						
-						<div class="group-options right">
-							<a href="{% url 'group_info' g.id%}" class="waves-effect btn">Ver mais</a>
+							<div class="clear"></div>
 						</div>
-					
-						<div class="clear"></div>
-					</div>
-				</li>
-			{%endfor%}
+					</li>
+				{%endfor%}
+			</ul>
 		{% else %}
-			<li > Nao ha grupos ativos no momento. </li>
+			<div class="card-panel">
+				<p>{% trans "There are no active groups." %}</p>
+			</div>
 		{% endif %}
-	</ul>
+		
+	</div>
 	
 {% endblock main_content %}

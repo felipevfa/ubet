@@ -10,7 +10,7 @@ migrations:
 	python manage.py migrate 
 shell:
 	python manage.py shell
-transfile:
-	django-admin makemessages -l en
+messages:
+	django-admin makemessages -a
 translations:
 	django-admin compilemessages

@@ -1,10 +1,10 @@
 {% extends "ubet/base.html" %}
+{% load i18n %}
 {% block menu %} {% endblock menu %} 
 
 {% block main_content %}
-	<h1 class="center-align">Ubet 0.1</h1>
-	<div class="hidden" id="toast">{{ toast }}</div>
-	<!-- <a href = {% url 'list_all_groups' %} > listall </a> -->
+	<div class="form-wrapper">
+		<h1 class="center-align">{% trans "Welcome to uBet!" %}</h1>
 
 	<!-- <a href= {% url 'logout'%}> logout </a> <br> -->
 	<!-- <a  href= {% url 'signup' %}> Criar conta</a> -->
@@ -14,12 +14,16 @@
 		<a href="/en/">ENGLISH</a> <br>
 		<a href="/pt/">PORTUGUES</a> <br>
 
-		<ul id="form-fields">{{ form.as_ul }}</ul>
 
-		<div class="btn-wrapper">
-			<a href="{% url 'signup' %}"><button type="button" class="btn" name="signup-btn">Cadastrar</button></a>
-			<input type="submit" value="Login" class="submit-button btn" id="login-btn">
-		</div>
-		
-	</form>
+			{% csrf_token %}
+
+			<ul id="form-fields">{{ form.as_ul }}</ul>
+
+			<div class="input-field center-align">
+				<input type="submit" value="Login" class="submit-button btn" id="login-btn">
+			</div>
+		</form>
+
+		<p class="register-text center-align">{% trans "Doesn't have an account?" %} <a href="{% url 'signup' %}">{% trans "Register here!" %}</a></p>
+	</div>
 {% endblock main_content %}	

@@ -1,15 +1,17 @@
 
 # coding: utf-8
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from ubet.forms import UserSignupForm, UserAuthenticationForm,new_group_Form
 from django.contrib.auth import get_user_model, authenticate, login as auth_login, logout as auth_logout
 from django.http import HttpResponseRedirect,HttpResponse
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
 from ubet.models import Ubet_user,User,Group,Notification
+
 from rayquasa.settings import TIME_TO_EXPIRE as expire
 from rayquasa.settings import GROUP_MAX_CAPACITY as gmaxcap
+
 
 from django.contrib import messages
 from django.template import RequestContext
@@ -20,6 +22,7 @@ from django.utils.translation import ugettext_lazy as _
 logger = logging.getLogger(__name__)
 @login_required()
 def list_all_groups(request):
+	logger.debug('list_all_groups')
 	if request.user.is_authenticated():
 		groups = Group.active_groups();
 
@@ -110,22 +113,16 @@ def signup(request):
 	else:
 		form = UserSignupForm()
 
-	return render(request, 'ubet/signup.html', {'form': form })
+		return render(request, 'ubet/signup.html', {'form': form })
 
 
 
 def login(request):
 	form = UserAuthenticationForm()
 	logger.debug('login')
-	logger.error('login')
+	
 	msg = _('original')
-	print msg
 	if request.method == 'POST':
-		try: 
-			print '>>>>>>>>>>>>>>>>>>>>>>'
-			print (request.LANGUAGE_CODE)
-		except:
-			pass
 		username = request.POST['username']
 		password = request.POST['password']
 
@@ -138,18 +135,12 @@ def login(request):
 				msg = _('Hello, ')
 				msg += "{}".format(user.username)
 				# request.LANGUAGE_CODE = 'pt-br'
-				return render(request,'ubet/list_all_groups.html',{'toast':msg})
+				return redirect(reverse('list_all_groups'))
 			else:
 				return render(request, 'ubet/login.html', { 'toast': _('Account disabled'), 'form': form })
 		else:
 			return render(request, 'ubet/login.html', { 'toast': _('Username and password do not match'), 'form': form })
 	else:
-		try:
-			print '>>>>>>>>>>>>>>>>>>>>>>'
-			print (request.LANGUAGE_CODE)
-			print '>>>>>>>>>>>>>>>>>>>>>>'
-		except:
-			pass
 		if request.user.is_active:
 			return HttpResponseRedirect(reverse(list_all_groups))
 		msg = _("Welcome")
@@ -293,6 +284,8 @@ def bet(request,group_id):
 				'toast' : b[1],
 			}
 			return render(request,'ubet/list_all_groups.html',contexto)
+
+
 		except:
 			raise
 	return HttpResponse("welcome to limbo")

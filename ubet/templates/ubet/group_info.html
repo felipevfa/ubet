@@ -1,6 +1,6 @@
 {% extends "ubet/base.html" %}
 {% load i18n %}
-{% block page_title %} {{ p_title }} {% endblock page_title %}
+{% block page_title %} {% trans "Group Details" %} {% endblock page_title %}
 
 
 {% block menu_action %} <a href="{% url 'list_all_groups' %}" class="nav-collapse"><i class="material-icons">arrow_back</i></a>{% endblock menu_action %}

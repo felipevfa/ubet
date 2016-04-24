@@ -1,22 +1,35 @@
 /**
- * Prototype 1 Stylesheet
- * version 0.1
- * last update: 17/04/2016;
+ * uBet Stylesheet
+ * version 1.0
+ * last update: 23/04/2016;
  */
 
-/**
- * UTILITIES
- */
+/* ***********************
+	  	COLOR SHEET 
+   *********************** */
+
+body {
+	background-color: rgba(68,55,79,1);
+}
+
+/* ***********************
+	  	 STRUCTURE
+   *********************** */
+
+/* 0. Utilities */
 
 .clear { clear: both; }
 .hidden { display: none; }
+.container { width: 85%; }
+.helptext { color: white; }
 
-/**
- * NAVBAR STYLES
- */
+/* 1. Navbar */
+nav {
+	background-color: rgb(68,55,79);
+}
 
-.button-collapse, .nav-collapse {
-	margin-left: 0.5em;
+.nav-wrapper {
+	margin: 0 auto;
 }
 
 .nav-collapse {
@@ -24,7 +37,105 @@
 }
 
 @media (min-width: 992px) {
-	#page-title { margin-left: 1em; }
+}
+
+
+/* 2. Forms */
+.form-wrapper { 
+	position: relative; 
+	height: 100vh;
+	background-color: ;
+	padding: 1em;
+}
+.form-wrapper h1 {
+	margin: 0; 
+	padding-top: 1em;
+	margin-bottom: 1em;
+	color: white;
+	
+}
+.form-wrapper.form {
+	max-width: 600px;
+	margin: 0 auto;
+}
+.form label { color: white; }
+.form input { color: rgb(255,230,153); border: none; border-bottom: 2px solid white; }
+.form input:focus:not([readonly]) { 
+	border-bottom: 2px solid rgb(255,230,153); 
+	box-shadow: 0 0 0 0 rgb(255,230,153);
+}
+.form input[type="submit"] { 
+	background-color: rgb(255,230,153);
+	color: rgb(0,0,0);
+	border-bottom: none;
+	border-radius: 15px; 
+	box-shadow: none;
+	width: 80%;
+	margin: 0 auto;
+}
+
+.form .btn-flat {
+	margin-top: 1em;
+	color: rgb(255,230,153);
+}
+
+.register-text { margin-top: 5em; color: white; }
+.register-text a { color: rgb(255,230,153); }
+
+/* 2. Datepicker */
+#signup-form .picker__date-display {
+	background-color: rgb(68,55,79);
+}
+#signup-form .picker__weekday-display {
+	background-color: rgba(0,0,0,0.2);
+}
+#signup-form .picker__footer .btn-flat {
+	color: rgb(68,55,79);
+}
+#signup-form .picker__day--today { color: rgb(68,55,79); font-weight: bold; }
+#signup-form .picker__day--selected {
+	background-color: rgb(68, 55, 79);
+	color: white;
+}
+
+/* 3. Group List */
+#group-list-controller {
+	padding: 0;
+	background-color: white;
+}
+#group-list-controller .row { 
+	width: 80%; 
+	margin: 0 auto; 
+}
+#group-list-controller button { 
+	border-radius: 0; 
+	transition: 0.2s; }
+#group-list-controller button.active { 
+	font-weight: bold; 
+	border-bottom: 2px solid rgb(68,55,79); }
+#group-list-wrapper {
+	width: 80%;
+	margin: 0 auto;
+	
+}
+#group-list-wrapper p { margin: 0; }
+
+#group-list .card-panel { position: relative; }
+
+.group-options {
+	position: absolute;
+	bottom: 10%;
+	right: 0%;
+}
+
+.no-groups {
+	background-color: white;
+	padding: 1em;
+}
+
+@media (max-width: 600px) {
+	#group-list-controller .row { width: 100%; }
+	#group-list-wrapper { width: 93%; }
 }
 
 /**
@@ -35,23 +146,6 @@ form li {
 	list-style: none;
 }
 
-#login-form input[type="submit"] {
-	margin-left: 1.4em;
-}
-
-#signup-btn {
-	width: 100%;
-	margin-bottom: 0.5em;
-}
-
-.btn-wrapper {
-	text-align: center;
-	margin: 0 auto;
-}
-
-.helptext {
-	font-size: 0.8em;
-}
 
 #bet-options {
 	margin-top: 1.5em;
@@ -68,10 +162,6 @@ form li {
 /** 
  * GROUP LIST STYLES
  */
-
-.group-info { max-width: 50%; }
-.group-info h5 { margin-top: 0; }
-.group-options { height: inherit; }
 
 #group-list li {
 	cursor: pointer;

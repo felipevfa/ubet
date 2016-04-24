@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
-
 TIME_TO_EXPIRE = 2
 GROUP_MAX_CAPACITY = 10
 LOGIN_URL = '/login'
@@ -139,11 +138,11 @@ LOGGING = {
             'filename': 'mysite.log',
             'formatter': 'simple'
         },
-        'file_aws': {
+        'logalog': {
             'level' :   'DEBUG',
             'class' :   'logging.FileHandler',
             #'filename'  :   '/opt/python/log/lolzin.log',
-            'filename'  :   'lolzin.log',
+            'filename'  :   'ubet.log',
             'formatter' :    'simple'
         }
     },
@@ -153,14 +152,13 @@ LOGGING = {
             'propagate': True,
             'level':'DEBUG',
         },
-        'lolzin': {
-            'handlers': ['file_aws'],
+        'ubet': {
+            'handlers': ['logalog'],
+            'propagate':    True,
             'level': 'DEBUG',
-            'propagate':    True
         },
-    }
 }
-
+    }
 
 LANGUAGE_CODE = 'en-us'
 ugettext = lambda s: s

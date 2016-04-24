@@ -25,36 +25,34 @@ class UserSignupForm(UserCreationForm):
 	nascimento = forms.DateField(required=True,validators=[validate_maioridade],widget=forms.DateInput(attrs=
                                 {
                                     'class':'datepicker'
-                                })
+                                }),
+                                label=_('Birthdate'),
+                                
+                                
 	)
-	nomec = forms.CharField(label = 'Full name',max_length=100)
+
+	nascimento.input_type = 'date'
+	nomec = forms.CharField(label = _('Full name'),max_length=100)
 	class Meta:
 		model = User
-		fields = ("username", "email", "password1", "password2", 'first_name',)
+		fields = ("username", "email", 'first_name',)
 		labels = { 
 				   'first_name' : _('Public Name'),
-				   'password1' : _('Password'),
-				   'password2' : ('Password confirmation')
+				   
 		}
 		help_texts = {
-			'username' : '',
+			'username' : '',			
 		}
 	# nascimento.widget.attrs = {'type' : 'date'}
 
 
 	def __init__(self, *args, **kwargs):
 		super(UserSignupForm, self).__init__(*args, **kwargs)
-		# self.fields['username'].error_messages = my_default_errors
-		# self.fields['email'].error_messages = my_default_errors
-		# self.fields['password1'].label = "Senha"
-		# self.fields['password1'].error_messages = my_default_errors
-		# self.fields['password2'].label = "Confirme sua senha"
-		# self.fields['password2'].error_messages = my_default_errors
-		# self.fields['password2'].help_text = ''
-		self.fields['nascimento'].label = "Formato: DD/MM/AAAA"
-		# self.fields['nascimento'].error_messages = my_default_errors
-		# self.fields['nomec'].error_messages = my_default_errors
+		self.fields['password2'].help_text = ''
 
+	# 	for f in  self.visible_fields():
+	# 		print f
+		
 
 	def save(self, commit=True):
 		user = User.objects.create_user(self.cleaned_data['username'],
@@ -106,9 +104,9 @@ class new_group_Form(ModelForm):
 		model = Group	
 		fields = {'name', 'max_size','bet_value'}
 		labels = {
-			'name' : _('Nome do Grupo'),
-			'max_size' : _('Quantidade de membros'),
-			'bet_value' : _('Valor da Aposta'),
+			'name' : _('Group\'s name'),
+			'max_size' : _('Number of members'),
+			'bet_value' : _('Bet'),
 		}		
 	def __init__(self, *args, **kwargs):
 		super(ModelForm, self).__init__(*args, **kwargs)
