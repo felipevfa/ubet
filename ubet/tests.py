@@ -381,6 +381,18 @@ class testes(TransactionTestCase):
 			}
 		form = UserSignupForm(data=form_data)
 		self.assertFalse(form.is_valid())
+	def test_sim_list(self):
+		apostadores = 5
+		posicoes = sample(range(1,10),apostadores)
+		user_list = [random_user() for i in range(5)]
+		g = random_group(max_size=10,bet_value=1)
+		for u,p in zip(user_list,posicoes):
+			g.add_user(u,p)
+		simlist = g.sim_list()
+
+		for p,u in zip(posicoes,user_list):
+			self.assertTrue(simlist[p-1] == u)
+
 
 	def test_view(self):
 		response = client.get(reverse('login'))

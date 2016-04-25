@@ -159,6 +159,11 @@ class Group(models.Model):
 			return possible,reason
 		return possible,reason
 
+	def sim_list(self):
+		l = [None]*self.max_size
+		for u,p in zip(self.users_by_group()[0],self.users_by_group()[1]):
+			l[p-1] = u
+		return l
 class Group_link(models.Model):
 	"""uma relacao descreve o conjunto de elementos de um grupo. Nao é possivel ter
 	dois usuarios numa mesma posicao, nem um mesmo usuario em duas posicoes."""

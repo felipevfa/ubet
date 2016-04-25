@@ -1,37 +1,36 @@
 {% extends "ubet/base.html" %}
-
-{% block page_title %} Meu Perfil {% endblock %}
+{% load i18n %}
+{% block page_title %} {% trans "My profile" %} {% endblock %}
 
 {% block main_content %}
-	<ul>
-		<li><strong>Nome Publico:</strong> {{ user.first_name }}</li>
-		<li><strong>Nome Completo:</strong> {{ user.ubet_user.full_name }}</li>
-		<li><strong>E-mail:</strong> {{ user.email }}</li>
-		<li><strong>Data de Nascimento:</strong> {{ user.ubet_user.date_of_birth|date:"d/m/Y" }}</li>
-		<li><strong>Cadastrado desde</strong> {{ user.date_joined|date:"d/m/Y" }}</li>
-	</ul>
-
-	<ul>
-		<li><strong>Créditos:</strong> {{ user.ubet_user.creditos }}</li>
-		<li><strong>Historico de grupos:</strong></li>
+	<div class="card-panel" id="user-profile">
+		<h5>{% trans "Hello" %}, {{user.first_name }}!</h5>
 		<ul>
-			{% for g in user_groups %}
-				<li><a href="{% url 'group_info' g.id %}">{{ g.name }}</a></li>
-			{% endfor %}
+		
+			<li><strong>{%trans 'Full name'%}:</strong> {{ user.ubet_user.full_name }}</li>
+			<li><strong>{%trans 'E-mail'%}:</strong> {{ user.email }}</li>
+			<li><strong>{% trans 'Birthdate'%}:</strong> {{ user.ubet_user.date_of_birth|date:"d/m/Y" }}</li>
+			<li><strong>{% trans 'Date Joined'%}</strong> {{ user.date_joined|date:"d/m/Y" }}</li>
 		</ul>
-		{% if notification %}
-			<li><strong>Resultados recentes:</strong></li>
-			<ul>
-				{% for n in notification %}
-					<li><a href="{% url 'notification' n.id %}">{{ n.group.name }}</a></li>
+
+		<ul>
+			<li><strong>{%trans 'Credits'%}:</strong> {{ user.ubet_user.creditos }}</li>
+			<li><strong>{%trans 'History'%}:</strong></li>
+			<ul class="collection">
+				{% for g in user_groups %}
+					<li class="collection-item"><a href="{% url 'group_info' g.id %}">{{ g.name }}</a></li>
 				{% endfor %}
 			</ul>
-		{% endif %}
+			{% if notification %}
+				<li><strong>{%trans Recent results% }:</strong></li>
+				<ul>
+					{% for n in notification %}
+						<li><a href="{% url 'notification' n.id %}">{{ n.group.name }}</a></li>
+					{% endfor %}
+				</ul>
+			{% endif %}
 
-	</ul>
-
-
-
-
+		</ul>
+	</div>
 {% endblock main_content %}
 

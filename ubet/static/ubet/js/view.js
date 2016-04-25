@@ -36,7 +36,7 @@ $(document).ready(function() {
 		});
 	}
 
-	if ($('#group-list')) {
+	if ($('#group-list-wrapper').length) {
 		$('main').removeClass('container');
 	}
 });

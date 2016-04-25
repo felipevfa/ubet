@@ -187,6 +187,7 @@ def group_info(request,group_id):
 	try:
 		g = Group.objects.get(id=group_id)
 		g.update()
+		# g.sim_list()
 	except ObjectDoesNotExist:
 		return render(request, 'ubet/group_info.html', { 'error_msg': _('Sorry, this group does not exist.'), 'p_title': 'Erro' })			
 
@@ -219,6 +220,7 @@ def group_info(request,group_id):
 		toast = _("Group canceled")
 
 	if request.user in user_list:
+
 		warning = _('You\'ve already betted in this group.')
 	else:
 		if request.user.ubet_user.creditos < g.bet_value:

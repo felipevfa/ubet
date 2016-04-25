@@ -4,7 +4,7 @@
 
 {% block main_content %}
 		<div class="form-wrapper">
-			<h1 class="center-align">{% trans "Register" %}</h1>
+			<h1 class="center-align">{% trans "Sign Up" %}</h1>
 
 			<form enctype="multipart/form-data"  action="{% url 'signup' %}" method="POST" name="signup-form" class="form" id="signup-form">
 				{% csrf_token %}
