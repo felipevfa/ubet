@@ -3,7 +3,7 @@ import rayquasa.settings
 from django.test import TransactionTestCase
 from django.contrib.auth import authenticate, login
 # Create your tests here.
-from ubet.forms import UserSignupForm
+from ubet.forms import UserSignupForm,new_group_Form
 from random import sample,randint
 import string,random
 from .models import Ubet_user,User,Group,Group_link
@@ -357,7 +357,7 @@ class testes(TransactionTestCase):
 
 		self.assertEqual(g.cur_size(),apostadores)
 
-	def test_signupform(self):
+	def test_signupform_valido(self):
 		password = random_string(8)
 		form_data = {'username' : random_string(10),
 			'email' : random_string(6)+'@mail.com',
@@ -369,18 +369,56 @@ class testes(TransactionTestCase):
 			}
 		form = UserSignupForm(data=form_data)
 		self.assertTrue(form.is_valid())
-
+	def test_signup_form_invalido_muitonovo(self):
 		password = random_string(8)
 		form_data = {'username' : random_string(10),
 			'email' : random_string(6)+'@mail.com',
 			'first_name' : random_string(6),
 			'password1' : password,
 			'password2' : password,
-			'nascimento' : datetime.date(2015,randint(1,10),randint(1,10)),
+			'nascimento' : datetime.date(datetime.datetime.now().year,randint(1,10),randint(1,10)),
+			'nomec' : random_string(10)
+			}
+		form = UserSignupForm(data=form_data)
+
+		self.assertFalse(form.is_valid())
+	def test_signup_form_invalido_campovazio(self):
+		password = random_string(8)
+		form_data = {
+			'username' : random_string(10),
+			'email' : random_string(6)+'@mail.com',
+			'first_name' : random_string(6),
+			'password1' : '',
+			'password2' : password,
+			'nascimento' : datetime.date(randint(1,10),randint(1,10),randint(1,10)),
 			'nomec' : random_string(10)
 			}
 		form = UserSignupForm(data=form_data)
 		self.assertFalse(form.is_valid())
+
+	def test_signupform_valido_data_en(self):
+		password = random_string(8)
+		form_data = {'username' : random_string(10),
+			'email' : random_string(6)+'@mail.com',
+			'first_name' : random_string(6),
+			'password1' : password,
+			'password2' : password,
+			'nascimento' : '12/31/1800',
+			'nomec' : random_string(10)
+			}
+		form = UserSignupForm(data=form_data)
+		self.assertTrue(form.is_valid())
+	
+
+	def test_new_group_form_vazio(self):
+		form_data = {
+			'bet_value' : '',
+			'max_size' : '',
+			'name' : '',
+			}
+		form = new_group_Form(data=form_data)
+		self.assertFalse(form.is_valid())		
+
 	def test_sim_list(self):
 		apostadores = 5
 		posicoes = sample(range(1,10),apostadores)

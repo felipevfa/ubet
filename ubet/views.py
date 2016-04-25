@@ -53,7 +53,7 @@ def new_group(request):
 		#		has_db_errors = True
 
 			if errors['max_size_error']:
-				error_msg['size_error'] = _('A group must have two members at least, and at most '+ str(gmaxcap))
+				error_msg['size_error'] = _('A group must have two members at least, and at most ')+ str(gmaxcap)
 				has_db_errors = True
 
 			if errors['bet_value_error']:
@@ -85,6 +85,7 @@ def signup(request):
 	error_msg = ''
 
 	if request.method == 'POST':
+		logger.debug('signup post')
 		form = UserSignupForm(request.POST, request.FILES)
 		has_db_errors = False
 
@@ -100,6 +101,7 @@ def signup(request):
 				has_db_errors = True
 
 			if has_db_errors:
+				logger.debug('signup form error')
 				return render(request, 'ubet/signup.html', { 'form': form,  })
 			else:
 				user = form.save()
@@ -108,11 +110,15 @@ def signup(request):
 				new_user = authenticate(username=request.POST['username'],
 										password=request.POST['password1'])
 				auth_login(request, new_user)
-
+				logger.debug('signup post OK')
 				return HttpResponseRedirect(reverse('user_cp'))
+		else:
+			return render(request,'ubet/signup.html',{'form' : form})
+		logger.debug('limbo')
 	else:
+		logger.debug('retrieving UserSignupForm')
 		form = UserSignupForm()
-
+		logger.debug('rendering UserSignupForm')
 		return render(request, 'ubet/signup.html', {'form': form })
 
 

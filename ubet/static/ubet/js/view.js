@@ -32,7 +32,9 @@ $(document).ready(function() {
 		$('.datepicker').pickadate({
 		selectMonths: true,
 		selectYears: 60,
-		max: true
+		max: true,
+		hiddenName: true,
+		formatSubmit: 'mm/dd/yyyy',
 		});
 	}
 

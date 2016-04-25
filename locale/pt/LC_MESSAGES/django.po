@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-24 23:25+0000\n"
+"POT-Creation-Date: 2016-04-25 02:09+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,37 +31,35 @@ msgstr ""
 msgid "Only users above 18 can participate"
 msgstr "Somente usuários acima de 18 podem participar"
 
-#: ubet/forms.py:29 ubet/templates/ubet/user_cp.html.py:12
+#: ubet/forms.py:25 ubet/templates/ubet/user_cp.html.py:12
 msgid "Birthdate"
 msgstr "Data de nascimento"
 
-#: ubet/forms.py:35 ubet/templates/ubet/user_cp.html.py:10
+#: ubet/forms.py:30 ubet/templates/ubet/user_cp.html.py:10
 msgid "Full name"
 msgstr "Nome completo"
 
-#: ubet/forms.py:40
+#: ubet/forms.py:35
 msgid "Public Name"
 msgstr "Nome público"
 
-#: ubet/forms.py:96
+#: ubet/forms.py:84
 msgid "Username"
 msgstr ""
 
-#: ubet/forms.py:96
+#: ubet/forms.py:84
 msgid "Password"
 msgstr ""
 
-#: ubet/forms.py:107
-#, fuzzy
-#| msgid "Group canceled"
+#: ubet/forms.py:95
 msgid "Group's name"
-msgstr "Grupo cancelado"
+msgstr "Nome do Grupo"
 
-#: ubet/forms.py:108
+#: ubet/forms.py:96
 msgid "Number of members"
 msgstr "Número de usuários"
 
-#: ubet/forms.py:109
+#: ubet/forms.py:97
 msgid "Bet"
 msgstr "Valor da aposta"
 
@@ -187,11 +185,11 @@ msgstr "Não há grupos ativos."
 msgid "Welcome to uBet!"
 msgstr "Bem vindo ao uBet!"
 
-#: ubet/templates/ubet/login.html:29
+#: ubet/templates/ubet/login.html:31
 msgid "Doesn't have an account?"
 msgstr "Não tem uma conta?"
 
-#: ubet/templates/ubet/login.html:29
+#: ubet/templates/ubet/login.html:31
 msgid "Register here!"
 msgstr "Cadastre-se aqui!"
 
@@ -239,7 +237,7 @@ msgstr "Você precisa estar logado para ver essa página."
 
 #: ubet/views.py:56
 msgid "A group must have two members at least, and at most "
-msgstr "Um grupo precisa de no mínimo 2 usuários, e no máximo"
+msgstr "Um grupo precisa de no mínimo 2 usuários, e no máximo "
 
 #: ubet/views.py:60
 msgid "The bet must have a positive value."
@@ -249,89 +247,89 @@ msgstr "A aposta deve ser um valor maior que 0."
 msgid "Not enough credits"
 msgstr "Créditos insuficientes"
 
-#: ubet/views.py:95
+#: ubet/views.py:96
 msgid "Username taken"
 msgstr "Nome de usuário já cadastrado"
 
-#: ubet/views.py:99
+#: ubet/views.py:100
 msgid "E-mail taken"
 msgstr "E-mail já cadastrado"
 
-#: ubet/views.py:124
+#: ubet/views.py:130
 msgid "original"
 msgstr "traduzida"
 
-#: ubet/views.py:135
+#: ubet/views.py:141
 msgid "Hello, "
 msgstr "Olá"
 
-#: ubet/views.py:140
+#: ubet/views.py:146
 msgid "Account disabled"
 msgstr "Conta desativada"
 
-#: ubet/views.py:142
+#: ubet/views.py:148
 msgid "Username and password do not match"
 msgstr "Nome de usuário e senha nao conferem"
 
-#: ubet/views.py:146
+#: ubet/views.py:152
 msgid "Welcome"
 msgstr "Bem vindo"
 
-#: ubet/views.py:174
+#: ubet/views.py:180
 msgid "Only logged users can access this page"
 msgstr "Apenas usuários logados tem acesso a essa página"
 
-#: ubet/views.py:191
+#: ubet/views.py:198
 msgid "Sorry, this group does not exist."
 msgstr "Desculpe, esse grupo nao existe."
 
-#: ubet/views.py:201
+#: ubet/views.py:208
 msgid "Active group. Time remaining for conclusion: "
 msgstr "Grupo ativo. Tempo restante para conclusãô:"
 
-#: ubet/views.py:203
+#: ubet/views.py:210
 msgid "You are in this group"
 msgstr "Você está nesse grupo"
 
-#: ubet/views.py:205
+#: ubet/views.py:212
 msgid "You are not in this group"
 msgstr "Você não está nesse grupo"
 
-#: ubet/views.py:207
+#: ubet/views.py:214
 msgid "Group finished. The winner is: "
 msgstr "Grupo finalizado. O vencedor é:"
 
-#: ubet/views.py:212
+#: ubet/views.py:219
 msgid "You lost: "
 msgstr "Você perdeu: "
 
-#: ubet/views.py:213
+#: ubet/views.py:220
 msgid "You lost this bet"
 msgstr "Você perdeu essa aposta"
 
-#: ubet/views.py:215
+#: ubet/views.py:222
 #, fuzzy
 #| msgid "You won: "
 msgid "You gained: "
 msgstr "Você ganhou: "
 
-#: ubet/views.py:216
+#: ubet/views.py:223
 msgid "You won this bet"
 msgstr "Você venceu essa aposta"
 
-#: ubet/views.py:218
+#: ubet/views.py:225
 msgid "Group canceled. Values returned."
 msgstr "Grupo cancelado. Valores retornados."
 
-#: ubet/views.py:219
+#: ubet/views.py:226
 msgid "Group canceled"
 msgstr "Grupo cancelado"
 
-#: ubet/views.py:223
+#: ubet/views.py:230
 msgid "You've already betted in this group."
 msgstr "Você já apostou nesse grupo."
 
-#: ubet/views.py:226
+#: ubet/views.py:233
 msgid "Not enough credits."
 msgstr "Créditos insuficientes."
 
@@ -342,11 +340,6 @@ msgstr "Créditos insuficientes."
 
 #~ msgid "Register"
 #~ msgstr "Cadastro"
-
-#, fuzzy
-#~| msgid "Group's Name"
-#~ msgid "Nome do Grupo"
-#~ msgstr "Nome do Grupo"
 
 #, fuzzy
 #~| msgid "original"

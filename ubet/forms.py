@@ -7,7 +7,7 @@ from django.contrib.auth.models import User, UserManager
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 import datetime
-
+from rayquasa.settings import GROUP_MAX_CAPACITY as gmaxcap
 my_default_errors = {
 			'required' : 'Campo obrigatório.',
 			'invalid' : 'Insira um valor válido.',
@@ -22,20 +22,16 @@ def validate_maioridade(arg):
 
 
 class UserSignupForm(UserCreationForm):
-	nascimento = forms.DateField(required=True,validators=[validate_maioridade],widget=forms.DateInput(attrs=
-                                {
-                                    'class':'datepicker'
-                                }),
-                                label=_('Birthdate'),
-                                
-                                
-	)
-
-	nascimento.input_type = 'date'
+	nascimento = forms.DateField(required=True,label=_('Birthdate'))
+	nascimento.validators=[validate_maioridade]
+	# nascimento.widget.attrs = {
+	#     'class':'datepicker'
+	# }
+	nascimento.help_text='formato ddmmaa'
 	nomec = forms.CharField(label = _('Full name'),max_length=100)
 	class Meta:
 		model = User
-		fields = ("username", "email", 'first_name',)
+		fields = ("username", "email", 'first_name','password1','password2')
 		labels = { 
 				   'first_name' : _('Public Name'),
 				   
@@ -43,16 +39,9 @@ class UserSignupForm(UserCreationForm):
 		help_texts = {
 			'username' : '',			
 		}
-	# nascimento.widget.attrs = {'type' : 'date'}
-
-
 	def __init__(self, *args, **kwargs):
 		super(UserSignupForm, self).__init__(*args, **kwargs)
 		self.fields['password2'].help_text = ''
-
-	# 	for f in  self.visible_fields():
-	# 		print f
-		
 
 	def save(self, commit=True):
 		user = User.objects.create_user(self.cleaned_data['username'],
@@ -110,38 +99,6 @@ class new_group_Form(ModelForm):
 		}		
 	def __init__(self, *args, **kwargs):
 		super(ModelForm, self).__init__(*args, **kwargs)
-		#self.fields['position'].error_messages = my_default_errors
-		# self.fields['max_size'].error_messages = my_default_errors
-	# 	# self.fields['bet_value'].error_messages = my_default_errors
-
-	# 	# self.fields['max_size'].help_text = "Valor maior que 1"
-	# 	self.fields['position'].label = 
-
-	# # 	# self.fields['password2'].error_messages = my_default_errors
-	# # 	# self.fields['max_size'].help_text = 'Um valor maior que 1'
-	
-	# def clean_max_size(self):
-	#	data = self.cleaned_data['max_size']
-	#	if data < 2 or  data > 10:
-	#		raise forms.ValidationError('Valor invalido de tamanho do grupo!')
-	#	return data
-
-	# def clean_bet_value(self):
-	#	data = self.cleaned_data['bet_value']
-	#	if data < 1 :
-	#		raise forms.ValidationError('Valor invalido de aposta!')
-	#	return data
-		
-		# def clean_position(self):
-		# 	data = self.cleaned_data['position']
-		# 	if data < 1 or data > self.cleaned_data['max_size']:
-		# 		raise forms.ValidationError("Valor invalido de posicao!")
-		# 	return data
-
-
-		# self.fields['max_size'].help_text = "Valor maior que 1"
-		#self.fields['position'].label = "Em que posicao voce aposta (a partir de 1)"
-
 
 	def check_values(self):
 		tamanho = self.cleaned_data['max_size']
@@ -155,7 +112,7 @@ class new_group_Form(ModelForm):
 		# if posicao < 1 or posicao > tamanho:
 			#errors['position_error']  = True
 
-		if tamanho <= 1 or tamanho > 10:
+		if tamanho <= 1 or tamanho > gmaxcap:
 			errors['max_size_error'] = True
 		
 		if bet_value < 1:
