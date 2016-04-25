@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-25 02:09+0000\n"
+"POT-Creation-Date: 2016-04-25 14:26-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -82,33 +82,32 @@ msgid "Betting"
 msgstr "Apostas"
 
 #: ubet/templates/ubet/bet.html:9
-#, python-format
-msgid ""
-"\n"
-"\t\t\t<p>Betting on group <strong>%(name)s</strong>.</p>\n"
-"\t\t\t<p>The toll is %(bet)s.</p>\n"
-"\t\t"
-msgstr ""
+msgid "Betting on group"
+msgstr "Apostas"
 
-#: ubet/templates/ubet/bet.html:21 ubet/templates/ubet/bet.html.py:24
-#: ubet/templates/ubet/group_info.html:50
+#: ubet/templates/ubet/bet.html:10
+msgid "The toll is"
+msgstr "Valor da aposta"
+
+#: ubet/templates/ubet/bet.html:20 ubet/templates/ubet/bet.html.py:23
+#: ubet/templates/ubet/group_info.html:51
 msgid "Position"
 msgstr "Posição"
 
-#: ubet/templates/ubet/bet.html:24
+#: ubet/templates/ubet/bet.html:23
 msgid "open"
 msgstr "aberto"
 
-#: ubet/templates/ubet/bet.html:31
+#: ubet/templates/ubet/bet.html:30
 msgid "Confirm"
 msgstr "Confirmar"
 
-#: ubet/templates/ubet/bet.html:36 ubet/templates/ubet/new_group.html.py:23
+#: ubet/templates/ubet/bet.html:35 ubet/templates/ubet/new_group.html.py:23
 #: ubet/templates/ubet/signup.html:17
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: ubet/templates/ubet/bet.html:36
+#: ubet/templates/ubet/bet.html:35
 msgid "Bet Later"
 msgstr "Apostar Depois"
 
@@ -116,40 +115,29 @@ msgstr "Apostar Depois"
 msgid "Group Details"
 msgstr "Detalhes do grupo"
 
-#: ubet/templates/ubet/group_info.html:23
+#: ubet/templates/ubet/group_info.html:24
 msgid "active"
 msgstr "ativo"
 
-#: ubet/templates/ubet/group_info.html:25
+#: ubet/templates/ubet/group_info.html:26
+#: ubet/templates/ubet/group_info.html:28
 msgid "canceled"
 msgstr "cancelado"
 
-#: ubet/templates/ubet/group_info.html:28
-#, python-format
-msgid ""
-"\n"
-"\t\t\t\t\t\t<i class=\"grey-text\">finished on %(d)s (you won).</i>\n"
-"\t\t\t\t\t"
-msgstr ""
+#: ubet/templates/ubet/group_info.html:31
+msgid "finished on"
+msgstr "terminou a"
 
-#: ubet/templates/ubet/group_info.html:32
-#, python-format
-msgid ""
-"\n"
-"\t\t\t\t\t\t<i class=\"grey-text\">finished on %(d)s.</i>\n"
-"\t\t\t\t\t"
-msgstr ""
+#: ubet/templates/ubet/group_info.html:31
+msgid "(you won)."
+msgstr "(Você venceu)."
 
-#: ubet/templates/ubet/group_info.html:43
-msgid "Members"
-msgstr "Membros:"
-
-#: ubet/templates/ubet/group_info.html:47
+#: ubet/templates/ubet/group_info.html:48
 msgid "There are no members in this group."
 msgstr "Não há membros nesse grupo."
 
-#: ubet/templates/ubet/group_info.html:60
-#: ubet/templates/ubet/group_info.html:66
+#: ubet/templates/ubet/group_info.html:61
+#: ubet/templates/ubet/group_info.html:67
 msgid "I want to bet"
 msgstr "Eu quero apostar"
 
@@ -171,7 +159,7 @@ msgstr "Valor:"
 
 #: ubet/templates/ubet/list_all_groups.html:23
 msgid "Closes in 10 minutes."
-msgstr "O grupo termina em 10 minutos."
+msgstr ""
 
 #: ubet/templates/ubet/list_all_groups.html:27
 msgid "More"
@@ -214,8 +202,6 @@ msgid "Hello"
 msgstr "Olá"
 
 #: ubet/templates/ubet/user_cp.html:11
-#, fuzzy
-#| msgid "E-mail taken"
 msgid "E-mail"
 msgstr "E-mail já cadastrado"
 
@@ -227,7 +213,11 @@ msgstr "Cadastrado desde"
 msgid "Credits"
 msgstr "Créditos"
 
-#: ubet/templates/ubet/user_cp.html:18
+#: ubet/templates/ubet/user_cp.html:20
+msgid "Recent results"
+msgstr "Resultados recentes"
+
+#: ubet/templates/ubet/user_cp.html:30
 msgid "History"
 msgstr "Histórico"
 
@@ -275,63 +265,67 @@ msgstr "Nome de usuário e senha nao conferem"
 msgid "Welcome"
 msgstr "Bem vindo"
 
-#: ubet/views.py:180
+#: ubet/views.py:181
 msgid "Only logged users can access this page"
 msgstr "Apenas usuários logados tem acesso a essa página"
 
-#: ubet/views.py:198
+#: ubet/views.py:199
 msgid "Sorry, this group does not exist."
 msgstr "Desculpe, esse grupo nao existe."
 
-#: ubet/views.py:208
+#: ubet/views.py:209
 msgid "Active group. Time remaining for conclusion: "
 msgstr "Grupo ativo. Tempo restante para conclusãô:"
 
-#: ubet/views.py:210
+#: ubet/views.py:211
 msgid "You are in this group"
 msgstr "Você está nesse grupo"
 
-#: ubet/views.py:212
+#: ubet/views.py:213
 msgid "You are not in this group"
 msgstr "Você não está nesse grupo"
 
-#: ubet/views.py:214
+#: ubet/views.py:215
 msgid "Group finished. The winner is: "
 msgstr "Grupo finalizado. O vencedor é:"
 
-#: ubet/views.py:219
+#: ubet/views.py:220
 msgid "You lost: "
 msgstr "Você perdeu: "
 
-#: ubet/views.py:220
+#: ubet/views.py:221
 msgid "You lost this bet"
 msgstr "Você perdeu essa aposta"
 
-#: ubet/views.py:222
-#, fuzzy
-#| msgid "You won: "
+#: ubet/views.py:223
 msgid "You gained: "
 msgstr "Você ganhou: "
 
-#: ubet/views.py:223
+#: ubet/views.py:224
 msgid "You won this bet"
 msgstr "Você venceu essa aposta"
 
-#: ubet/views.py:225
+#: ubet/views.py:226
 msgid "Group canceled. Values returned."
 msgstr "Grupo cancelado. Valores retornados."
 
-#: ubet/views.py:226
+#: ubet/views.py:227
 msgid "Group canceled"
 msgstr "Grupo cancelado"
 
-#: ubet/views.py:230
+#: ubet/views.py:231
 msgid "You've already betted in this group."
 msgstr "Você já apostou nesse grupo."
 
-#: ubet/views.py:233
+#: ubet/views.py:234
 msgid "Not enough credits."
 msgstr "Créditos insuficientes."
+
+#~ msgid "finished on %(d)s (you won)."
+#~ msgstr "finalizado a %(d)s (voce venceu)."
+
+#~ msgid "Members"
+#~ msgstr "Membros:"
 
 #, fuzzy
 #~| msgid "Position"

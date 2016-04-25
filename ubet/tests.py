@@ -15,6 +15,7 @@ from django.test import Client
 from django.core.urlresolvers import reverse
 from django.db import IntegrityError
 import pytz
+from django.utils import translation
 def random_string(arg):
 	return ''.join(sample(string.lowercase+string.digits,arg))
 
@@ -367,6 +368,7 @@ class testes(TransactionTestCase):
 			'nomec' : random_string(10)
 			}
 	def test_signupform_view_dataen(self):
+		"""verificando se a view aceita data em ingles qnd o idioma eh ingles"""
 		c = Client()
 		r = c.get(reverse('signup'))
 		r = c.get(reverse('signup'))
@@ -378,17 +380,21 @@ class testes(TransactionTestCase):
 		c.post(reverse('signup'),data=self.form_data)
 		self.assertTrue(User.objects.get(username='lordpikachu').username == 'lordpikachu')
 
-	def test_signupform_view_databr(self):
+	def test_signupform_view_datapt(self):
+		"""verificando se a view aceita data em portugues qnd o idioma eh portugues"""
+		
 		c = Client()
 		r = c.get(reverse('signup'))
 		r = c.get(reverse('signup'))
 		self.assertTrue(r.status_code!=404)
 		data = self.form_data
-		data['username'] = 'lordpikachu'
+		data['username'] = 'lordpikachu2'
 		data['nascimento'] = '31/12/1990'
+		translation.activate('pt')
 		r = c.post(reverse('signup'),data=self.form_data)
-		form = r.context['form']
-		self.assertTrue(len(form.errors['nascimento']) > 0 )
+
+		# form = r.context['form']
+		self.assertTrue(User.objects.get(username='lordpikachu2').username == 'lordpikachu2')
 
 	def test_signupform_valido(self):
 		form = UserSignupForm(data=self.form_data)

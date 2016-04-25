@@ -6,10 +6,9 @@
 
 {% block main_content %} 
 	<div class="card-panel" id="bet-info">
-		{% blocktrans with name=group.name bet=group.bet_value %}
-			<p>Betting on group <strong>{{name}}</strong>.</p>
-			<p>The toll is {{bet}}.</p>
-		{% endblocktrans %}
+		<p>{%trans 'Betting on group' %} <strong>{{group.name}}</strong>.</p>
+		<p>{%trans 'The toll is' %} {{group.bet_value}}.</p>
+		
 
 		<form id="bet-position-form" name="betPosition" enctype="multiform/form-data" method="POST" action="{% url 'bet' group.id %}" class="form">
 			{% csrf_token %}

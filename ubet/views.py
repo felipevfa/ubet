@@ -172,6 +172,7 @@ def user_cp(request):
 		contexto = {
 			'user': request.user, 
 			'user_groups': user_groups,
+			'datejoined' : request.user.date_joined.date(),
 			'notification' : notificacoes,
 		}
 		return render(request, 'ubet/user_cp.html', contexto)

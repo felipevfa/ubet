@@ -22,11 +22,11 @@ def validate_maioridade(arg):
 
 
 class UserSignupForm(UserCreationForm):
-	nascimento = forms.DateField(required=True,label=_('Birthdate'))
+	nascimento = forms.DateField(required=True,label=_('Birthdate') )
 	nascimento.validators=[validate_maioridade]
-	nascimento.widget.attrs = {
-	    'class':'datepicker'
-	}
+	# nascimento.widget.attrs = {
+	#     'class':'datepicker'
+	# }
 	nomec = forms.CharField(label = _('Full name'),max_length=100)
 	class Meta:
 		model = User
