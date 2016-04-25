@@ -357,9 +357,8 @@ class testes(TransactionTestCase):
 
 		self.assertEqual(g.cur_size(),apostadores)
 
-	def test_signupform_valido(self):
-		password = random_string(8)
-		form_data = {'username' : random_string(10),
+	password = random_string(8)
+	form_data = {'username' : random_string(10),
 			'email' : random_string(6)+'@mail.com',
 			'first_name' : random_string(6),
 			'password1' : password,
@@ -367,7 +366,33 @@ class testes(TransactionTestCase):
 			'nascimento' : datetime.date(randint(1,10),randint(1,10),randint(1,10)),
 			'nomec' : random_string(10)
 			}
-		form = UserSignupForm(data=form_data)
+	def test_signupform_view_dataen(self):
+		c = Client()
+		r = c.get(reverse('signup'))
+		r = c.get(reverse('signup'))
+		self.assertTrue(r.status_code!=404)
+		data = self.form_data
+		data['username'] = 'lordpikachu'
+		data['nascimento'] = '12/31/1990'
+		
+		c.post(reverse('signup'),data=self.form_data)
+		self.assertTrue(User.objects.get(username='lordpikachu').username == 'lordpikachu')
+
+	def test_signupform_view_databr(self):
+		c = Client()
+		r = c.get(reverse('signup'))
+		r = c.get(reverse('signup'))
+		self.assertTrue(r.status_code!=404)
+		data = self.form_data
+		data['username'] = 'lordpikachu'
+		data['nascimento'] = '31/12/1990'
+		r = c.post(reverse('signup'),data=self.form_data)
+		form = r.context['form']
+		self.assertTrue(len(form.errors['nascimento']) > 0 )
+
+	def test_signupform_valido(self):
+		form = UserSignupForm(data=self.form_data)
+		self.form_data
 		self.assertTrue(form.is_valid())
 	def test_signup_form_invalido_muitonovo(self):
 		password = random_string(8)

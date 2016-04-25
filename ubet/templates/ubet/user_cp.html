@@ -15,20 +15,24 @@
 
 		<ul>
 			<li><strong>{%trans 'Credits'%}:</strong> {{ user.ubet_user.creditos }}</li>
+
+			{% if notifications %}
+				<li><strong>{%trans 'Recent results' %}:</strong></li>
+				<ul class="collection">
+					{% for n in notifications %}
+						<li class="collection-item"><a href="{% url 'notification' n.id  %}">{{ n.group.name }}</a></li>
+					{% endfor %}
+				</ul>
+			{% endif %}
+
+
+			
 			<li><strong>{%trans 'History'%}:</strong></li>
 			<ul class="collection">
 				{% for g in user_groups %}
 					<li class="collection-item"><a href="{% url 'group_info' g.id %}">{{ g.name }}</a></li>
 				{% endfor %}
 			</ul>
-			{% if notification %}
-				<li><strong>{%trans Recent results% }:</strong></li>
-				<ul>
-					{% for n in notification %}
-						<li><a href="{% url 'notification' n.id %}">{{ n.group.name }}</a></li>
-					{% endfor %}
-				</ul>
-			{% endif %}
 
 		</ul>
 	</div>
