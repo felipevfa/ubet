@@ -143,7 +143,7 @@ LOGGING = {
             'class' :   'logging.FileHandler',
             #'filename'  :   '/opt/python/log/lolzin.log',
             'filename'  :   'ubet.log',
-            'formatter' :    'simple'
+            'formatter' :    'verbose'
         }
     },
     'loggers': {

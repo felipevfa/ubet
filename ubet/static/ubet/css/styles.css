@@ -21,7 +21,7 @@ body {
 .clear { clear: both; }
 .hidden { display: none; }
 .container { width: 85%; max-width: 900px; }
-.helptext { color: white; }
+.helptext { color: red; }
 
 /* 1. Navbar */
 nav {
@@ -60,6 +60,7 @@ nav {
 	padding: 10px;
 	
 }
+
 .form label { color: white; }
 .form input { color: rgb(255,230,153); border: none; border-bottom: 2px solid white; }
 

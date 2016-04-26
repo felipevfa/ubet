@@ -38,47 +38,25 @@ def list_all_groups(request):
 
 @login_required()
 def new_group(request):
+	logger.debug('new_group')
 	error_msg = { 'size_error': "",
 				  'bet_error': ""
 				}
 	if request.method == 'POST':
-		form = new_group_Form(request.POST, request.FILES)
-		has_db_errors = False
-
+		logger.debug('new_group post')
+		form = new_group_Form(request.POST)
 		if form.is_valid():
-			errors = form.check_values()
-
-		#	if errors['position_error']:
-		#		error_msg = error_msg + 'Posicao invalida.<br>'
-		#		has_db_errors = True
-
-			if errors['max_size_error']:
-				error_msg['size_error'] = _('A group must have two members at least, and at most ')+ str(gmaxcap)
-				has_db_errors = True
-
-			if errors['bet_value_error']:
-				error_msg['bet_error'] = _('The bet must have a positive value.')
-				has_db_errors = True
-
-
-			if has_db_errors:
-				return render(request, 'ubet/new_group.html', { 'form': form, 'new_groups_msg': error_msg })
-			else:
-				group = form.save(request.user)
-				return HttpResponseRedirect(reverse(bet,args=[group.id]))
-				# group.update()
-				available = [None]*group.max_size 
-				# return HttpResponseRedirect(reverse(group_info,args=[group.id]))
-				if request.user.ubet_user.creditos < group.bet_value:
-					canBet = False
-					toast = _('Not enough credits')
-				else:
-					toast = ""
-					canBet = True
-				return render(request, 'ubet/bet.html', {'group': group, 'available': available, 'new': True ,'canBet': canBet,'toast':toast})
-	else:
-		form = new_group_Form()
-	return render(request, 'ubet/new_group.html', {'form': form })
+			logger.debug('new_group is valid')
+			group = form.save(request.user)
+			return HttpResponseRedirect(reverse(bet,args=[group.id]))
+		else:
+			logger.debug('new group not valid')
+			return render(request, 'ubet/new_group.html', {'form': form })
+	elif request.method == 'GET':
+		logger.debug('new_group GET')
+		form = new_group_Form()	
+		return render(request, 'ubet/new_group.html', {'form': form })
+	logger.debug('new_group limbo')
 
 def signup(request):
 	# logger.debug('signup')
@@ -86,41 +64,25 @@ def signup(request):
 
 	if request.method == 'POST':
 		logger.debug('signup post')
-		form = UserSignupForm(request.POST, request.FILES)
-		has_db_errors = False
-
+		form = UserSignupForm(request.POST)
 		if form.is_valid():
-			errors = form.check_values()
+			user = form.save()
+			user.save()
 
-			if errors['user_error']:
-				error_msg = error_msg + _('Username taken') + '.<br>'
-				has_db_errors = True
-
-			if errors['email_error']:
-				error_msg = error_msg + _('E-mail taken') + '.<br>'
-				has_db_errors = True
-
-			if has_db_errors:
-				logger.debug('signup form error')
-				return render(request, 'ubet/signup.html', { 'form': form,  })
-			else:
-				user = form.save()
-				user.save()
-
-				new_user = authenticate(username=request.POST['username'],
-										password=request.POST['password1'])
-				auth_login(request, new_user)
-				logger.debug('signup post OK')
-				return HttpResponseRedirect(reverse('user_cp'))
+			new_user = authenticate(username=request.POST['username'],
+									password=request.POST['password1'])
+			auth_login(request, new_user)
+			logger.debug('signup post OK')
+			return HttpResponseRedirect(reverse('user_cp'))
 		else:
+			logger.debug('signup form no valid')
 			return render(request,'ubet/signup.html',{'form' : form})
-		logger.debug('limbo')
-	else:
-		logger.debug('retrieving UserSignupForm')
+		
+	elif request.method == 'GET':
+		logger.debug('signup get')
 		form = UserSignupForm()
-		logger.debug('rendering UserSignupForm')
 		return render(request, 'ubet/signup.html', {'form': form })
-
+	logger.debug('signup limbo')
 
 
 def login(request):
@@ -188,7 +150,7 @@ def notification(request,group_id):
 	n.delete()
 
 	return HttpResponseRedirect(reverse(group_info,args=[g]))
-	
+
 @login_required()	
 def group_info(request,group_id):
 	try:
@@ -204,26 +166,21 @@ def group_info(request,group_id):
 	canBet = False
 	warning = ""
 	toast = "masqbelo toast"
+	remaining = ''
 	if g.status == 'WAITING':
 		remaining =  expire - (timezone.now() - g.date_of_birth).seconds / 60
-		strinfo = _("Active group. Time remaining for conclusion: ") + str(remaining )+ "m."
 		if request.user in user_list:
 			toast = _("You are in this group")
 		else:
 			toast = _("You are not in this group")
 	elif g.status == "FINISHED":
-		strinfo = _("Group finished. The winner is: ")+ str(g.winner.first_name) 
 		u = request.user
 		if request.user in g.users_by_group()[0]:
-			strinfo += '\n'
 			if request.user != g.winner:
-				strinfo +=  _("You lost: ")  + str(g.bet_value)
 				toast = _("You lost this bet")
 			else:
-				strinfo += _("You gained: ") +str(g.bet_value*g.max_size)
 				toast = _("You won this bet")
 	elif g.status == "CANCELED":
-		strinfo = _("Group canceled. Values returned.")
 		toast = _("Group canceled")
 
 	if request.user in user_list:
@@ -242,8 +199,8 @@ def group_info(request,group_id):
 		'p_title': g.name, 
 		'canBet': canBet, 
 	 	'warning': warning ,
-	 	'strinfo' : strinfo,
 	 	'toast' : toast,
+	 	'remaining' : remaining,
 	 }
 	return render(request, 'ubet/group_info.html',contexto )
 

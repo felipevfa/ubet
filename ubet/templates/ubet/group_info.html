@@ -25,7 +25,7 @@
 			{% elif group.status == 'CANCELED' %}
 				<i class="red-text">{% trans "canceled" %}</i> <br>
 			{% elif group.status == 'FINISHED' %}
-				<i class="red-text">{% trans "canceled" %}</i> <br>
+				<i class="grey-text">{% trans "finished" %}</i> <br>
 				{% if group.winner == request.user %}
 					<i >
 						{% trans 'finished on' %} {{ group.date_of_death }} {% trans '(you won).' %}
@@ -37,7 +37,9 @@
 				{% endif %}
 			{% endif %}
 		</p>
-
+		{% if group.status == 'WAITING' %}
+			{%trans 'Remaining time' %}: {{remaining}}m.
+		{% endif %}
 		<p class="toll"><i class="material-icons text-accent-4 yellow-text">toll</i> {{group.bet_value}}</p>
 
 		

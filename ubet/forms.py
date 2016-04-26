@@ -8,6 +8,7 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 import datetime
 from rayquasa.settings import GROUP_MAX_CAPACITY as gmaxcap
+import logging
 my_default_errors = {
 			'required' : 'Campo obrigatório.',
 			'invalid' : 'Insira um valor válido.',
@@ -18,11 +19,11 @@ def validate_maioridade(arg):
 	now = datetime.date(now.year,now.month,now.day)
 	year = (now-arg)/365
 	if year.days < 18:
-		raise ValidationError( _('Only users above 18 can participate'), params={'year': year},code='invalid')
+		raise ValidationError( _('Only users above 18 can participate'),code='maioridade')
 
 
 class UserSignupForm(UserCreationForm):
-	nascimento = forms.DateField(required=True,label=_('Birthdate') )
+	nascimento = forms.DateField(required=True,label=_('Birthdate') ,help_text='xx/xx/xxxx')
 	nascimento.validators=[validate_maioridade]
 	# nascimento.widget.attrs = {
 	#     'class':'datepicker'
@@ -84,7 +85,7 @@ class UserAuthenticationForm(AuthenticationForm):
 		labels = { 'username': _('Username'), 'password': _('Password') }
 
 class new_group_Form(ModelForm):
-	"""docstring for newgroupForm"""
+	"""docstring for new_group_Form"""
 
 	# position = forms.IntegerField(label = 'Em que numero voce apostara')
 	
@@ -95,29 +96,22 @@ class new_group_Form(ModelForm):
 			'name' : _('Group\'s name'),
 			'max_size' : _('Number of members'),
 			'bet_value' : _('Bet'),
-		}		
-	def __init__(self, *args, **kwargs):
-		super(ModelForm, self).__init__(*args, **kwargs)
-
-	def check_values(self):
-		tamanho = self.cleaned_data['max_size']
-		# posicao = self.cleaned_data['position']
-		bet_value = self.cleaned_data['bet_value']
-		errors = {
-			'bet_value_error' : False,
-			'max_size_error' : False,
-			#'position_error' : False,
 		}
-		# if posicao < 1 or posicao > tamanho:
-			#errors['position_error']  = True
+		
 
-		if tamanho <= 1 or tamanho > gmaxcap:
-			errors['max_size_error'] = True
+
+	def clean_bet_value(self):
+		bet_value = self.cleaned_data['bet_value']
+		if bet_value<1 :
+			raise forms.ValidationError(_("The bet must have a positive value."),code='bet_value_er	')
 		
-		if bet_value < 1:
-			errors['bet_value_error'] = True
-		
-		return errors
+		return bet_value
+	def clean_max_size(self):
+		max_size = self.cleaned_data['max_size']
+		if max_size<=1 or max_size >  gmaxcap :
+			raise forms.ValidationError(_("A group must have two members at least, and at most ")+ str(gmaxcap),code='max_size_tam')
+
+		return max_size
 
 	def save(self,criador,commit=True):
 

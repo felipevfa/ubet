@@ -557,3 +557,417 @@ DEBUG list_all_groups
 DEBUG list_all_groups
 DEBUG list_all_groups
 DEBUG list_all_groups
+DEBUG login
+DEBUG list_all_groups
+DEBUG list_all_groups
+DEBUG login
+DEBUG retrieving UserSignupForm
+DEBUG rendering UserSignupForm
+DEBUG retrieving UserSignupForm
+DEBUG rendering UserSignupForm
+DEBUG signup post
+DEBUG retrieving UserSignupForm
+DEBUG rendering UserSignupForm
+DEBUG signup post
+DEBUG signup post
+DEBUG signup post
+DEBUG signup post
+DEBUG signup post
+DEBUG signup post
+DEBUG signup post
+DEBUG signup post
+DEBUG signup post
+DEBUG signup post
+DEBUG retrieving UserSignupForm
+DEBUG rendering UserSignupForm
+DEBUG retrieving UserSignupForm
+DEBUG rendering UserSignupForm
+DEBUG retrieving UserSignupForm
+DEBUG rendering UserSignupForm
+DEBUG retrieving UserSignupForm
+DEBUG rendering UserSignupForm
+DEBUG retrieving UserSignupForm
+DEBUG rendering UserSignupForm
+DEBUG retrieving UserSignupForm
+DEBUG rendering UserSignupForm
+DEBUG retrieving UserSignupForm
+DEBUG rendering UserSignupForm
+DEBUG login
+DEBUG retrieving UserSignupForm
+DEBUG rendering UserSignupForm
+DEBUG login
+DEBUG login
+DEBUG pikachulogandoo
+DEBUG list_all_groups
+DEBUG list_all_groups
+DEBUG list_all_groups
+DEBUG list_all_groups
+DEBUG list_all_groups
+DEBUG list_all_groups
+DEBUG list_all_groups
+DEBUG list_all_groups
+DEBUG list_all_groups
+DEBUG retrieving UserSignupForm
+DEBUG rendering UserSignupForm
+DEBUG retrieving UserSignupForm
+DEBUG rendering UserSignupForm
+DEBUG signup post
+DEBUG signup post OK
+DEBUG retrieving UserSignupForm
+DEBUG rendering UserSignupForm
+DEBUG retrieving UserSignupForm
+DEBUG rendering UserSignupForm
+DEBUG signup post
+DEBUG signup post OK
+DEBUG login
+DEBUG retrieving UserSignupForm
+DEBUG rendering UserSignupForm
+DEBUG retrieving UserSignupForm
+DEBUG rendering UserSignupForm
+DEBUG signup post
+DEBUG signup post OK
+DEBUG retrieving UserSignupForm
+DEBUG rendering UserSignupForm
+DEBUG retrieving UserSignupForm
+DEBUG rendering UserSignupForm
+DEBUG signup post
+DEBUG signup post OK
+DEBUG login
+DEBUG login
+DEBUG login
+DEBUG pikachulogandoo
+DEBUG list_all_groups
+DEBUG list_all_groups
+DEBUG login
+DEBUG login
+DEBUG pikachulogandoo
+DEBUG list_all_groups
+DEBUG list_all_groups
+DEBUG login
+DEBUG login
+DEBUG rycologandoo
+DEBUG list_all_groups
+DEBUG list_all_groups
+DEBUG list_all_groups
+DEBUG list_all_groups
+DEBUG list_all_groups
+DEBUG new_group
+DEBUG new_group
+DEBUG new_group
+DEBUG new_group post
+DEBUG new_group
+DEBUG new_group post
+DEBUG new_group
+DEBUG new_group post
+DEBUG new_group
+DEBUG new_group
+DEBUG new_group not post
+DEBUG new_group
+DEBUG new_group not post
+DEBUG new_group
+DEBUG new_group post
+DEBUG new_group
+DEBUG new_group not post
+DEBUG new_group
+DEBUG new_group not post
+DEBUG new_group
+DEBUG new_group not post
+DEBUG new_group
+DEBUG new_group not post
+DEBUG new_group
+DEBUG new_group not post
+DEBUG new_group
+DEBUG new_group GET
+DEBUG new_group limbo
+[26/Apr/2016 02:58:19] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 02:58:19] DEBUG [ubet.views:87] new_group GET
+[26/Apr/2016 02:58:19] DEBUG [ubet.views:89] new_group limbo
+[26/Apr/2016 02:59:22] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 02:59:22] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 02:59:22] DEBUG [ubet.views:84] new group not valid
+[26/Apr/2016 02:59:30] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 02:59:30] DEBUG [ubet.views:87] new_group GET
+[26/Apr/2016 03:00:04] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 03:00:04] DEBUG [ubet.views:87] new_group GET
+[26/Apr/2016 03:00:49] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 03:00:49] DEBUG [ubet.views:87] new_group GET
+[26/Apr/2016 03:06:59] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 03:06:59] DEBUG [ubet.views:56] new_group GET
+[26/Apr/2016 03:07:13] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 03:07:13] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 03:07:13] DEBUG [ubet.views:53] new group not valid
+[26/Apr/2016 03:07:28] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 03:07:28] DEBUG [ubet.views:56] new_group GET
+[26/Apr/2016 03:08:05] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 03:08:05] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 03:08:05] DEBUG [ubet.views:53] new group not valid
+[26/Apr/2016 03:10:14] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 03:10:14] DEBUG [ubet.views:56] new_group GET
+[26/Apr/2016 03:10:21] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 03:10:21] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 03:10:21] DEBUG [ubet.views:53] new group not valid
+[26/Apr/2016 03:11:39] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 03:11:39] DEBUG [ubet.views:56] new_group GET
+[26/Apr/2016 03:11:45] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 03:11:45] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 03:11:45] DEBUG [ubet.views:53] new group not valid
+[26/Apr/2016 03:12:30] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 03:12:30] DEBUG [ubet.views:56] new_group GET
+[26/Apr/2016 03:13:13] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 03:13:13] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 03:13:13] DEBUG [ubet.views:53] new group not valid
+[26/Apr/2016 03:19:40] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 03:19:40] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 03:19:48] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 03:19:48] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 03:19:48] DEBUG [ubet.views:53] new group not valid
+[26/Apr/2016 03:21:51] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 03:21:51] DEBUG [ubet.views:56] new_group GET
+[26/Apr/2016 03:22:28] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 03:22:28] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 03:22:28] DEBUG [ubet.views:53] new group not valid
+[26/Apr/2016 03:22:52] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 03:22:52] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 03:22:52] DEBUG [ubet.views:49] new_group is valid
+[26/Apr/2016 03:23:53] DEBUG [ubet.views:25] list_all_groups
+[26/Apr/2016 03:23:55] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 03:23:55] DEBUG [ubet.views:56] new_group GET
+[26/Apr/2016 03:24:40] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 03:24:40] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 03:24:40] DEBUG [ubet.views:49] new_group is valid
+[26/Apr/2016 03:24:45] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 03:24:45] DEBUG [ubet.views:56] new_group GET
+[26/Apr/2016 03:28:32] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 03:28:32] DEBUG [ubet.views:56] new_group GET
+[26/Apr/2016 03:28:35] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 03:28:35] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 03:28:35] DEBUG [ubet.views:53] new group not valid
+[26/Apr/2016 03:28:41] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 03:28:41] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 03:28:41] DEBUG [ubet.views:53] new group not valid
+[26/Apr/2016 03:28:44] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 03:28:44] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 03:28:44] DEBUG [ubet.views:53] new group not valid
+[26/Apr/2016 03:29:12] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 03:29:12] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 03:29:12] DEBUG [ubet.views:49] new_group is valid
+[26/Apr/2016 03:29:18] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 03:29:18] DEBUG [ubet.views:56] new_group GET
+[26/Apr/2016 03:30:19] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 03:30:19] DEBUG [ubet.views:56] new_group GET
+[26/Apr/2016 03:37:52] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 03:37:52] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 03:37:52] DEBUG [ubet.views:53] new group not valid
+[26/Apr/2016 03:38:00] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 03:38:00] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 03:38:00] DEBUG [ubet.views:49] new_group is valid
+[26/Apr/2016 03:39:11] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 03:39:11] DEBUG [ubet.views:56] new_group GET
+[26/Apr/2016 03:39:17] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 03:39:17] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 03:39:17] DEBUG [ubet.views:53] new group not valid
+[26/Apr/2016 03:39:26] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 03:39:26] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 03:39:26] DEBUG [ubet.views:53] new group not valid
+[26/Apr/2016 03:39:31] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 03:39:31] DEBUG [ubet.views:56] new_group GET
+[26/Apr/2016 03:39:43] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 03:39:43] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 03:39:43] DEBUG [ubet.views:53] new group not valid
+[26/Apr/2016 03:39:52] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 03:39:52] DEBUG [ubet.views:56] new_group GET
+[26/Apr/2016 03:53:57] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 03:53:57] DEBUG [ubet.views:56] new_group GET
+[26/Apr/2016 03:54:18] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 03:54:18] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 03:54:18] DEBUG [ubet.views:49] new_group is valid
+[26/Apr/2016 03:56:19] DEBUG [ubet.views:106] login
+[26/Apr/2016 03:56:19] DEBUG [ubet.views:25] list_all_groups
+[26/Apr/2016 03:56:19] DEBUG [ubet.views:106] login
+[26/Apr/2016 03:56:20] DEBUG [ubet.views:25] list_all_groups
+[26/Apr/2016 03:56:23] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 03:56:23] DEBUG [ubet.views:56] new_group GET
+[26/Apr/2016 03:56:29] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 03:56:29] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 03:56:29] DEBUG [ubet.views:49] new_group is valid
+[26/Apr/2016 03:56:39] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 03:56:39] DEBUG [ubet.views:56] new_group GET
+[26/Apr/2016 03:56:45] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 03:56:45] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 03:56:45] DEBUG [ubet.views:49] new_group is valid
+[26/Apr/2016 03:56:49] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 03:56:49] DEBUG [ubet.views:56] new_group GET
+[26/Apr/2016 03:57:00] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 03:57:00] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 03:57:00] DEBUG [ubet.views:53] new group not valid
+[26/Apr/2016 03:57:03] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 03:57:03] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 03:57:03] DEBUG [ubet.views:53] new group not valid
+[26/Apr/2016 03:57:07] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 03:57:07] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 03:57:07] DEBUG [ubet.views:53] new group not valid
+[26/Apr/2016 03:57:11] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 03:57:11] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 03:57:11] DEBUG [ubet.views:53] new group not valid
+[26/Apr/2016 03:57:14] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 03:57:14] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 03:57:14] DEBUG [ubet.views:49] new_group is valid
+[26/Apr/2016 03:59:22] DEBUG [ubet.views:106] login
+[26/Apr/2016 04:00:55] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 04:00:55] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 04:00:55] DEBUG [ubet.views:49] new_group is valid
+[26/Apr/2016 04:00:56] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 04:00:56] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 04:00:56] DEBUG [ubet.views:53] new group not valid
+[26/Apr/2016 04:00:56] DEBUG [ubet.views:106] login
+[26/Apr/2016 04:00:56] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 04:00:56] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 04:00:56] DEBUG [ubet.views:53] new group not valid
+[26/Apr/2016 04:00:56] DEBUG [ubet.views:97] retrieving UserSignupForm
+[26/Apr/2016 04:00:56] DEBUG [ubet.views:99] rendering UserSignupForm
+[26/Apr/2016 04:00:56] DEBUG [ubet.views:97] retrieving UserSignupForm
+[26/Apr/2016 04:00:56] DEBUG [ubet.views:99] rendering UserSignupForm
+[26/Apr/2016 04:00:56] DEBUG [ubet.views:66] signup post
+[26/Apr/2016 04:00:57] DEBUG [ubet.views:91] signup post OK
+[26/Apr/2016 04:00:57] DEBUG [ubet.views:97] retrieving UserSignupForm
+[26/Apr/2016 04:00:57] DEBUG [ubet.views:99] rendering UserSignupForm
+[26/Apr/2016 04:00:57] DEBUG [ubet.views:97] retrieving UserSignupForm
+[26/Apr/2016 04:00:57] DEBUG [ubet.views:99] rendering UserSignupForm
+[26/Apr/2016 04:00:57] DEBUG [ubet.views:66] signup post
+[26/Apr/2016 04:00:57] DEBUG [ubet.views:91] signup post OK
+[26/Apr/2016 04:00:58] DEBUG [ubet.views:106] login
+[26/Apr/2016 04:02:46] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 04:02:46] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 04:02:46] DEBUG [ubet.views:49] new_group is valid
+[26/Apr/2016 04:02:46] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 04:02:46] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 04:02:46] DEBUG [ubet.views:53] new group not valid
+[26/Apr/2016 04:02:46] DEBUG [ubet.views:106] login
+[26/Apr/2016 04:02:46] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 04:02:46] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 04:02:46] DEBUG [ubet.views:53] new group not valid
+[26/Apr/2016 04:02:47] DEBUG [ubet.views:97] retrieving UserSignupForm
+[26/Apr/2016 04:02:47] DEBUG [ubet.views:99] rendering UserSignupForm
+[26/Apr/2016 04:02:47] DEBUG [ubet.views:97] retrieving UserSignupForm
+[26/Apr/2016 04:02:47] DEBUG [ubet.views:99] rendering UserSignupForm
+[26/Apr/2016 04:02:47] DEBUG [ubet.views:66] signup post
+[26/Apr/2016 04:02:47] DEBUG [ubet.views:91] signup post OK
+[26/Apr/2016 04:02:47] DEBUG [ubet.views:97] retrieving UserSignupForm
+[26/Apr/2016 04:02:47] DEBUG [ubet.views:99] rendering UserSignupForm
+[26/Apr/2016 04:02:47] DEBUG [ubet.views:97] retrieving UserSignupForm
+[26/Apr/2016 04:02:47] DEBUG [ubet.views:99] rendering UserSignupForm
+[26/Apr/2016 04:02:47] DEBUG [ubet.views:66] signup post
+[26/Apr/2016 04:02:47] DEBUG [ubet.views:91] signup post OK
+[26/Apr/2016 04:02:48] DEBUG [ubet.views:106] login
+[26/Apr/2016 04:09:48] DEBUG [ubet.views:106] login
+[26/Apr/2016 04:11:13] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 04:11:13] DEBUG [ubet.views:56] new_group GET
+[26/Apr/2016 04:11:13] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 04:11:13] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 04:11:13] DEBUG [ubet.views:49] new_group is valid
+[26/Apr/2016 04:11:43] DEBUG [ubet.views:25] list_all_groups
+[26/Apr/2016 04:11:45] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 04:11:45] DEBUG [ubet.views:56] new_group GET
+[26/Apr/2016 04:11:50] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 04:11:50] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 04:11:50] DEBUG [ubet.views:53] new group not valid
+[26/Apr/2016 04:14:19] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 04:14:19] DEBUG [ubet.views:56] new_group GET
+[26/Apr/2016 04:14:19] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 04:14:19] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 04:14:19] DEBUG [ubet.views:49] new_group is valid
+[26/Apr/2016 04:14:35] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 04:14:35] DEBUG [ubet.views:56] new_group GET
+[26/Apr/2016 04:14:35] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 04:14:35] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 04:14:35] DEBUG [ubet.views:53] new group not valid
+[26/Apr/2016 04:18:33] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 04:18:33] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 04:18:33] DEBUG [ubet.views:49] new_group is valid
+[26/Apr/2016 04:18:33] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 04:18:33] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 04:18:33] DEBUG [ubet.views:53] new group not valid
+[26/Apr/2016 04:18:34] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 04:18:34] DEBUG [ubet.views:56] new_group GET
+[26/Apr/2016 04:18:34] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 04:18:34] DEBUG [ubet.views:56] new_group GET
+[26/Apr/2016 04:18:34] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 04:18:34] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 04:18:34] DEBUG [ubet.views:49] new_group is valid
+[26/Apr/2016 04:18:34] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 04:18:34] DEBUG [ubet.views:56] new_group GET
+[26/Apr/2016 04:18:34] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 04:18:34] DEBUG [ubet.views:56] new_group GET
+[26/Apr/2016 04:18:34] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 04:18:34] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 04:18:34] DEBUG [ubet.views:53] new group not valid
+[26/Apr/2016 04:18:34] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 04:18:34] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 04:18:34] DEBUG [ubet.views:53] new group not valid
+[26/Apr/2016 04:18:34] DEBUG [ubet.views:82] signup get
+[26/Apr/2016 04:18:34] DEBUG [ubet.views:82] signup get
+[26/Apr/2016 04:18:34] DEBUG [ubet.views:66] signup post
+[26/Apr/2016 04:18:35] DEBUG [ubet.views:75] signup post OK
+[26/Apr/2016 04:18:35] DEBUG [ubet.views:82] signup get
+[26/Apr/2016 04:18:35] DEBUG [ubet.views:82] signup get
+[26/Apr/2016 04:18:35] DEBUG [ubet.views:66] signup post
+[26/Apr/2016 04:18:35] DEBUG [ubet.views:75] signup post OK
+[26/Apr/2016 04:18:36] DEBUG [ubet.views:90] login
+[26/Apr/2016 04:29:56] DEBUG [ubet.views:66] signup post
+[26/Apr/2016 04:29:56] DEBUG [ubet.views:78] signup form no valid
+[26/Apr/2016 04:30:52] DEBUG [ubet.views:66] signup post
+[26/Apr/2016 04:30:52] DEBUG [ubet.views:78] signup form no valid
+[26/Apr/2016 04:30:59] DEBUG [ubet.views:66] signup post
+[26/Apr/2016 04:30:59] DEBUG [ubet.views:78] signup form no valid
+[26/Apr/2016 04:31:08] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 04:31:08] DEBUG [ubet.views:56] new_group GET
+[26/Apr/2016 04:31:10] DEBUG [ubet.views:90] login
+[26/Apr/2016 04:31:12] DEBUG [ubet.views:82] signup get
+[26/Apr/2016 04:31:23] DEBUG [ubet.views:66] signup post
+[26/Apr/2016 04:31:23] DEBUG [ubet.views:78] signup form no valid
+[26/Apr/2016 04:31:37] DEBUG [ubet.views:66] signup post
+[26/Apr/2016 04:31:37] DEBUG [ubet.views:78] signup form no valid
+[26/Apr/2016 04:32:17] DEBUG [ubet.views:66] signup post
+[26/Apr/2016 04:32:17] DEBUG [ubet.views:78] signup form no valid
+[26/Apr/2016 04:32:53] DEBUG [ubet.views:66] signup post
+[26/Apr/2016 04:32:53] DEBUG [ubet.views:78] signup form no valid
+[26/Apr/2016 04:33:28] DEBUG [ubet.views:66] signup post
+[26/Apr/2016 04:33:28] DEBUG [ubet.views:78] signup form no valid
+[26/Apr/2016 04:33:56] DEBUG [ubet.views:66] signup post
+[26/Apr/2016 04:33:56] DEBUG [ubet.views:78] signup form no valid
+[26/Apr/2016 04:34:36] DEBUG [ubet.views:66] signup post
+[26/Apr/2016 04:34:36] DEBUG [ubet.views:78] signup form no valid
+[26/Apr/2016 04:34:55] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 04:34:55] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 04:34:55] DEBUG [ubet.views:49] new_group is valid
+[26/Apr/2016 04:34:55] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 04:34:55] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 04:34:55] DEBUG [ubet.views:53] new group not valid
+[26/Apr/2016 04:34:56] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 04:34:56] DEBUG [ubet.views:56] new_group GET
+[26/Apr/2016 04:34:56] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 04:34:56] DEBUG [ubet.views:56] new_group GET
+[26/Apr/2016 04:34:56] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 04:34:56] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 04:34:56] DEBUG [ubet.views:49] new_group is valid
+[26/Apr/2016 04:34:56] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 04:34:56] DEBUG [ubet.views:56] new_group GET
+[26/Apr/2016 04:34:56] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 04:34:56] DEBUG [ubet.views:56] new_group GET
+[26/Apr/2016 04:34:56] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 04:34:56] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 04:34:56] DEBUG [ubet.views:53] new group not valid
+[26/Apr/2016 04:34:56] DEBUG [ubet.views:41] new_group
+[26/Apr/2016 04:34:56] DEBUG [ubet.views:46] new_group post
+[26/Apr/2016 04:34:56] DEBUG [ubet.views:53] new group not valid
+[26/Apr/2016 04:34:56] DEBUG [ubet.views:66] signup post
+[26/Apr/2016 04:34:56] DEBUG [ubet.views:78] signup form no valid
+[26/Apr/2016 04:34:56] DEBUG [ubet.views:82] signup get
+[26/Apr/2016 04:34:56] DEBUG [ubet.views:82] signup get
+[26/Apr/2016 04:34:56] DEBUG [ubet.views:66] signup post
+[26/Apr/2016 04:34:57] DEBUG [ubet.views:75] signup post OK
+[26/Apr/2016 04:34:57] DEBUG [ubet.views:82] signup get
+[26/Apr/2016 04:34:57] DEBUG [ubet.views:82] signup get
+[26/Apr/2016 04:34:57] DEBUG [ubet.views:66] signup post
+[26/Apr/2016 04:34:57] DEBUG [ubet.views:75] signup post OK
+[26/Apr/2016 04:34:58] DEBUG [ubet.views:90] login

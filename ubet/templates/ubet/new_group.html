@@ -9,18 +9,13 @@
 		 
 		<form enctype="multipart/form-data"  action="{% url 'new_group' %}" method="POST" name="signup-form" class="form" id="newgroup_form">
 			{% csrf_token %}
-			
-			<ul>
-				<li>{{ new_groups_msg.size_error }}</li>
-				<li>{{ new_groups_msg.bet_error }}</li>
-			</ul>
-
+	
 			<ul id="form-fields">{{ form.as_ul }}</ul>				
 
 			<div class="input-field center-align">
-					<input type="submit" value="{% trans 'Create Group' %}"  class="submit-button btn" id="newgroup-btn">
+				<input type="submit" value="{% trans 'Create Group' %}"  class="submit-button btn" id="newgroup-btn">
 
-					<a href="{% url 'list_all_groups' %}" class="btn-flat">{% trans "Cancel" %}</a>
+				<a href="{% url 'list_all_groups' %}" class="btn-flat">{% trans "Cancel" %}</a>
 			</div>
 		</form>
 	</div>	

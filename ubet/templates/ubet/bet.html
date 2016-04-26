@@ -17,7 +17,7 @@
 				<div class="input-field">
 					{% if p %}
 							<input id="position-{{forloop.counter}}" type="radio" name="bet_position" value={{ forloop.counter }} class="with-gap" disabled="disabled" required>
-							<label for="position-{{ forloop.counter }}" class="btn-disabled">{% trans "Position" %} {{ forloop.counter }}: {{p}}</label>
+							<label for="position-{{ forloop.counter }}" class="btn disabled">{% trans "Position" %} {{ forloop.counter }}: {{p}}</label>
 					{% else %}
 							<input id="position-{{forloop.counter}}" type="radio" name="bet_position" value={{ forloop.counter }} class="with-gap" required>
 							<label for="position-{{ forloop.counter }}" class="btn">{% trans "Position" %} {{ forloop.counter }}: {% trans "open" %}</label>

@@ -16,11 +16,11 @@
 		<ul>
 			<li><strong>{%trans 'Credits'%}:</strong> {{ user.ubet_user.creditos }}</li>
 
-			{% if notifications%}
+			{% if notification %}
 				<li><strong>{%trans 'Recent results' %}:</strong></li>
 				<ul class="collection">
 					{% for n in notification %}
-						<li class="collection-item"><a href="{% url 'notification' n.id  %}">{{ n.group.name }}</a></li>
+						<a class='collection-item' href="{% url 'notification' n.id  %}"><li >{{ n.group.name }}</li></a>
 					{% endfor %}
 				</ul>
 			{% endif %}

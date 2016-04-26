@@ -16,6 +16,8 @@ from django.core.urlresolvers import reverse
 from django.db import IntegrityError
 import pytz
 from django.utils import translation
+from django.utils.translation import ugettext as _
+
 def random_string(arg):
 	return ''.join(sample(string.lowercase+string.digits,arg))
 
@@ -278,7 +280,6 @@ class testes(TransactionTestCase):
 		u = random_user()
 		self.client.login(username=u.username,password='senhaforte')
 		r = self.client.post(reverse('new_group'),data=cx,follow=False)
-		self.assertTrue('' != r.context['new_groups_msg']['bet_error'])
 		self.assertTrue(len(Group.objects.all()) == 0)
 	def test_new_group_size_fail(self):
 		cx = {
@@ -289,7 +290,6 @@ class testes(TransactionTestCase):
 		u = random_user()
 		self.client.login(username=u.username,password='senhaforte')
 		r = self.client.post(reverse('new_group'),data=cx,follow=False)
-		self.assertTrue('' != r.context['new_groups_msg']['size_error'])
 		self.assertTrue(len(Group.objects.all()) == 0)
 	def test_aposta_finished(self):
 		apostadores = 10
@@ -318,7 +318,7 @@ class testes(TransactionTestCase):
 		self.assertEqual(win,1)
 		self.assertEqual(g.cur_size(),apostadores)
 		self.assertEqual(g.status,"FINISHED")
-
+	
 	def test_aposta_canceled(self):
 		c= Client()
 		setup_test_environment()
@@ -411,8 +411,25 @@ class testes(TransactionTestCase):
 			'nomec' : random_string(10)
 			}
 		form = UserSignupForm(data=form_data)
+		self.assertTrue(_("Only users above 18 can participate") in form.errors['nascimento'] )
+	
+	def test_signup_form_invalido_muitonovo_view(self):
+		c = Client()
+		password = random_string(8)
+		form_data = {'username' : random_string(10),
+			'email' : random_string(6)+'@mail.com',
+			'first_name' : random_string(6),
+			'password1' : password,
+			'password2' : password,
+			'nascimento' : datetime.date(datetime.datetime.now().year,randint(1,10),randint(1,10)),
+			'nomec' : random_string(10)
+			}
+		c.get('')
+		r = c.post(reverse('signup'),data=form_data)
+		self.assertTrue(r.status_code != 404)
+		form = r.context['form']
+		self.assertTrue(_("Only users above 18 can participate") in form.errors['nascimento']  )
 
-		self.assertFalse(form.is_valid())
 	def test_signup_form_invalido_campovazio(self):
 		password = random_string(8)
 		form_data = {
@@ -449,6 +466,73 @@ class testes(TransactionTestCase):
 			}
 		form = new_group_Form(data=form_data)
 		self.assertFalse(form.is_valid())		
+	def test_new_group_form_valido(self):
+		form_data = {
+			'bet_value' : '1',
+			'max_size' : '2',
+			'name' : 'mamao',
+			}
+		form = new_group_Form(data=form_data)
+		self.assertTrue(form.is_valid())		
+
+	def test_new_group_form_doubleerro(self):
+		form_data = {
+			'bet_value' : '-1',
+			'max_size' : '200',
+			'name' : 'mamao',
+			}
+		form = new_group_Form(data=form_data)
+		self.assertTrue(len(form.errors['max_size'])>0)
+		self.assertTrue(len(form.errors['bet_value'])>0)
+
+		self.assertFalse(form.is_valid())		
+
+	def test_new_group_form_erro_bet(self):
+		form_data = {
+			'bet_value' : '200',
+			'max_size' : '-1',
+			'name' : 'mamao',
+			}
+		form = new_group_Form(data=form_data)
+		self.assertTrue(len(form.errors['max_size'])>0)
+
+		self.assertFalse(form.is_valid())		
+
+	def test_new_group_form_erro_bet_view(self):
+		form_data = {
+			'bet_value' : '200',
+			'max_size' : '2',
+			'name' : 'mamao',
+			}
+		c = Client()
+		u = random_user(username='pikachu')
+		c.login(username='pikachu',password='senhaforte')
+		r = c.get(reverse('new_group'))
+		r = c.get(reverse('new_group'))
+		self.assertTrue(r.status_code != 404)
+		
+		r = c.post(reverse('new_group'),data=form_data,follow=True)
+		self.assertTrue(r.status_code != 404)
+		
+		self.assertTrue(len(Group.objects.all())>0)		
+	def test_new_group_form_erro_duploerro_view(self):
+		form_data = {
+			'bet_value' : '-1',
+			'max_size' : '-1',
+			'name' : 'mamao',
+			}
+		c = Client()
+		u = random_user(username='pikachu')
+		c.login(username='pikachu',password='senhaforte')
+		r = c.get(reverse('new_group'))
+		r = c.get(reverse('new_group'))
+		self.assertTrue(r.status_code != 404)
+		
+		r = c.post(reverse('new_group'),data=form_data,follow=True)
+		self.assertTrue(r.status_code != 404)
+		
+		self.assertTrue(len(Group.objects.all())==0)			
+
 
 	def test_sim_list(self):
 		apostadores = 5

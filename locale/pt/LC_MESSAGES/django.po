@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-25 14:26-0300\n"
+"POT-Creation-Date: 2016-04-26 02:25+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,7 +27,7 @@ msgstr "portugues"
 msgid "Portuguese"
 msgstr ""
 
-#: ubet/forms.py:21
+#: ubet/forms.py:21 ubet/tests.py:417
 msgid "Only users above 18 can participate"
 msgstr "Somente usuários acima de 18 podem participar"
 
@@ -90,7 +90,7 @@ msgid "The toll is"
 msgstr "Valor da aposta"
 
 #: ubet/templates/ubet/bet.html:20 ubet/templates/ubet/bet.html.py:23
-#: ubet/templates/ubet/group_info.html:51
+#: ubet/templates/ubet/group_info.html:53
 msgid "Position"
 msgstr "Posição"
 
@@ -120,11 +120,15 @@ msgid "active"
 msgstr "ativo"
 
 #: ubet/templates/ubet/group_info.html:26
-#: ubet/templates/ubet/group_info.html:28
 msgid "canceled"
 msgstr "cancelado"
 
+#: ubet/templates/ubet/group_info.html:28
+msgid "finished"
+msgstr "concluído"
+
 #: ubet/templates/ubet/group_info.html:31
+#: ubet/templates/ubet/group_info.html:35
 msgid "finished on"
 msgstr "terminou a"
 
@@ -132,12 +136,12 @@ msgstr "terminou a"
 msgid "(you won)."
 msgstr "(Você venceu)."
 
-#: ubet/templates/ubet/group_info.html:48
+#: ubet/templates/ubet/group_info.html:50
 msgid "There are no members in this group."
 msgstr "Não há membros nesse grupo."
 
-#: ubet/templates/ubet/group_info.html:61
-#: ubet/templates/ubet/group_info.html:67
+#: ubet/templates/ubet/group_info.html:63
+#: ubet/templates/ubet/group_info.html:69
 msgid "I want to bet"
 msgstr "Eu quero apostar"
 
@@ -273,10 +277,6 @@ msgstr "Apenas usuários logados tem acesso a essa página"
 msgid "Sorry, this group does not exist."
 msgstr "Desculpe, esse grupo nao existe."
 
-#: ubet/views.py:209
-msgid "Active group. Time remaining for conclusion: "
-msgstr "Grupo ativo. Tempo restante para conclusãô:"
-
 #: ubet/views.py:211
 msgid "You are in this group"
 msgstr "Você está nesse grupo"
@@ -285,41 +285,40 @@ msgstr "Você está nesse grupo"
 msgid "You are not in this group"
 msgstr "Você não está nesse grupo"
 
-#: ubet/views.py:215
-msgid "Group finished. The winner is: "
-msgstr "Grupo finalizado. O vencedor é:"
-
-#: ubet/views.py:220
-msgid "You lost: "
-msgstr "Você perdeu: "
-
-#: ubet/views.py:221
+#: ubet/views.py:218
 msgid "You lost this bet"
 msgstr "Você perdeu essa aposta"
 
-#: ubet/views.py:223
-msgid "You gained: "
-msgstr "Você ganhou: "
-
-#: ubet/views.py:224
+#: ubet/views.py:220
 msgid "You won this bet"
 msgstr "Você venceu essa aposta"
 
-#: ubet/views.py:226
-msgid "Group canceled. Values returned."
-msgstr "Grupo cancelado. Valores retornados."
-
-#: ubet/views.py:227
+#: ubet/views.py:222
 msgid "Group canceled"
 msgstr "Grupo cancelado"
 
-#: ubet/views.py:231
+#: ubet/views.py:226
 msgid "You've already betted in this group."
 msgstr "Você já apostou nesse grupo."
 
-#: ubet/views.py:234
+#: ubet/views.py:229
 msgid "Not enough credits."
 msgstr "Créditos insuficientes."
+
+#~ msgid "Active group. Time remaining for conclusion: "
+#~ msgstr "Grupo ativo. Tempo restante para conclusãô:"
+
+#~ msgid "Group finished. The winner is: "
+#~ msgstr "Grupo finalizado. O vencedor é:"
+
+#~ msgid "You lost: "
+#~ msgstr "Você perdeu: "
+
+#~ msgid "You gained: "
+#~ msgstr "Você ganhou: "
+
+#~ msgid "Group canceled. Values returned."
+#~ msgstr "Grupo cancelado. Valores retornados."
 
 #~ msgid "finished on %(d)s (you won)."
 #~ msgstr "finalizado a %(d)s (voce venceu)."
