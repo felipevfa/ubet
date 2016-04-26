@@ -59,7 +59,7 @@ def new_group(request):
 	logger.debug('new_group limbo')
 
 def signup(request):
-	# logger.debug('signup')
+	logger.debug('signup')
 	error_msg = ''
 
 	if request.method == 'POST':
@@ -127,6 +127,7 @@ def logout(request):
 
 @login_required()
 def user_cp(request):
+	logger.debug('user_cp')
 	user_groups = Group.groups_by_user(request.user)
 			
 	notificacoes =  Notification.objects.filter(user=request.user)
@@ -137,6 +138,11 @@ def user_cp(request):
 			'datejoined' : request.user.date_joined.date(),
 			'notification' : notificacoes,
 		}
+		logger.debug('user' +str( request.user))
+		logger.debug('user_groups' +str(  user_groups))
+		logger.debug('datejoined' +str( request.user.date_joined.date()))
+		logger.debug('notification' +str( notificacoes))
+
 		return render(request, 'ubet/user_cp.html', contexto)
 	else:
 		form = UserAuthenticationForm()
@@ -145,19 +151,24 @@ def user_cp(request):
 
 @login_required()
 def notification(request,group_id):
+	logger.debug('notification')
 	n = Notification.objects.get(id=group_id)
 	g = n.group.id
+	logger.debug(n)
+	logger.debug(g)
 	n.delete()
 
 	return HttpResponseRedirect(reverse(group_info,args=[g]))
 
 @login_required()	
 def group_info(request,group_id):
+	logger.debug('group_info')
 	try:
 		g = Group.objects.get(id=group_id)
 		g.update()
 		# g.sim_list()
 	except ObjectDoesNotExist:
+		logger.debug('group_info exception')
 		return render(request, 'ubet/group_info.html', { 'error_msg': _('Sorry, this group does not exist.'), 'p_title': 'Erro' })			
 
 	u = g.users_by_group()
@@ -201,7 +212,15 @@ def group_info(request,group_id):
 	 	'warning': warning ,
 	 	'toast' : toast,
 	 	'remaining' : remaining,
-	 }
+	}
+	logger.debug('users' + contexto['users'])
+	logger.debug('group' + contexto['group'])
+	logger.debug('p_title' + contexto['p_title'])
+	logger.debug('canBet' + contexto['canBet'])
+	logger.debug('warning' + contexto['warning'])
+	logger.debug('toast' + contexto['toast'])
+	logger.debug('remaining' + contexto['remaining'])
+
 	return render(request, 'ubet/group_info.html',contexto )
 
 
@@ -213,10 +232,13 @@ def group_info(request,group_id):
 @login_required()
 def bet(request,group_id):
 	# Se há um novo grupo sendo criado, recupera ele através de Sessions.
+	logger.debug('bet')
 	if request.method == 'GET':
+		logger.debug('bet get')	
 		try:
 			group = Group.objects.get(id=group_id)
 		except ObjectDoesNotExist:
+			logger.debug('bet exception')
 			group = None
 		# Verifica se o grupo foi encontrado.
 		if group is not None:
@@ -238,8 +260,13 @@ def bet(request,group_id):
 				'canBet' : canBet,
 				'reason' : reason
 			}
+			logger.debug('group' + str(contexto['group']))
+			logger.debug('available' + str(contexto['available']))
+			logger.debug('canBet' + str(contexto['canBet']))
+			logger.debug('reason' + str(contexto['reason']))
 			return render(request, 'ubet/bet.html', contexto)
 	elif request.method == 'POST':
+		logger.debug('bet post')
 		try:
 			betpos = request.POST['bet_position']
 			g = Group.objects.get(id=group_id)
