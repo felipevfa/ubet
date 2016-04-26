@@ -162,7 +162,7 @@ def notification(request,group_id):
 
 @login_required()	
 def group_info(request,group_id):
-	logger.debug('group_info')
+	logger.debug('group_info ' + str(group_id))
 	try:
 		g = Group.objects.get(id=group_id)
 		g.update()
@@ -213,13 +213,13 @@ def group_info(request,group_id):
 	 	'toast' : toast,
 	 	'remaining' : remaining,
 	}
-	logger.debug('users' + contexto['users'])
-	logger.debug('group' + contexto['group'])
-	logger.debug('p_title' + contexto['p_title'])
-	logger.debug('canBet' + contexto['canBet'])
-	logger.debug('warning' + contexto['warning'])
-	logger.debug('toast' + contexto['toast'])
-	logger.debug('remaining' + contexto['remaining'])
+	logger.debug('users' + str(contexto['users']))
+	logger.debug('group' + str(contexto['group']))
+	logger.debug('p_title' + str(contexto['p_title']))
+	logger.debug('canBet' + str(contexto['canBet']))
+	logger.debug('warning' + str(contexto['warning']))
+	logger.debug('toast' + str(contexto['toast']))
+	logger.debug('remaining' + str(contexto['remaining']))
 
 	return render(request, 'ubet/group_info.html',contexto )
 
