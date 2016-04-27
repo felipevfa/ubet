@@ -22,14 +22,18 @@
 					<div class="nav-wrapper container">
   						<a href="#!" class="brand-logo truncate" id="page-title">{% block page_title %}Grupos{% endblock page_title %}</a>
   						{% block menu_action %}
-  							<a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+  							<a  href="#!" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
   						{% endblock menu_action %}
 
-  						<a href="#!" class="right notifications button-collapse"><i class="material-icons">notifications_none</i></a>
+  						{% if has_notification %}
+  						<a href=href="{%url 'user_cp'%}" class="right notifications "><i class="material-icons">notifications_none</i></a>
+  						{% endif%}
 
 						<ul class="right hide-on-med-and-down">
+				       		<li>{% if messages %}
+				       		{%for message in messages%}{%endfor%}<i class="material-icons">error</i>{% endif %}</li>
 				       		<li><a href="{% url 'user_cp' %}">{% trans "My profile" %}</a></li>
-				       		<li><a href="{% url 'list_all_groups' %}">{% trans "Groups" %}</a></li>
+				       		<li><a href="{% url 'list_all_groups' %}">{% trans "Groups" %}				       				</a></li>
 				       		<li><a href="{% url 'logout' %}">{% trans "Logout" %}</a></li>
 				     	</ul>
 

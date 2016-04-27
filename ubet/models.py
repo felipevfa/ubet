@@ -87,6 +87,13 @@ class Group(models.Model):
 					a = Notification(group = self,user=u)
 					a.save()
 				self.save()
+	def time_left(self):
+		"""retorna o tempo restante do grupo em minutos."""
+		if self.status == 'WAITING':
+			now = timezone.now()
+			active = (now - self.date_of_birth).seconds / 60
+			return expire-active
+		return 0
 
 	def add_user(self,user,position):
 		gp = Group_link(user=user,group=self,position=position)

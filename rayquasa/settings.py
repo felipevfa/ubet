@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
-TIME_TO_EXPIRE = 10
+TIME_TO_EXPIRE = 1
 GROUP_MAX_CAPACITY = 10
 LOGIN_URL = '/login'
 

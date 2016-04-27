@@ -22,26 +22,18 @@ from django.utils.translation import ugettext_lazy as _
 logger = logging.getLogger(__name__)
 @login_required()
 def list_all_groups(request):
+	groups = Group.active_groups();
+	if Notification.objects.filter(user=request.user).count() > 0:
+		messages.add_message(request, messages.INFO, 'Hello world.')
+		print 'mamao'
+		print Notification.objects.filter(user=request.user).count()
+		print 'melao'
 	logger.debug('list_all_groups')
-	if request.user.is_authenticated():
-		groups = Group.active_groups();
-
-		users_by_group = {}
-
-		for g in groups:
-			g.user_list = list(Group.users_by_group(g))
-
-		return render(request,'ubet/list_all_groups.html', {'grupos': groups })
-
-	form = UserAuthenticationForm()
-	return render(request, 'ubet/login.html', { 'form': form, 'toast': _('You need to be logged in to access this page.')})
+	return render(request,'ubet/list_all_groups.html', {'grupos': groups })
 
 @login_required()
 def new_group(request):
 	logger.debug('new_group')
-	error_msg = { 'size_error': "",
-				  'bet_error': ""
-				}
 	if request.method == 'POST':
 		logger.debug('new_group post')
 		form = new_group_Form(request.POST)
@@ -88,7 +80,7 @@ def signup(request):
 def login(request):
 	form = UserAuthenticationForm()
 	logger.debug('login')
-	
+
 	msg = _('original')
 	if request.method == 'POST':
 		username = request.POST['username']
@@ -116,6 +108,7 @@ def login(request):
 
 @login_required()
 def list_all_users(request):
+
 	return render(request,'ubet/list_all_users.html', {'li':Ubet_user.objects.all()})
 
 @login_required()
@@ -178,6 +171,7 @@ def group_info(request,group_id):
 	warning = ""
 	toast = "masqbelo toast"
 	remaining = ''
+	
 	if g.status == 'WAITING':
 		remaining =  expire - (timezone.now() - g.date_of_birth).seconds / 60
 		if request.user in user_list:
@@ -205,6 +199,7 @@ def group_info(request,group_id):
 
 	if g.status == "CANCELED":
 		canBet = False
+	sl = g.sim_list()
 	contexto = {'group': g, 
 		'users': zip(user_list, position_list), 
 		'p_title': g.name, 
@@ -212,6 +207,7 @@ def group_info(request,group_id):
 	 	'warning': warning ,
 	 	'toast' : toast,
 	 	'remaining' : remaining,
+	 	'sim_list' : sl,
 	}
 	logger.debug('users' + str(contexto['users']))
 	logger.debug('group' + str(contexto['group']))
@@ -220,6 +216,7 @@ def group_info(request,group_id):
 	logger.debug('warning' + str(contexto['warning']))
 	logger.debug('toast' + str(contexto['toast']))
 	logger.debug('remaining' + str(contexto['remaining']))
+	logger.debug('sim_list' + str(contexto['sim_list']))
 
 	return render(request, 'ubet/group_info.html',contexto )
 

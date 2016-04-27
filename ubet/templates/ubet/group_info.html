@@ -49,8 +49,18 @@
 		{% if users|length < 1 %}
 			<li>{% trans "There are no members in this group." %}</li>
 		{% else %}
-			{% for u in users %}
-				<li>{{ u.0 }} ({% trans "Position" %}: {{ u.1 }})</li>
+			{% for p in sim_list %}
+				<div>
+				<ul>
+					{% if p %}
+							<li id="position-{{forloop.counter}}"  name="bet_position" value={{ forloop.counter }} class="with-gap" required>
+							<label for="position-{{ forloop.counter }}" class="btn disabled">{% trans "Position" %} {{ forloop.counter }}: {{p}}</label>
+					{% else %}
+							<li id="position-{{forloop.counter}}"  name="bet_position" value={{ forloop.counter }} class="with-gap" required>
+							<label for="position-{{ forloop.counter }}" class="btn">{% trans "Position" %} {{ forloop.counter }}: {% trans "open" %}</label>
+					{% endif %}
+				</ul>
+				</div>
 			{% endfor %}
 		{% endif %}
 		</ul>
@@ -68,6 +78,8 @@
 			<p>{{warning}}</p>
 			<button class="btn disabled">{% trans "I want to bet" %}</button>
 		{% endif %}
+
+
 	</div>	
 {% endif %}
 

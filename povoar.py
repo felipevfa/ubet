@@ -50,19 +50,46 @@ def populate():
 	username2 = random_user()[0]
 	username3 = random_user()[0]
 	
-	nome_do_grupo = grupo_aleatorio()
-	nome_do_grupo2 = grupo_aleatorio()
-	nome_do_grupo3 = grupo_aleatorio()
-	nome_do_grupo4 = grupo_aleatorio()
-	
+	try:
+		nome_do_grupo = grupo_aleatorio()
+	except:
+		pass
+	try:
+		nome_do_grupo2 = grupo_aleatorio()
+	except:
+		pass
+	try:
+		nome_do_grupo3 = grupo_aleatorio()
+	except:
+		pass
+	try:
+		nome_do_grupo4 = grupo_aleatorio()
+	except:
+		pass
+
 	user = User.objects.get(username=username)
 	user2 = User.objects.get(username=username2)
 	user3 = User.objects.get(username=username3)
 
-	meu_grupo = Group.objects.get(name=nome_do_grupo)
-	meu_grupo2 = Group.objects.get(name=nome_do_grupo2)
-	meu_grupo3 = Group.objects.get(name=nome_do_grupo3)
-	meu_grupo4 = Group.objects.get(name=nome_do_grupo4)
+	try:
+		meu_grupo = Group.objects.get(name=nome_do_grupo)
+	except:
+		pass
+	try:
+		meu_grupo2 = Group.objects.get(name=nome_do_grupo2)
+	except:
+		pass
+	try:
+		meu_grupo3 = Group.objects.get(name=nome_do_grupo3)
+	except:
+		pass
+	try:
+		meu_grupo4 = Group.objects.get(name=nome_do_grupo4)
+	except:
+		pass
+
+
+
 
 
 	
@@ -70,11 +97,23 @@ def populate():
 	#	incluindo usuarios a grupos 								 	#
 	#	g1 = {1,3}, g2 = {2}, g3 = {1,3}								#
 	#####################################################################
-	meu_grupo.add_user(user,9)
-	meu_grupo.add_user(user3,3)
-	meu_grupo2.add_user(user2,1)
+	try:
+		meu_grupo.add_user(user,9)
+	except:
+		pass	
+	try:
+		meu_grupo.add_user(user3,3)
+	except:
+		pass	
+	try:
+		meu_grupo2.add_user(user2,1)
+	except:
+		pass
 
-	meu_grupo3.add_user(user3,1)
+	try:
+		meu_grupo3.add_user(user3,1)
+	except:
+		pass	
 
 	try:
 		p = 'pikachu'
