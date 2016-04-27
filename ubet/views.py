@@ -12,7 +12,6 @@ from ubet.models import Ubet_user,User,Group,Notification
 from rayquasa.settings import TIME_TO_EXPIRE as expire
 from rayquasa.settings import GROUP_MAX_CAPACITY as gmaxcap
 
-
 from django.contrib import messages
 from django.template import RequestContext
 import datetime,logging
@@ -20,6 +19,10 @@ from django.utils import timezone
 # Create your views here.
 from django.utils.translation import ugettext_lazy as _
 logger = logging.getLogger(__name__)
+
+
+
+
 @login_required()
 def list_all_groups(request):
 	groups = Group.active_groups();
