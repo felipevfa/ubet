@@ -83,12 +83,22 @@ WSGI_APPLICATION = 'rayquasa.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+# DATABASES = {
+#     # 'default': {
+#     #     'ENGINE': 'django.db.backends.sqlite3',
+#     #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     # }
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+#         'NAME': 'dd81t233j9esee',                      # Or path to database file if using sqlite3.
+#         # The following settings are not used with sqlite3:
+#         'USER': 'teeermbjlkggzr',
+#         'PASSWORD': 'VsTSljeQpO01PzjXyYn8WIvgQv',
+#         'HOST': 'ec2-54-163-240-97.compute-1.amazonaws.com',# Empty for localhost through domain sockets or           '127.0.0.1' for localhost through TCP.
+#         'PORT': '5432',                      # Set to empty string for default.
+#     }
+# }
+DATABASES['default'] =  dj_database_url.config()
 
 
 # Password validation
