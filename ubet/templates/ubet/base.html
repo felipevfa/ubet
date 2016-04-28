@@ -25,13 +25,15 @@
   							<a  href="#!" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
   						{% endblock menu_action %}
 
-  						{% if has_notification %}
-  						<a href=href="{%url 'user_cp'%}" class="right notifications "><i class="material-icons">notifications_none</i></a>
+  						{% if messages %}
+  						<a href="{%url 'user_cp'%}" data-activates='nav-mobile' class="right notifications "><i class="material-icons">notifications_none</i></a>
+						
+						<!-- essa linha eh necessaria para apagar a message -->
+  						{%for message in messages%}{%endfor%}
   						{% endif%}
 
 						<ul class="right hide-on-med-and-down">
-				       		<li>{% if messages %}
-				       		{%for message in messages%}{%endfor%}<i class="material-icons">error</i>{% endif %}</li>
+				       			
 				       		<li><a href="{% url 'user_cp' %}">{% trans "My profile" %}</a></li>
 				       		<li><a href="{% url 'list_all_groups' %}">{% trans "Groups" %}				       				</a></li>
 				       		<li><a href="{% url 'logout' %}">{% trans "Logout" %}</a></li>
@@ -55,7 +57,7 @@
 				{% if request.user.is_authenticated %}
 					<div class="fixed-action-btn click-to-toggle" style="bottom: 45px; right: 24px">
 						<a class="btn-floating btn-large red">
-							<i class="waves-effect large mdi-navigation-menu material-icons">create</i>
+							<i class="waves-effect large mdi-navigation-menu material-icons">add</i>
 						</a>
 						<ul id="fab-options">
 							<li><a class="btn-floating red" href="{% url 'new_group' %}"><i class="material-icons">group_add</i></a></li>

@@ -21,20 +21,13 @@
 		<h5>{{ group.name }}</h5>
 		<p class="status">Status:
 			{% if group.status == 'WAITING' %}
-				<i class="green-text">{% trans "active" %}</i>
+				<i class="blue-text">{% trans "active" %}</i>
 			{% elif group.status == 'CANCELED' %}
 				<i class="red-text">{% trans "canceled" %}</i> <br>
 			{% elif group.status == 'FINISHED' %}
-				<i class="grey-text">{% trans "finished" %}</i> <br>
-				{% if group.winner == request.user %}
-					<i >
-						{% trans 'finished on' %} {{ group.date_of_death }} {% trans '(you won).' %}
-					</i>
-				{% else %}
-					<i >
-						{% trans 'finished on' %} {{ group.date_of_death }}
-					</i>
-				{% endif %}
+				<i class="green-text">{% trans "finished" %}</i> <br>
+				{% trans 'Winner:'%} {{ group.winner.first_name}}<br>
+				{% trans 'Reward:'%} {{ reward}}
 			{% endif %}
 		</p>
 		{% if group.status == 'WAITING' %}

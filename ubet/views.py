@@ -211,6 +211,7 @@ def group_info(request,group_id):
 	 	'toast' : toast,
 	 	'remaining' : remaining,
 	 	'sim_list' : sl,
+	 	'reward' : g.max_size*g.bet_value,
 	}
 	logger.debug('users' + str(contexto['users']))
 	logger.debug('group' + str(contexto['group']))

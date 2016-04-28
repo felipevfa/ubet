@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
-TIME_TO_EXPIRE = 1
+TIME_TO_EXPIRE = 5
 GROUP_MAX_CAPACITY = 10
 LOGIN_URL = '/login'
 
@@ -200,7 +200,7 @@ LANGUAGE_CODE = 'en'
 ugettext = lambda s: s
 LANGUAGES = (
     ('en', ugettext('English')),
-    ('pt', ugettext('Portuguese')),
+    ('pt-br', ugettext('Portuguese')),
 )
 TIME_ZONE = 'UTC'
 
