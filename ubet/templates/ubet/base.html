@@ -26,7 +26,7 @@
   						{% endblock menu_action %}
 
   						{% if messages %}
-  						<a href="{%url 'user_cp'%}" data-activates='nav-mobile' class="right notifications "><i class="material-icons">notifications_none</i></a>
+  						<a href="{%url 'user_cp'%}" data-activates='nav-mobile' class="right notifications tooltipped" data-tooltip="{%trans 'There are unread notifications'%}"><i class="material-icons">notifications_none</i></a>
 						
 						<!-- essa linha eh necessaria para apagar a message -->
   						{%for message in messages%}{%endfor%}
@@ -34,7 +34,8 @@
 
 						<ul class="right hide-on-med-and-down">
 				       			
-				       		<li><a href="{% url 'user_cp' %}">{% trans "My profile" %}</a></li>
+				       		<li><a  class='tooltipped' href="{% url 'user_cp' %}"
+				       		data-tooltip="{% trans "Verify your info like credits and your groups"%}">{% trans "My profile" %}</a></li>
 				       		<li><a href="{% url 'list_all_groups' %}">{% trans "Groups" %}				       				</a></li>
 				       		<li><a href="{% url 'logout' %}">{% trans "Logout" %}</a></li>
 				     	</ul>
@@ -60,7 +61,7 @@
 							<i class="waves-effect large mdi-navigation-menu material-icons">add</i>
 						</a>
 						<ul id="fab-options">
-							<li><a class="btn-floating red" href="{% url 'new_group' %}"><i class="material-icons">group_add</i></a></li>
+							<li><a class="btn-floating red tooltipped" data-tooltip ='{%trans 'Create new group'%}' href="{% url 'new_group' %}"><i class="material-icons">group_add</i></a></li>
 						</ul>
 					</div>
 				{% endif %}

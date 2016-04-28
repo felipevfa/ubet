@@ -30,7 +30,7 @@
 			<li><strong>{%trans 'History'%}:</strong></li>
 			<ul class="collection" >
 				{% for g in user_groups %}
-					<a class='collection-item' href="{% url 'group_info' g.id %}"><li >{{ g.name }} </li></a>
+					<a class='collection-item {%if g.winner == user%} green-text {%endif%}' href="{% url 'group_info' g.id %}"><li >{{ g.name }} </li></a>
 				{% endfor %}
 			</ul>
 

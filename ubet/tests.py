@@ -251,17 +251,15 @@ class testes(TransactionTestCase):
 
 
 	def test_user_cp_view(self):
-		###
-		#	Verifica se os enderecos disponiveis estao dando certo.
-		#	Alguns enderecos devem ser encontrados apenas por usuarios, mas agora nao esta assim.
-		##
+		"""verificando se a view user_cp gera o html c dados desejados"""
 		u = random_user()
-		self.client.login(username=u.username,password='senhaforte')
+		c = Client()
+		c.login(username=u.username,password='senhaforte')
 		g = random_group()
 		g.add_user(u,1)
-		r = self.client.get(reverse('user_cp')).content
+		r = c.get(reverse('user_cp')).content
 		self.assertTrue(u.first_name in r)
-		# self.assertTrue(u.email.split('@')[0] in r)
+		self.assertTrue(str(u.email) in r)
 		self.assertTrue( str(u.ubet_user.date_of_birth.day) in r)
 		self.assertTrue( str(u.ubet_user.date_of_birth.month) in r)
 		self.assertTrue( str(u.ubet_user.date_of_birth.year) in r)
@@ -271,11 +269,11 @@ class testes(TransactionTestCase):
 		self.assertTrue( str(u.ubet_user.creditos) in r)
 		self.assertTrue( str(u.first_name) in r)
 		self.assertTrue( str(u.ubet_user.full_name) in r)
-		self.assertTrue(str(_('Full name') ) in r )
-		self.assertTrue(str( _('E-mail')    ) in r )
-		self.assertTrue(str(_('Birthdate') ) in r )
-		self.assertTrue(str(_('Date Joined') ) in r )
-		self.assertTrue(str(_('Credits') ) in r )
+		self.assertTrue( str(_('Full name') ) in r )
+		self.assertTrue( str( _('E-mail')    ) in r )
+		self.assertTrue( str(_('Birthdate') ) in r )
+		self.assertTrue( str(_('Date Joined') ) in r )
+		self.assertTrue( str(_('Credits') ) in r )
 		self.assertTrue(g.name in r )
 
 
@@ -453,15 +451,15 @@ class testes(TransactionTestCase):
 		data = self.form_data
 		data['username'] = 'lordpikachu2'
 		data['nascimento'] = '31/12/1990'
-		translation.activate('pt')
+		translation.activate('pt-br')
 		r = c.post(reverse('signup'),data=self.form_data)
 
 		# form = r.context['form']
 		self.assertTrue(User.objects.get(username='lordpikachu2').username == 'lordpikachu2')
 		translation.activate('en')
 	def test_signupform_valido(self):
+		"""verificando se o form eh valido para dados validos"""
 		form = UserSignupForm(data=self.form_data)
-		self.form_data
 		self.assertTrue(form.is_valid())
 	def test_signup_form_invalido_muitonovo(self):
 		password = random_string(8)

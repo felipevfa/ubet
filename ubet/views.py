@@ -176,7 +176,7 @@ def group_info(request,group_id):
 	remaining = ''
 	
 	if g.status == 'WAITING':
-		remaining =  expire - (timezone.now() - g.date_of_birth).seconds / 60
+		remaining =  g.time_left()
 		if request.user in user_list:
 			toast = _("You are in this group")
 		else:
@@ -255,7 +255,11 @@ def bet(request,group_id):
 			x = group.possible_bet(request.user)
 			canBet = x[0]
 			reason = x[1]
+			abouttoend = False
+			if group.cur_size() == group.max_size-1:
+				abouttoend = True
 			contexto = {
+				'abouttoend' : abouttoend,
 				'group' : group,
 				'available' : available,
 				'canBet' : canBet,

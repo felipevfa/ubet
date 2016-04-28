@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-28 00:56-0300\n"
+"POT-Creation-Date: 2016-04-28 11:53-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,13 +17,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: rayquasa/settings.py:202
+#: rayquasa/settings.py:200
 #, fuzzy
 #| msgid "english"
 msgid "English"
 msgstr "portugues"
 
-#: rayquasa/settings.py:203
+#: rayquasa/settings.py:201
 msgid "Portuguese"
 msgstr ""
 
@@ -73,19 +73,31 @@ msgstr "A aposta deve ser um valor maior que 0."
 msgid "A group must have two members at least, and at most "
 msgstr "Um grupo precisa de no mínimo 2 usuários, e no máximo "
 
-#: ubet/templates/ubet/base.html:37 ubet/templates/ubet/base.html.py:43
+#: ubet/templates/ubet/base.html:29
+msgid "There are unread notifications"
+msgstr "Há notificações não lidas"
+
+#: ubet/templates/ubet/base.html:38
+msgid "Verify your info like credits and your groups"
+msgstr "Verifique informações como créditos e seus grupos"
+
+#: ubet/templates/ubet/base.html:38 ubet/templates/ubet/base.html.py:44
 #: ubet/templates/ubet/user_cp.html:3
 msgid "My profile"
 msgstr "Meu perfil"
 
-#: ubet/templates/ubet/base.html:38 ubet/templates/ubet/base.html.py:44
+#: ubet/templates/ubet/base.html:39 ubet/templates/ubet/base.html.py:45
 #: ubet/templates/ubet/list_all_groups.html:3
 msgid "Groups"
 msgstr "Grupos"
 
-#: ubet/templates/ubet/base.html:39 ubet/templates/ubet/base.html.py:45
+#: ubet/templates/ubet/base.html:40 ubet/templates/ubet/base.html.py:46
 msgid "Logout"
 msgstr "Desconectar"
+
+#: ubet/templates/ubet/base.html:64
+msgid "Create new group"
+msgstr "Criar Grupo"
 
 #: ubet/templates/ubet/bet.html:3
 msgid "Betting"
@@ -93,32 +105,32 @@ msgstr "Apostas"
 
 #: ubet/templates/ubet/bet.html:9
 msgid "Betting on group"
-msgstr "Apostas"
+msgstr "Apostando no grupo"
 
 #: ubet/templates/ubet/bet.html:10
 msgid "The toll is"
 msgstr "Valor da aposta"
 
-#: ubet/templates/ubet/bet.html:20 ubet/templates/ubet/bet.html.py:23
+#: ubet/templates/ubet/bet.html:26 ubet/templates/ubet/bet.html.py:29
 #: ubet/templates/ubet/group_info.html:50
 #: ubet/templates/ubet/group_info.html:53
 msgid "Position"
 msgstr "Posição"
 
-#: ubet/templates/ubet/bet.html:23 ubet/templates/ubet/group_info.html:53
+#: ubet/templates/ubet/bet.html:29 ubet/templates/ubet/group_info.html:53
 msgid "open"
 msgstr "aberto"
 
-#: ubet/templates/ubet/bet.html:30
+#: ubet/templates/ubet/bet.html:36
 msgid "Confirm"
 msgstr "Confirmar"
 
-#: ubet/templates/ubet/bet.html:35 ubet/templates/ubet/new_group.html.py:18
-#: ubet/templates/ubet/signup.html:17
+#: ubet/templates/ubet/bet.html:41 ubet/templates/ubet/new_group.html.py:18
+#: ubet/templates/ubet/signup.html:18
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: ubet/templates/ubet/bet.html:35
+#: ubet/templates/ubet/bet.html:41
 msgid "Bet Later"
 msgstr "Apostar Depois"
 
@@ -167,23 +179,23 @@ msgstr "Todos"
 msgid "My Bets"
 msgstr "Minhas apostas"
 
-#: ubet/templates/ubet/list_all_groups.html:21
+#: ubet/templates/ubet/list_all_groups.html:22
 msgid "Members:"
 msgstr "Membros:"
 
-#: ubet/templates/ubet/list_all_groups.html:22
+#: ubet/templates/ubet/list_all_groups.html:23
 msgid "Value:"
 msgstr "Valor:"
 
-#: ubet/templates/ubet/list_all_groups.html:23
+#: ubet/templates/ubet/list_all_groups.html:24
 msgid "Time left:"
 msgstr "Tempo restante:"
 
-#: ubet/templates/ubet/list_all_groups.html:27
+#: ubet/templates/ubet/list_all_groups.html:28
 msgid "More"
 msgstr "Mais"
 
-#: ubet/templates/ubet/list_all_groups.html:37
+#: ubet/templates/ubet/list_all_groups.html:38
 msgid "There are no active groups."
 msgstr "Não há grupos ativos."
 
@@ -207,11 +219,11 @@ msgstr "Novo Grupo "
 msgid "Create Group"
 msgstr "Criar Grupo"
 
-#: ubet/templates/ubet/signup.html:7
+#: ubet/templates/ubet/signup.html:8
 msgid "Sign Up"
 msgstr "Cadastrar"
 
-#: ubet/templates/ubet/signup.html:15
+#: ubet/templates/ubet/signup.html:16
 msgid "Submit"
 msgstr "Enviar"
 
@@ -221,7 +233,7 @@ msgstr "Olá"
 
 #: ubet/templates/ubet/user_cp.html:11 ubet/tests.py:275 ubet/tests.py:320
 msgid "E-mail"
-msgstr "E-mail já cadastrado"
+msgstr "E-mail"
 
 #: ubet/templates/ubet/user_cp.html:13 ubet/tests.py:277 ubet/tests.py:322
 msgid "Date Joined"
