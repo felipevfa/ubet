@@ -25,7 +25,7 @@ logger = logging.getLogger(__name__)
 
 @login_required()
 def list_all_groups(request):
-	groups = Group.active_groups();
+	groups = Group.active_groups(request.user);
 	if Notification.objects.filter(user=request.user).count() > 0:
 		messages.add_message(request, messages.INFO, 'Hello world.')
 		print 'mamao'

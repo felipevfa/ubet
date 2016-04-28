@@ -1,5 +1,7 @@
 
 # coding: utf-8
+from django.db.models import F
+
 from django.db import models
 from django.contrib.auth.models import User,BaseUserManager, AbstractBaseUser
 from random import choice
@@ -42,6 +44,7 @@ class Ubet_user(models.Model):
 			except:
 				raise
 		return False,reason
+
 
 	
 class Group(models.Model):
@@ -95,18 +98,31 @@ class Group(models.Model):
 			return expire-active
 		return 0
 
+	@staticmethod
+	def active_groups(user,waiting=False):
+		glist = Group.objects.filter(status='WAITING')
+		for g in glist:
+			g.update()
+		if waiting:
+			return glist.filter(status='WAITING').filter(group_link__user=user)
+		else:
+			return glist.filter(status='WAITING').exclude(group_link__user=user)
+	@staticmethod	
+	def total_active_groups():
+		glist = Group.objects.filter(status='WAITING')
+		for g in glist:
+			g.update()
+		return glist
+
 	def add_user(self,user,position):
 		gp = Group_link(user=user,group=self,position=position)
 
 		try:
 			# self.save()
 			gp.save()
-			success = True
 		except:
-			success = False
+			raise
 		
-		return success
-
 	def available_positions(self):
 		usuarios= Group.users_by_group(self)[0]
 		user_positions = [Group_link.objects.get(user=u,group=self).position for u in usuarios]
@@ -137,12 +153,7 @@ class Group(models.Model):
 			g.update()
 		return glist
 	
-	@staticmethod
-	def active_groups():
-		glist = Group.objects.all()
-		for g in glist:
-			g.update()
-		return Group.objects.filter(status='WAITING')
+	
 
 	def possible_bet(self,user):
 		self.update()
@@ -184,3 +195,4 @@ class Group_link(models.Model):
 class Notification(models.Model):
 	group = models.ForeignKey(Group,on_delete=models.CASCADE)
 	user = models.ForeignKey(User,on_delete=models.CASCADE)
+	

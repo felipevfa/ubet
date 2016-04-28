@@ -25,7 +25,7 @@ def validate_maioridade(arg):
 class UserSignupForm(UserCreationForm):
 	nascimento = forms.DateField(required=True,label=_('Birthdate') ,help_text='xx/xx/xxxx')
 	nascimento.validators=[validate_maioridade]
-	# nascimento.widget.attrs = {
+	# nascimento.widget	.attrs = {
 	#     'class':'datepicker'
 	# }
 	nomec = forms.CharField(label = _('Full name'),max_length=100)
@@ -51,6 +51,7 @@ class UserSignupForm(UserCreationForm):
 		uu = Ubet_user()
 		uu.django_user = user
 		uu.date_of_birth = self.cleaned_data['nascimento']
+		uu.full_name = self.cleaned_data['nomec']
 		if commit:
 			uu.save()
 

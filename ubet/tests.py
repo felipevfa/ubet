@@ -59,10 +59,7 @@ def random_group(nome=None,bet_value=10,max_size=10):
 	return x
 client = Client()
 class testes(TransactionTestCase):
-		###
-		#	Cria usuario aleatorio e salva no banco
-		###
-	
+			
 	def test_usuario(self):
 
 		u = random_user()
@@ -94,6 +91,22 @@ class testes(TransactionTestCase):
 		try_login = authenticate(username=username,password="senhaforte")
 		self.assertEqual(try_login.is_active,True)
 
+	def test_active_groups(self):
+		user_list = [random_user() for i in range(7)]
+		group_list = [random_group() for i in range(7)]
+		canceledgroup = random_group()
+		canceledgroup.status = 'CANCELED'
+		canceledgroup.save()
+		users = random.sample(user_list,3)
+		gs = random.sample(group_list,3)
+		links = zip(users,gs)
+		for u,g in links:
+			g.add_user(u,1)
+
+		for u,g in links:
+			self.assertTrue(not g in Group.active_groups(u))
+			self.assertTrue( g in Group.active_groups(u,True))
+			self.assertTrue(not canceledgroup in Group.active_groups(u))
 
 	def test_grupos(self):
 
@@ -193,8 +206,8 @@ class testes(TransactionTestCase):
 		self.assertFalse(meu_grupo2 in Group.groups_by_user(user))
 		self.assertTrue(meu_grupo3 in Group.groups_by_user(user))
 
-		self.assertTrue(meu_grupo in Group.active_groups() )
-		self.assertTrue(meu_grupo2 in Group.active_groups())
+		self.assertTrue(meu_grupo in Group.total_active_groups() )
+		self.assertTrue(meu_grupo2 in Group.total_active_groups())
 				
 
 		self.assertTrue(5 in meu_grupo.available_positions())
@@ -237,7 +250,7 @@ class testes(TransactionTestCase):
 		self.assertRaises(Exception,g.add_user,(user_list[-1],4))
 
 
-	def test_enderecos(self):
+	def test_user_cp_view(self):
 		###
 		#	Verifica se os enderecos disponiveis estao dando certo.
 		#	Alguns enderecos devem ser encontrados apenas por usuarios, mas agora nao esta assim.
@@ -245,6 +258,7 @@ class testes(TransactionTestCase):
 		u = random_user()
 		self.client.login(username=u.username,password='senhaforte')
 		g = random_group()
+		g.add_user(u,1)
 		r = self.client.get(reverse('user_cp')).content
 		self.assertTrue(u.first_name in r)
 		# self.assertTrue(u.email.split('@')[0] in r)
@@ -257,8 +271,57 @@ class testes(TransactionTestCase):
 		self.assertTrue( str(u.ubet_user.creditos) in r)
 		self.assertTrue( str(u.first_name) in r)
 		self.assertTrue( str(u.ubet_user.full_name) in r)
-		g.delete()
+		self.assertTrue(str(_('Full name') ) in r )
+		self.assertTrue(str( _('E-mail')    ) in r )
+		self.assertTrue(str(_('Birthdate') ) in r )
+		self.assertTrue(str(_('Date Joined') ) in r )
+		self.assertTrue(str(_('Credits') ) in r )
+		self.assertTrue(g.name in r )
 
+
+		g.delete()
+	def test_view_signup_then_user_cp(self):
+		password = random_string(8)
+		form_data = {
+			'username' : random_string(10),
+			'email' : random_string(6)+'@mail.com',
+			'first_name' : random_string(6),
+			'password1' : password,
+			'password2' : password,
+			'nascimento' : '12/31/1800',
+			'nomec' : random_string(10),
+			}
+		form = UserSignupForm(data=form_data)
+		self.assertTrue(form.is_valid())
+		r = self.client.post(reverse('signup'),form_data)
+		self.assertTrue(r.status_code != 404)
+		u = User.objects.get(username=form_data['username'])
+		self.client.login(username=form_data['username'],password=password)
+		r = self.client.get(reverse('user_cp')).content
+		self.assertTrue( form_data['email'] in r)
+		self.assertTrue( form_data['nomec'] in r)
+		self.assertTrue( form_data['first_name'] in r)
+		self.assertTrue( form_data['nascimento'].split('/')[2] in r)
+
+		
+		self.assertTrue(str(u.first_name) in r)
+		# self.assertTrue(u.email.split('@')[0] in r)
+		self.assertTrue( str(u.ubet_user.date_of_birth.day) in r)
+		self.assertTrue( str(u.ubet_user.date_of_birth.month) in r)
+		self.assertTrue( str(u.ubet_user.date_of_birth.year) in r)
+		self.assertTrue( str(u.date_joined.day) in r)
+		self.assertTrue( str(u.date_joined.month) in r)
+		self.assertTrue( str(u.date_joined.year) in r)
+		self.assertTrue( str(u.ubet_user.creditos) in r)
+
+		self.assertTrue( str(u.first_name) in r)
+		self.assertTrue(str(u.ubet_user.full_name) in r)
+		self.assertTrue( str(_('Full name') ) in r )
+		self.assertTrue( str(_('E-mail') ) in r )
+		self.assertTrue( str(_('Birthdate') ) in r )
+		self.assertTrue( str(_('Date Joined') ) in r )
+		self.assertTrue( str(_('Credits') ) in r )
+		
 	def test_new_group(self):
 		cx = {
 			'bet_value' : '10',
@@ -395,7 +458,7 @@ class testes(TransactionTestCase):
 
 		# form = r.context['form']
 		self.assertTrue(User.objects.get(username='lordpikachu2').username == 'lordpikachu2')
-
+		translation.activate('en')
 	def test_signupform_valido(self):
 		form = UserSignupForm(data=self.form_data)
 		self.form_data
@@ -547,14 +610,21 @@ class testes(TransactionTestCase):
 			self.assertTrue(simlist[p-1] == u)
 
 
-	def test_view(self):
-		response = client.get(reverse('login'))
-		# g = random_group(nome="novo grup",bet_value=10,max_size=2)
+	def test_list_all_groups_view(self):
 		u = random_user(username="user",creditos=100)
-		g = u.ubet_user.create_group(name="novo grupo", bet_value=10,max_size=2)
+		gl = [random_group() for i in range(10)]
+
+		self.client.login(username=u.username,password='senhaforte')
+		r = self.client.get(reverse('list_all_groups'))
+		for g in gl:
+			self.assertTrue(g.name in r.content)
+		for g in gl[0:4]:
+			g.add_user(u,1)
+		r = self.client.get(reverse('list_all_groups'))
+		for g in gl[0:4]:
+			self.assertTrue(not g.name in r.content)
+		for g in gl[5:]:
+			self.assertTrue(g.name in r.content)
+			
 		#	nao eh pq ele cria o grupo que esta apostando
 		self.assertEqual(100,User.objects.get(username="user").ubet_user.creditos)
-
-
-	def test_datetime(self):
-		u = random_user(dt=datetime.datetime(1,1,1))
