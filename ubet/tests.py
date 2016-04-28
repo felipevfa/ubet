@@ -249,6 +249,7 @@ class testes(TransactionTestCase):
 			g.add_user(u,i)
 		self.assertRaises(Exception,g.add_user,(user_list[-1],4))
 
+		
 
 	def test_user_cp_view(self):
 		"""verificando se a view user_cp gera o html c dados desejados"""
@@ -596,6 +597,7 @@ class testes(TransactionTestCase):
 
 
 	def test_sim_list(self):
+		"""verifica se as posicoes da sim list estao corretas"""
 		apostadores = 5
 		posicoes = sample(range(1,10),apostadores)
 		user_list = [random_user() for i in range(5)]
@@ -606,6 +608,9 @@ class testes(TransactionTestCase):
 
 		for p,u in zip(posicoes,user_list):
 			self.assertTrue(simlist[p-1] == u)
+		for i in range(1,10):
+			if i not in posicoes:
+				self.assertTrue(simlist[i-1] is None)
 
 
 	def test_list_all_groups_view(self):

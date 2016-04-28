@@ -248,10 +248,7 @@ def bet(request,group_id):
 			positions = ul[1]
 			user_list = zip(users, positions)		
 			# 	# Verifica se o usuário tem mesmo créditos para apostar
-			available = [None]*group.max_size
-
-			for (u, p) in user_list:
-				available[p-1] = u
+			available = group.sim_list()
 			x = group.possible_bet(request.user)
 			canBet = x[0]
 			reason = x[1]
