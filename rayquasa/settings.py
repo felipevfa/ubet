@@ -80,11 +80,9 @@ TEMPLATES = [
 WSGI_APPLICATION = 'rayquasa.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
 DATABASES = {
-    ### inclua o bloco para usar o sqlite3
+    ### inclua o bloco para usar o sqlite3 e armazenar localmente
     # 'default': {
     #     'ENGINE': 'django.db.backends.sqlite3',
     #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
