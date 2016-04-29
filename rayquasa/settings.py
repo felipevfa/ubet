@@ -86,7 +86,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    # }
     ### fim do bloco
 
     ### inclua o bloco a seguir , no lugar do sqlite3, para usar o banco heroku

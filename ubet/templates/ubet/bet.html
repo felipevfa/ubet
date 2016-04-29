@@ -11,11 +11,8 @@
 		
 
 		<form id="bet-position-form" name="betPosition" enctype="multiform/form-data" 
-		{% if abouttoend %}
-			method="POST" action="{% url 'group_id' group.id %}" 
-		{% else %}
+		
 			method="POST" action="{% url 'bet' group.id %}" 
-		{% endif%}
 		class="form">
 			{% csrf_token %}
 			

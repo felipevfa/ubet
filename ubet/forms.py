@@ -34,7 +34,6 @@ class UserSignupForm(UserCreationForm):
 		fields = ("username", "email", 'first_name','password1','password2')
 		labels = { 
 				   'first_name' : _('Public Name'),
-				   
 		}
 		help_texts = {
 			'username' : '',			
@@ -42,7 +41,11 @@ class UserSignupForm(UserCreationForm):
 	def __init__(self, *args, **kwargs):
 		super(UserSignupForm, self).__init__(*args, **kwargs)
 		self.fields['password2'].help_text = ''
+		self.fields['username'].widget.attrs={
+			'class': 'tooltipped',
+			'data-tooltip' : _('The credential you use to log into the site')
 
+		}
 	def save(self, commit=True):
 		user = User.objects.create_user(self.cleaned_data['username'],
 			email = self.cleaned_data['email'],
