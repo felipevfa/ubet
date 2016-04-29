@@ -83,22 +83,22 @@ WSGI_APPLICATION = 'rayquasa.wsgi.application'
 
 DATABASES = {
     ### inclua o bloco para usar o sqlite3 e armazenar localmente   
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # }
     ### fim do bloco
 
     ### inclua o bloco a seguir , no lugar do sqlite3, para usar o banco heroku
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-    #     'NAME': 'dd81t233j9esee',                      # Or path to database file if using sqlite3.
-    #     # The following settings are not used with sqlite3:
-    #     'USER': 'teeermbjlkggzr',
-    #     'PASSWORD': 'VsTSljeQpO01PzjXyYn8WIvgQv',
-    #     'HOST': 'ec2-54-163-240-97.compute-1.amazonaws.com',# Empty for localhost through domain sockets or           '127.0.0.1' for localhost through TCP.
-    #     'PORT': '5432',                      # Set to empty string for default.
-    # }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'dd81t233j9esee',                      # Or path to database file if using sqlite3.
+        # The following settings are not used with sqlite3:
+        'USER': 'teeermbjlkggzr',
+        'PASSWORD': 'VsTSljeQpO01PzjXyYn8WIvgQv',
+        'HOST': 'ec2-54-163-240-97.compute-1.amazonaws.com',# Empty for localhost through domain sockets or           '127.0.0.1' for localhost through TCP.
+        'PORT': '5432',                      # Set to empty string for default.
+    }
 
     ###     fim do bloco
 }
@@ -106,9 +106,9 @@ DATABASES = {
 
 
 ###     inclua esse bloco para upar para o heroku, comente caso contrario
-import dj_database_url
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
+# import dj_database_url
+# db_from_env = dj_database_url.config(conn_max_age=500)
+# DATABASES['default'].update(db_from_env)
 ###     fim do bloco
 
 
