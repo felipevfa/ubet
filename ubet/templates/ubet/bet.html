@@ -10,9 +10,7 @@
 		<p>{%trans 'The toll is' %} {{group.bet_value}}.</p>
 		
 
-		<form id="bet-position-form" name="betPosition" enctype="multiform/form-data" 
-		
-			method="POST" action="{% url 'bet' group.id %}" 
+		<form id="bet-position-form" name="betPosition" enctype="multiform/form-data" method="POST action="{% url 'bet' group.id %}" 
 		class="form">
 			{% csrf_token %}
 			
