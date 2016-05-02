@@ -4,10 +4,10 @@
 
 {% block main_content %}
 	<div class="card-panel" id="user-profile">
-		<h5>{% trans "Hello" %}, {{user.first_name }}!</h5>
+		<h5>{% trans "Hello" %}, {{user }}!</h5>
 		<ul>
 		
-			<li><strong>{%trans 'Full name'%}:</strong> {{ user.ubet_user.full_name }}</li>
+			<li><strong>{%trans 'Full name'%}:</strong> {{ user.ubet_user.first }}</li>
 			<li><strong>{%trans 'E-mail'%}:</strong> {{ user.email }}</li>
 			<li><strong>{% trans 'Birthdate'%}:</strong> {{ user.ubet_user.date_of_birth}}</li>
 			<li><strong>{% trans 'Date Joined'%}:</strong> {{ datejoined}}</li>
@@ -28,12 +28,34 @@
 
 			
 			<li><strong>{%trans 'History'%}:</strong></li>
-			<ul class="collection" >
+	        </table>
+				<div id="group-list-wrapper">
+				<ul id="group-list">
 				{% for g in user_groups %}
-					<a class='collection-item {%if g.winner == user%} green-text {%endif%}' href="{% url 'group_info' g.id %}"><li >{{ g.name }} </li></a>
-				{% endfor %}
+					<li onclick="window.location.href= '{% url 'group_info' g.id %}' ">
+						<div class="card-panel z-depth-5">
+							<div class="group-info left">
+								<h5 class="group-name">{{g.name}}</h5> 
+								<p><strong>{% trans "Members:" %}</strong> {{ g.cur_size }} / {{ g.max_size }}</p>
+								<p><strong>{% trans "Value:" %}</strong> {{ g.bet_value }}</p>
+								<p><strong>{% trans "Time left:" %}</strong> {{g.time_left}}m</p>
+							</div>
+							{% if g.winner  %}
+							<div class="group-info ">
+								<div class=" right"> <strong> {%trans 'Winner:'%} </strong> {{g.winner}}</h5> 
+							</div>
+							{% endif %}
+							<div class="group-options">
+								<a href="{% url 'group_info' g.id%}" class="btn-flat">{% trans "More" %}</a>
+								
+							</div>
+						
+							<div class="clear"></div>
+						</div>
+					</li>
+				{%endfor%}
 			</ul>
-
+			</div>
 		</ul>
 	</div>
 {% endblock main_content %}

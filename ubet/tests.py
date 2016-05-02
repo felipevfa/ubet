@@ -25,7 +25,6 @@ def random_string(arg):
 def random_user(username=None,creditos=None,dt=None):
 		
 		x = Ubet_user()
-		x.full_name = random_string(30)
 		if creditos is None:
 			creditos = 100
 		x.creditos = creditos
@@ -64,7 +63,6 @@ class testes(TransactionTestCase):
 
 		u = random_user()
 		username = u.username
-		full_name = u.ubet_user.full_name
 		date_of_birth = u.ubet_user.date_of_birth
 		email = u.email
 		first_name = u.first_name
@@ -77,7 +75,6 @@ class testes(TransactionTestCase):
 		self.assertNotEqual(None ,django_user_retrieved)
 		self.assertEqual(username,Ubet_user.objects.get(date_of_birth=date_of_birth).django_user.username)
 		self.assertEqual(date_of_birth,User.objects.get(username=username).ubet_user.date_of_birth)
-		self.assertEqual(full_name,django_user_retrieved.ubet_user.full_name)
 		self.assertEqual(email,django_user_retrieved.email)
 		self.assertEqual(first_name,django_user_retrieved.first_name)
 		self.assertEqual(email,django_user_retrieved.email)
@@ -269,8 +266,7 @@ class testes(TransactionTestCase):
 		self.assertTrue( str(u.date_joined.year) in r)
 		self.assertTrue( str(u.ubet_user.creditos) in r)
 		self.assertTrue( str(u.first_name) in r)
-		self.assertTrue( str(u.ubet_user.full_name) in r)
-		self.assertTrue( str(_('Full name') ) in r )
+		elf.assertTrue( str(_('Full name') ) in r )
 		self.assertTrue( str( _('E-mail')    ) in r )
 		self.assertTrue( str(_('Birthdate') ) in r )
 		self.assertTrue( str(_('Date Joined') ) in r )
@@ -314,7 +310,6 @@ class testes(TransactionTestCase):
 		self.assertTrue( str(u.ubet_user.creditos) in r)
 
 		self.assertTrue( str(u.first_name) in r)
-		self.assertTrue(str(u.ubet_user.full_name) in r)
 		self.assertTrue( str(_('Full name') ) in r )
 		self.assertTrue( str(_('E-mail') ) in r )
 		self.assertTrue( str(_('Birthdate') ) in r )

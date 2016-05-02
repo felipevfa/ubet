@@ -25,12 +25,10 @@ logger = logging.getLogger(__name__)
 
 @login_required()
 def list_all_groups(request):
-	groups = Group.active_groups(request.user);
+	groups = Group.total_active_groups();
 	if Notification.objects.filter(user=request.user).count() > 0:
 		messages.add_message(request, messages.INFO, 'Hello world.')
-		print 'mamao'
 		print Notification.objects.filter(user=request.user).count()
-		print 'melao'
 	logger.debug('list_all_groups')
 	return render(request,'ubet/list_all_groups.html', {'grupos': groups })
 
@@ -71,6 +69,9 @@ def signup(request):
 			return HttpResponseRedirect(reverse('user_cp'))
 		else:
 			logger.debug('signup form no valid')
+			print form.fields['nascimento'].bound_data.__str__()
+			print dir(form.fields['nascimento'].bound_data)
+
 			return render(request,'ubet/signup.html',{'form' : form})
 		
 	elif request.method == 'GET':
@@ -243,11 +244,7 @@ def bet(request,group_id):
 			group = None
 		# Verifica se o grupo foi encontrado.
 		if group is not None:
-			ul = group.publicnames_by_group()
-			users = ul[0]
-			positions = ul[1]
-			user_list = zip(users, positions)		
-			# 	# Verifica se o usuário tem mesmo créditos para apostar
+			# Verifica se o usuário tem mesmo créditos para apostar
 			available = group.sim_list()
 			x = group.possible_bet(request.user)
 			canBet = x[0]

@@ -28,12 +28,11 @@ class UserSignupForm(UserCreationForm):
 	# nascimento.widget	.attrs = {
 	#     'class':'datepicker'
 	# }
-	nomec = forms.CharField(label = _('Full name'),max_length=100)
 	class Meta:
 		model = User
 		fields = ("username", "email", 'first_name','password1','password2')
 		labels = { 
-				   'first_name' : _('Public Name'),
+				   'first_name' : _('Full name'),
 		}
 		help_texts = {
 			'username' : '',			
@@ -54,7 +53,6 @@ class UserSignupForm(UserCreationForm):
 		uu = Ubet_user()
 		uu.django_user = user
 		uu.date_of_birth = self.cleaned_data['nascimento']
-		uu.full_name = self.cleaned_data['nomec']
 		if commit:
 			uu.save()
 

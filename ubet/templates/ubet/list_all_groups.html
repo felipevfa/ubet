@@ -16,7 +16,7 @@
 			<ul id="group-list">
 				{% for g in grupos %}
 					<li onclick="window.location.href= '{% url 'group_info' g.id %}' ">
-						<div class="card-panel">
+						<div class="card-panel z-depth-5">
 							<div class="group-info left">
 								<h5 class="group-name">{{g.name}}</h5> 
 								<p><strong>{% trans "Members:" %}</strong> {{ g.cur_size }} / {{ g.max_size }}</p>
@@ -24,6 +24,10 @@
 								<p><strong>{% trans "Time left:" %}</strong> {{g.time_left}}m</p>
 							</div>
 							
+							<div class="group-info ">
+								<div class=" right"> <strong> {%trans 'Creator:'%} </strong> {{g.creator}}</h5> 
+							</div>
+
 							<div class="group-options">
 								<a href="{% url 'group_info' g.id%}" class="btn-flat">{% trans "More" %}</a>
 							</div>

@@ -10,9 +10,10 @@ from django.utils import timezone
 from django.db import IntegrityError
 from rayquasa.settings import TIME_TO_EXPIRE as expire 
 class Ubet_user(models.Model):
+	# ligacao com User do django. user.first_name eh o nome completo
+
 	django_user = models.OneToOneField(User,
 		on_delete = models.CASCADE)
-	full_name = models.CharField(max_length=100)
 	date_of_birth = models.DateField()
 	creditos = models.FloatField(default=100)
 	
@@ -137,10 +138,10 @@ class Group(models.Model):
 		position_list = [Group_link.objects.get(user=u,group=self).position for u in user_list]
 		return user_list,position_list
 
-	def publicnames_by_group(self):
+	def nicks_by_group(self):
 		user_list = self.users.all()
 		position_list = [Group_link.objects.get(user=u,group=self).position for u in user_list]
-		return [u.first_name for u in user_list],position_list
+		return [u.username for u in user_list],position_list
 
 
 	def cur_size(self):
