@@ -8,10 +8,10 @@ from django.http import HttpResponseRedirect,HttpResponse
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
 from ubet.models import Ubet_user,User,Group,Notification
-
+import urllib2
 from rayquasa.settings import TIME_TO_EXPIRE as expire
 from rayquasa.settings import GROUP_MAX_CAPACITY as gmaxcap
-
+import requests
 from django.contrib import messages
 from django.template import RequestContext
 import datetime,logging
@@ -20,6 +20,7 @@ from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 logger = logging.getLogger(__name__)
 
+from ipware.ip import get_ip
 
 
 
@@ -80,6 +81,13 @@ def signup(request):
 		return render(request, 'ubet/signup.html', {'form': form })
 	logger.debug('signup limbo')
 
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
 
 def login(request):
 	form = UserAuthenticationForm()
@@ -87,6 +95,19 @@ def login(request):
 
 	msg = _('original')
 	if request.method == 'POST':
+		data = {
+			'secret' : '6Ld3zx4TAAAAAFqv0XY3skJWCVO4_DTSRLBU3IOZ',
+			'response' : request.POST['g-recaptcha-response'],
+			'remoteip' : get_ip(request),
+		}
+
+		print data['remoteip']
+		print get_client_ip(request)
+		print request.POST.keys()
+		s = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
+		print '>>>'
+		print s.json()
+		print dir(s)
 		username = request.POST['username']
 		password = request.POST['password']
 

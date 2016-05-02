@@ -10,7 +10,7 @@
 
 	<!-- <a href= {% url 'logout'%}> logout </a> <br> -->
 	<!-- <a  href= {% url 'signup' %}> Criar conta</a> -->
-	
+			
 	<form action="{% url 'login' %}" method="POST" name="login-form" class="form" id="login-form">
 		{% csrf_token %}
 		<div class="center-align">
@@ -26,6 +26,8 @@
 				<div class="input-field center-align">
 					<input type="submit" value="Login" class="submit-button btn" id="login-btn">
 				</div>
+				<div class="g-recaptcha" data-sitekey="6Ld3zx4TAAAAALiGsdo6DCDy9-6noYYabMbwaZh6"></div>
+	
 			</form>
 
 			<p class="register-text center-align">{% trans "Doesn't have an account?" %} <a href="{% url 'signup' %}">{% trans "Register here!" %}</a></p>
