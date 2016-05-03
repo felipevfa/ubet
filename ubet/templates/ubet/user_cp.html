@@ -1,62 +1,57 @@
 {% extends "ubet/base.html" %}
 {% load i18n %}
+{% load l10n %}
 {% block page_title %} {% trans "My profile" %} {% endblock %}
 
 {% block main_content %}
-	<div class="card-panel" id="user-profile">
-		<h5>{% trans "Hello" %}, {{user }}!</h5>
-		<ul>
-		
-			<li><strong>{%trans 'Full name'%}:</strong> {{ user.ubet_user.first }}</li>
-			<li><strong>{%trans 'E-mail'%}:</strong> {{ user.email }}</li>
-			<li><strong>{% trans 'Birthdate'%}:</strong> {{ user.ubet_user.date_of_birth}}</li>
-			<li><strong>{% trans 'Date Joined'%}:</strong> {{ datejoined}}</li>
-		</ul>
+	<div id="user-profile">
+		<div class="container">
+			<h5>{% trans "Hello" %}, {{ user }}!</h5>
 
-		<ul>
-			<li><strong>{%trans 'Credits'%}:</strong> {{ user.ubet_user.creditos }}</li>
+			<ul>
+				<li><strong>{% trans 'Full name' %}:</strong> {{ user.ubet_user.first }}</li>
+				<li><strong>{% trans 'E-mail' %}:</strong> {{ user.email }}</li>
+				<li><strong>{% trans 'Birthdate' %}:</strong> {{ user.ubet_user.date_of_brith }}</li>
+				<li><strong>{% trans 'Date Joined' %}:</strong> {{ datejoined }}</li>
+			</ul>
+
+			<p><strong>{% trans 'Credits' %}:</strong> {{ user.ubet_user.creditos }}</p>
+
+			<div class="divider"></div>
 
 			{% if notification %}
-				<li><strong>{%trans 'Recent results' %}:</strong></li>
+				<h5>{% trans 'Recent results' %}</h5>
+
 				<ul class="collection">
 					{% for n in notification %}
-						<a class='collection-item' href="{% url 'notification' n.id  %}"><li >{{ n.group.name }}</li></a>
+						<a class='collection-item dismissable' href="{% url 'notification' n.id %}">{{ n.group.name }}</a>
 					{% endfor %}
 				</ul>
+
+				<div class="divider"></div>
 			{% endif %}
-
-
 			
-			<li><strong>{%trans 'History'%}:</strong></li>
-	        </table>
-				<div id="group-list-wrapper">
-				<ul id="group-list">
+			<h5>{% trans 'History' %}</h5>
+
+			<ul class="collection">
 				{% for g in user_groups %}
-					<li onclick="window.location.href= '{% url 'group_info' g.id %}' ">
-						<div class="card-panel z-depth-5">
-							<div class="group-info left">
-								<h5 class="group-name">{{g.name}}</h5> 
-								<p><strong>{% trans "Members:" %}</strong> {{ g.cur_size }} / {{ g.max_size }}</p>
-								<p><strong>{% trans "Value:" %}</strong> {{ g.bet_value }}</p>
-								<p><strong>{% trans "Time left:" %}</strong> {{g.time_left}}m</p>
-							</div>
-							{% if g.winner  %}
-							<div class="group-info ">
-								<div class=" right"> <strong> {%trans 'Winner:'%} </strong> {{g.winner}}</h5> 
-							</div>
-							{% endif %}
-							<div class="group-options">
-								<a href="{% url 'group_info' g.id%}" class="btn-flat">{% trans "More" %}</a>
-								
-							</div>
+					<a class="collection-item" href="{% url 'group_info' g.id %}">
+						{{ g.name|truncatechars:12 }} 
 						
-							<div class="clear"></div>
-						</div>
-					</li>
-				{%endfor%}
+							<span class="hide-on-med-and-down">
+								<i class="material-icons">person</i> {{ g.cur_size }}
+								<i class="material-icons">toll</i> {{ g.bet_value }}
+								<i class="material-icons">date_range</i> {{ g.date_of_birth|date:"SHORT_DATE_FORMAT"}}
+								{% if g.winner %} 
+									 <i class="material-icons">star</i> {{ g.winner }}
+								{% endif %}
+							</span>
+							<p class="hide-on-med-and-up">ver mais</p>
+					</a>
+				{% endfor %}
 			</ul>
-			</div>
-		</ul>
+		</div>
 	</div>
+
 {% endblock main_content %}
 

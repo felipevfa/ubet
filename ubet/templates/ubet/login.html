@@ -3,9 +3,9 @@
 {% block menu %} {% endblock menu %} 
 {% load static %}
 {% block main_content %}
-	<div class="stripes">
+	<div class="container">
 		<div class="form-wrapper">
-			<h1 class="center-align">{% trans "Welcome to uBet!" %}</h1>
+			<h1 id="login-title" class="center-align">{% trans "Welcome to uBet!" %}</h1>
 
 
 	<!-- <a href= {% url 'logout'%}> logout </a> <br> -->
@@ -23,10 +23,13 @@
 
 				<ul id="form-fields">{{ form.as_ul }}</ul>
 
+				<center><div class="g-recaptcha" data-sitekey="6Ld3zx4TAAAAALiGsdo6DCDy9-6noYYabMbwaZh6"></div></center>
+
 				<div class="input-field center-align">
 					<input type="submit" value="Login" class="submit-button btn" id="login-btn">
 				</div>
-				<div class="g-recaptcha" data-sitekey="6Ld3zx4TAAAAALiGsdo6DCDy9-6noYYabMbwaZh6"></div>
+
+				
 	
 			</form>
 
