@@ -58,7 +58,15 @@ def signup(request):
 
 	if request.method == 'POST':
 		logger.debug('signup post')
+		data = {
+			'secret' : '6Ld3zx4TAAAAAFqv0XY3skJWCVO4_DTSRLBU3IOZ',
+			'response' : request.POST['g-recaptcha-response'],
+			'remoteip' : get_ip(request),
+		}
+		s = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
 		form = UserSignupForm(request.POST)
+		if not s.json()['success']:
+			return render(request,'ubet/signup.html',{'form':form,'toast':_("Check the reCaptcha, please")})
 		if form.is_valid():
 			user = form.save()
 			user.save()
@@ -95,23 +103,7 @@ def login(request):
 
 	msg = _('original')
 	if request.method == 'POST':
-		data = {
-			'secret' : '6Ld3zx4TAAAAAFqv0XY3skJWCVO4_DTSRLBU3IOZ',
-			'response' : request.POST['g-recaptcha-response'],
-			'remoteip' : get_ip(request),
-		}
-
-		print data['remoteip']
-		print get_client_ip(request)
-		print request.POST.keys()
-		s = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
-		print '>>>'
-		q = s.json()['success']
-		if q :
-			return HttpResponse(s.json()['success'])
-		else:
-			return HttpResponse(s.json()['success'])
-		print dir(s)
+		
 		username = request.POST['username']
 		password = request.POST['password']
 
