@@ -34,7 +34,7 @@
 			<h5>{% trans 'History' %}</h5>
 
 			<ul class="collection">
-				{% for g in user_groups %}
+				{% for g in user_groups|slice:":10" %}
 					<a class="collection-item" href="{% url 'group_info' g.id %}">
 						{{ g.name|truncatechars:12 }} 
 						

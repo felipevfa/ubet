@@ -13,6 +13,10 @@ body {
 	background-color: rgba(59,89,152,1);
 }
 
+nav ul a:hover {
+	background-color: rgba(0,0,0,0);
+}
+
 /* ***********************
 	  	 STRUCTURE
    *********************** */
