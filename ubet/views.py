@@ -106,7 +106,11 @@ def login(request):
 		print request.POST.keys()
 		s = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
 		print '>>>'
-		print s.json()
+		q = s.json()['success']
+		if q :
+			return HttpResponse(s.json()['success'])
+		else:
+			return HttpResponse(s.json()['success'])
 		print dir(s)
 		username = request.POST['username']
 		password = request.POST['password']
