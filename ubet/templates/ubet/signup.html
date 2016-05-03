@@ -3,7 +3,7 @@
 {% block menu %} {% endblock menu %}
 
 {% block main_content %}
-
+	<div class="container">
 		<div class="form-wrapper">
 			<h1 class="center-align">{% trans "Sign Up" %}</h1>
 
@@ -16,12 +16,12 @@
 					<input type="submit" value="{% trans 'Submit' %}"  class="submit-button btn" id="signup-btn">
 
 					<a href="{% url 'login' %}" class="btn-flat">{% trans "Cancel" %}</a>
-				</div>
+				
 					
 				<div class="g-recaptcha" data-sitekey="6Ld3zx4TAAAAALiGsdo6DCDy9-6noYYabMbwaZh6"></div>
-
+				</div>	
 			</form>
 		</div>	
-		
+	</div>
 {% endblock %}
 
