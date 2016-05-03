@@ -9,9 +9,9 @@
 			<h5>{% trans "Hello" %}, {{ user }}!</h5>
 
 			<ul>
-				<li><strong>{% trans 'Full name' %}:</strong> {{ user.ubet_user.first }}</li>
+				<li><strong>{% trans 'Full name' %}:</strong> {{ user.first_name }}</li>
 				<li><strong>{% trans 'E-mail' %}:</strong> {{ user.email }}</li>
-				<li><strong>{% trans 'Birthdate' %}:</strong> {{ user.ubet_user.date_of_brith }}</li>
+				<li><strong>{% trans 'Birthdate' %}:</strong> {{ user.ubet_user.date_of_birth }}</li>
 				<li><strong>{% trans 'Date Joined' %}:</strong> {{ datejoined }}</li>
 			</ul>
 
