@@ -8,72 +8,61 @@
 {% endblock menu_action %}
 
 {% block main_content %}
+	
+	<div id="group-data">
+		<div class="container">
+		{% if error_msg %}
+			<p>{{ error_msg }}</p>
+		{% else %}
 
-{% if error_msg %}
+			<p class="members"><i class="material-icons">people</i> {{ group.cur_size }} / {{ group.max_size }}</p>
 
-	<div class="card-panel">
-		<p>{{ error_msg }}</p>
-	</div>
+			<h5>{{ group.name }}</h5>
 
-{% else %}
-	<div class="card-panel" id="group-data">
-		<p class="members"><i class="material-icons">people</i> {{ group.cur_size }} / {{ group.max_size }}</p>
-		<h5>{{ group.name }}</h5>
-		<p class="status">Status:
+			<p class="status">Status:
+				{% if group.status == 'WAITING' %}
+					<i class="blue-text">{% trans "active" %}</i>
+				{% elif group.status == 'CANCELED' %}
+					<i class="red-text">{% trans "canceled" %}</i> <br>
+				{% elif group.status == 'FINISHED' %}
+					<i class="green-text">{% trans "finished" %}</i> <br>
+					{% trans 'Winner:'%} {{ group.winner}}<br>
+					{% trans 'Reward:'%} {{ reward}}
+				{% endif %}
+			</p>
 			{% if group.status == 'WAITING' %}
-				<i class="blue-text">{% trans "active" %}</i>
-			{% elif group.status == 'CANCELED' %}
-				<i class="red-text">{% trans "canceled" %}</i> <br>
-			{% elif group.status == 'FINISHED' %}
-				<i class="green-text">{% trans "finished" %}</i> <br>
-				{% trans 'Winner:'%} {{ group.winner}}<br>
-				{% trans 'Reward:'%} {{ reward}}
+				{%trans 'Remaining time' %}: {{remaining}}m.
 			{% endif %}
-		</p>
-		{% if group.status == 'WAITING' %}
-			{%trans 'Remaining time' %}: {{remaining}}m.
-		{% endif %}
-		<p class="toll"><i class="material-icons text-accent-4 yellow-text">toll</i> {{group.bet_value}}</p>
+			<p class="toll"><i class="material-icons text-accent-4 yellow-text">toll</i> {{group.bet_value}}</p>
 
-		
+			<ul class="collection">
+					{% for p in sim_list %}
+						{% if p %}
+								<li class="collection-item">{% trans "Position" %} {{ forloop.counter }}: {{ p }}</li>
+						{% else %}
+								<li class="collection-item">{% trans "Position" %} {{ forloop.counter }}: {% trans "open" %}</li>
+						{% endif %}
+					{% endfor %}
+			</ul>
 
+			{% if canBet %}
+				<form name="bet-form" method="GET" action="{% url 'bet' group.id %}" class="form">
+					{% csrf_token %}
 
-		<ul>
-		{% if users|length < 1 %}
-			<li>{% trans "There are no members in this group." %}</li>
-		{% else %}
-			{% for p in sim_list %}
-				<div>
-				<ul>
-					{% if p %}
-							<li id="position-{{forloop.counter}}"  name="bet_position" value={{ forloop.counter }} class="with-gap" required>
-							<label for="position-{{ forloop.counter }}" class="btn disabled">{% trans "Position" %} {{ forloop.counter }}: {{p}}</label>
-					{% else %}
-							<li id="position-{{forloop.counter}}"  name="bet_position" value={{ forloop.counter }} class="with-gap" required>
-							<label for="position-{{ forloop.counter }}" class="btn">{% trans "Position" %} {{ forloop.counter }}: {% trans "open" %}</label>
-					{% endif %}
-				</ul>
+					<div class="input-field">
+						<input type="submit" class="btn" id="bet-btn" value='{% trans "I want to bet" %}'>
+						<div class="clear"></div>
+					</div>
+				</form>
+			{% else %}
+				<div class="input-field center-align">
+					<p>{{warning}}</p>
+					<input type="submit" class="btn disabled" value='{% trans "I want to bet" %}'>
 				</div>
-			{% endfor %}
+			{% endif %}
+
 		{% endif %}
-		</ul>
-
-		{% if canBet %}
-			<form name="bet-form" method="GET" action="{% url 'bet' group.id %}" class="form">
-				{% csrf_token %}
-
-				<div class="input-field">
-					<button type="submit" class="btn" id="bet-btn">{% trans "I want to bet" %}</button>
-					<div class="clear"></div>
-				</div>
-			</form>
-		{% else %}
-			<p>{{warning}}</p>
-			<button class="btn disabled">{% trans "I want to bet" %}</button>
-		{% endif %}
-
-
-	</div>	
-{% endif %}
+		</div>
+	</div>
 
 {% endblock main_content %}

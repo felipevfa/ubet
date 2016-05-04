@@ -6,6 +6,8 @@ from ubet.models import Group,Ubet_user
 from django.contrib.auth.models import User, UserManager
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import get_language
+from django.utils import formats
 import datetime
 from rayquasa.settings import GROUP_MAX_CAPACITY as gmaxcap
 import logging
@@ -23,7 +25,7 @@ def validate_maioridade(arg):
 
 
 class UserSignupForm(UserCreationForm):
-	nascimento = forms.DateField(required=True,label=_('Birthdate') ,help_text='xx/xx/xxxx')
+	nascimento = forms.DateField(required=True,label=_('Birthdate'))
 	nascimento.validators=[validate_maioridade]
 	# nascimento.widget	.attrs = {
 	#     'class':'datepicker'
@@ -35,16 +37,24 @@ class UserSignupForm(UserCreationForm):
 				   'first_name' : _('Full name'),
 		}
 		help_texts = {
-			'username' : '',			
+			'username': '',
 		}
 	def __init__(self, *args, **kwargs):
 		super(UserSignupForm, self).__init__(*args, **kwargs)
 		self.fields['password2'].help_text = ''
 		self.fields['username'].widget.attrs={
 			'class': 'tooltipped',
-			'data-tooltip' : _('The credential you use to log into the site')
+			'data-tooltip' : _('The credential you use to log into the site'),
+			'placeholder': _('max. 30 chars. Letters, digits and @/./+/-/_ only.')
 
 		}
+		self.fields['email'].widget.attrs = {
+			'placeholder': 'example@example.com'
+		}
+		self.fields['nascimento'].widget.attrs = {
+			'placeholder': formats.get_format("SHORT_DATE_FORMAT", lang=get_language())
+		}
+
 	def save(self, commit=True):
 		user = User.objects.create_user(self.cleaned_data['username'],
 			email = self.cleaned_data['email'],

@@ -5,7 +5,7 @@
  */
 
 html {
-	max-height: 100vh;
+	min-height: 100vh;
 	overflow-y: scroll;
 }
 
@@ -15,6 +15,12 @@ body {
 
 nav ul a:hover {
 	background-color: rgba(0,0,0,0);
+}
+
+@media (max-width: 620px) {
+	.container.mobile-container {
+		width: 100%;
+	}
 }
 
 /* ***********************
@@ -102,7 +108,7 @@ nav {
 .register-text { margin-top: 5em; color: rgb(0,0,0); }
 .register-text a { color: rgb(59,89,152);   }
 #login-title { margin-top: 1em; }
-.rc-anchor { margin: 0 auto; }
+.rc-anchor { margin: 0 auto; text-align: center; }
 
 /* 2. Datepicker */
 #signup-form .picker__date-display {
@@ -164,17 +170,39 @@ nav {
 /* 4. Group Profile */
 #group-data { 
 	position: relative;
-	margin-top: 2em;
-	margin: 2em auto;
+	background-color: rgb(255,255,255);
+	min-height: 100vh;
 }
+
 #group-data h5 {
 	margin: 0;
-	color: rgb(68,55,79);
 }
 #group-data .status {
 	font-size: 1em;
 	margin: 0;
 	font-style: italic;
+}
+
+#group-data .collection, #group-data .collection-item {
+	max-width: 350px;
+}
+
+#group-data .btn {
+	width: 70%;
+	max-width: 300px;
+}
+#group-data .btn.disabled {
+	border-bottom: none;
+	border-radius: 15px; 
+	box-shadow: none;
+	width: 50%;
+	margin: 0 auto;
+	display: block;
+	transition: 0.5s;
+}
+
+#group-data .container {
+	padding-top: 1em;
 }
 
 .toll {
@@ -194,8 +222,6 @@ nav {
 .toll i, .members i {
 	vertical-align: bottom;
 }
-
-#bet-btn { background-color: rgb(68, 55,79);}
 
 @media (min-width: 601px) {
 	#group-data h5 { font-size: 4em; }
@@ -225,19 +251,19 @@ nav {
 	margin: 0 auto; 
 	width: 100%;
 	max-width: 400px;
-	background-color: rgb(68,55,79); 
+	background-color: rgb(175,189,212); 
 	display: block;
 	padding-left: 0;
 	padding-right: 0;
 	position: static;
+	color: white;
 }
 #bet-info label.btn::after {
 	display: none;
 }
 #bet-info input[type="radio"] { padding: 0; display: hidden; }
 #bet-info input[type="radio"]:checked + label {
-	background-color: rgb(255,230,153);
-	color: black;
+	background-color: rgb(59,89,152);
 }
 #bet-info .input-field {
 	position: static;
@@ -247,7 +273,7 @@ nav {
 	text-align: center;
 	color: rgb(68,55,79);
 }
-#bet-options button[type="submit"] {
+#bet-options input[type="submit"] {
 	width: 100%;
 	max-width: 200px;
 }
@@ -258,6 +284,7 @@ nav {
 	margin: 0;
 	padding: 0;
 	min-height: calc(100vh - 56px);
+	height: 100%;
 	background-color: white;
 }
 #user-profile h5 { 
@@ -292,4 +319,8 @@ a.collection-item p {
 	margin: 0;
 	display: inline-block;
 	float: right;
+}
+
+.history-collection {
+	margin-bottom: 1em;
 }

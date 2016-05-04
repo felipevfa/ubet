@@ -3,7 +3,7 @@
 {% block menu %} {% endblock menu %}
 
 {% block main_content %}
-	<div class="container">
+	<div class="container mobile-container">
 		<div class="form-wrapper">
 			<h1 class="center-align">{% trans "Sign Up" %}</h1>
 
@@ -12,16 +12,36 @@
 
 				<ul id="form-fields">{{ form.as_ul }}</ul>				
 
+				<div class="g-recaptcha" data-sitekey="6Ld3zx4TAAAAALiGsdo6DCDy9-6noYYabMbwaZh6"></div>
+
+				<p>{% trans "By submitting this form you acknowledge that you read and agreed to the" %} <a class="modal-trigger" href="#terms-of-use"> {% trans 'Terms of Use' %}.</a>
+
 				<div class="input-field center-align">
 					<input type="submit" value="{% trans 'Submit' %}"  class="submit-button btn" id="signup-btn">
 
 					<a href="{% url 'login' %}" class="btn-flat">{% trans "Cancel" %}</a>
-				
-					
-				<div class="g-recaptcha" data-sitekey="6Ld3zx4TAAAAALiGsdo6DCDy9-6noYYabMbwaZh6"></div>
 				</div>	
 			</form>
 		</div>	
+	</div>
+
+	<div id="terms-of-use" class="modal">
+		<div class="modal-content">
+			<h5>{% trans 'Terms of Use' %}</h5>
+
+			<p> {% trans 'By registering on this website you acknowledge that: ' %}
+			<ul>
+				<li>1. {% trans "You are 18 years old or older." %}</li>
+				<li>2. {% trans "This will be your only account." %}</li>
+				<li>3. {% trans "You may be prompted, at any moment, to prove your identity through official identity documents, such as your driver's license, and a proof of residency." %}</li>
+			</ul>
+
+			<p>{% trans "Failure to comply to one or more of these Terms may result in the termination of your account." %}</p>
+		</div>
+
+		<div class="modal-footer">
+			<a href="#!" class="modal-action modal-close btn-flat right">{% trans 'Close' %}</a>
+		</div>
 	</div>
 {% endblock %}
 

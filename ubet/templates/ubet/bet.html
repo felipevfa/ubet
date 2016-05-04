@@ -11,16 +11,14 @@
 		
 
 		<form id="bet-position-form" name="betPosition" enctype="multiform/form-data" 
-			method="POST" action="{% url 'bet' group.id %}" 
-		
-		class="form">
+			method="POST" action="{% url 'bet' group.id %}" class="form">
 			{% csrf_token %}
 			
 			{% for p in available %}
 				<div class="input-field">
 					{% if p %}
 							<input id="position-{{forloop.counter}}" type="radio" name="bet_position" value={{ forloop.counter }} class="with-gap" disabled="disabled" required>
-							<label for="position-{{ forloop.counter }}" class="btn disabled">{% trans "Position" %} {{ forloop.counter }}: {{p.username}}</label>
+							<label for="position-{{ forloop.counter }}" class="btn disabled">{% trans "Position" %} {{ forloop.counter }}: {{p.username}}</label><
 					{% else %}
 							<input id="position-{{forloop.counter}}" type="radio" name="bet_position" value={{ forloop.counter }} class="with-gap" required>
 							<label for="position-{{ forloop.counter }}" class="btn">{% trans "Position" %} {{ forloop.counter }}: {% trans "open" %}</label>
@@ -28,11 +26,11 @@
 				</div>
 			{% endfor %}
 
-			<div class="input-field center-align col s6" id="bet-options">
+			<div class="input-field center-align" id="bet-options">
 				{%if canBet %}
-					<button type="submit" class="btn waves-effect col s6">{% trans "Confirm" %}</button>
+					<input type="submit" class="btn" value="{% trans 'Confirm' %}" />
 				{% else %}
-					<button type="submit" disabled="True" id="bet-btn" class="btn waves-effect col s6 grey">{{reason}}</button>
+					<button type="submit" disabled="True" id="bet-btn" class="submit-button btn">{{reason}}</button>
 				{% endif %}
 			</div>
 			<a href="{% url 'group_info' group.id %}" class="btn-flat">{% if not new %} {% trans "Cancel" %} {% else %} {% trans "Bet Later" %} {% endif %}</a>	

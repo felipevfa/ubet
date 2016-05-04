@@ -25,6 +25,7 @@ $(document).ready(function() {
 	toast();
 	
 	$(".button-collapse").sideNav();
+	$(".modal-trigger").leanModal();
 	
 	$('select').material_select();
 	
