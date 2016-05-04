@@ -38,13 +38,13 @@
 				       			
 				       		<li><a  class='tooltipped' href="{% url 'user_cp' %}"
 				       		data-tooltip="{% trans "Verify your info like credits and your groups"%}">{% trans "My profile" %}</a></li>
-				       		<li><a href="{% url 'list_all_groups' %}">{% trans "Groups" %}				       				</a></li>
+				       		<li><a href="{% url 'list_waiting' %}">{% trans "Groups" %}				       				</a></li>
 				       		<li><a href="{% url 'logout' %}">{% trans "Logout" %}</a></li>
 				     	</ul>
 
 				     	<ul id="nav-mobile" class="side-nav">
 				       		<li><a href="{% url 'user_cp' %}">{% trans "My profile" %}</a></li>
-				       		<li><a href="{% url 'list_all_groups' %}">{% trans "Groups" %}</a></li>
+				       		<li><a href="{% url 'list_waiting' %}">{% trans "Groups" %}</a></li>
 				       		<li><a href="{% url 'logout' %}">{% trans "Logout" %}</a></li>
 				     	</ul>
 					</div>

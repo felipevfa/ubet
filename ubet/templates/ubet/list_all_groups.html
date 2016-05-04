@@ -6,8 +6,8 @@
 {% block main_content %}
 	<div id="group-list-controller">
 		<div class="row">
-			<button type="button" class="btn-flat col s6 active">{% trans "All" %}</button>
-			<button type="button" class="btn-flat col s6 tooltipped" data-tooltip="not working yet	">{% trans "My Bets" %}</button>
+			<a href="{% url 'list_waiting' %}" type="button"	 class="center btn-flat col s6 ">{% trans "All" %}</a>
+			<a href="{% url 'list_my_active_bets' %}" type="button" class="btn-flat col s6  center">{% trans "My bets" %}</a>
 		</div>
 	</div>
 

@@ -25,8 +25,17 @@ from ipware.ip import get_ip
 
 
 @login_required()
-def list_all_groups(request):
-	groups = Group.total_active_groups();
+def list_waiting(request):
+	groups = Group.active_groups(request.user);
+	if Notification.objects.filter(user=request.user).count() > 0:
+		messages.add_message(request, messages.INFO, 'Hello world.')
+		print Notification.objects.filter(user=request.user).count()
+	logger.debug('list_waiting')
+	return render(request,'ubet/list_all_groups.html', {'grupos': groups })
+
+@login_required()
+def list_my_active_bets(request):
+	groups = Group.active_groups(request.user,waiting=True);
 	if Notification.objects.filter(user=request.user).count() > 0:
 		messages.add_message(request, messages.INFO, 'Hello world.')
 		print Notification.objects.filter(user=request.user).count()
@@ -116,14 +125,14 @@ def login(request):
 				msg = _('Hello, ')
 				msg += "{}".format(user.username)
 				# request.LANGUAGE_CODE = 'pt-br'
-				return redirect(reverse('list_all_groups'))
+				return redirect(reverse('list_waiting'))
 			else:
 				return render(request, 'ubet/login.html', { 'toast': _('Account disabled'), 'form': form })
 		else:
 			return render(request, 'ubet/login.html', { 'toast': _('Username and password do not match'), 'form': form })
 	else:
 		if request.user.is_active:
-			return HttpResponseRedirect(reverse(list_all_groups))
+			return HttpResponseRedirect(reverse('list_waiting'))
 		msg = _("Welcome")
 		return render(request, 'ubet/login.html', { 'form': form ,'toast':msg})
 
