@@ -105,7 +105,7 @@ nav {
 	color: rgb(0,0,0);
 }
 
-.register-text { margin-top: 5em; color: rgb(0,0,0); }
+.register-text { margin-top: 2em; color: rgb(0,0,0); }
 .register-text a { color: rgb(59,89,152);   }
 #login-title { margin-top: 1em; }
 .rc-anchor { margin: 0 auto; text-align: center; }
@@ -299,26 +299,41 @@ nav {
 	padding-bottom: 0;
 }
 
-.collection a.collection-item {
+.collection li.collection-item a {
 	color: rgb(59,89,152);
+	transition: 0.3s;
 }
-.collection a.collection-item:active {
+.collection li.collection-item a:active {
 	background-color: rgb(59,89,152);
-	color: rgb(255,255,255);
 }
 
-a.collection-item i {
+li.collection-item a i {
 	vertical-align: text-bottom;
 	margin-left: 0.3em;
 }
-a.collection-item span {
-	float: right;
+li.collection-item a {
 	font-size: 1.3em;
 }
-a.collection-item p {
+li.collection-item a span {
+	float: right;
+	font-size: 1.15em;
+}
+li.collection-item a p {
 	margin: 0;
 	display: inline-block;
 	float: right;
+}
+.collection-card .collection-card-title, .collection-card .collection-card-info {
+
+	display: block;
+	width: 100%;
+}
+.collection-card .collection-card-info i:first-child {
+	margin-left: 0;	
+}
+.collection-card-info {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
 }
 
 .history-collection {
