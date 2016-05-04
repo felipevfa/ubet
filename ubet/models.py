@@ -101,6 +101,9 @@ class Group(models.Model):
 
 	@staticmethod
 	def active_groups(user,waiting=False):
+		"""Mostra os grupos ativos para um usuario. 
+		Por padrao, mostra apenas os que ele nao esta incluso. 
+		Se waiting for True, retorna apenas os que ele esta incluso. """
 		glist = Group.objects.filter(status='WAITING')
 		for g in glist:
 			g.update()

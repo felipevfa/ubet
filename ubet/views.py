@@ -73,10 +73,14 @@ def signup(request):
 			'remoteip' : get_ip(request),
 		}
 		s = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
+
 		form = UserSignupForm(request.POST)
+		logger.debut(form)
+
 		if not s.json()['success']:
 			return render(request,'ubet/signup.html',{'form':form,'toast':_("Check the reCaptcha, please")})
 		if form.is_valid():
+			logger.debug('signup e valido')
 			user = form.save()
 			user.save()
 
@@ -87,9 +91,7 @@ def signup(request):
 			return HttpResponseRedirect(reverse('user_cp'))
 		else:
 			logger.debug('signup form no valid')
-			print form.fields['nascimento'].bound_data.__str__()
-			print dir(form.fields['nascimento'].bound_data)
-
+			
 			return render(request,'ubet/signup.html',{'form' : form})
 		
 	elif request.method == 'GET':

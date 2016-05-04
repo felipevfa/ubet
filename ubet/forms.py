@@ -16,6 +16,8 @@ my_default_errors = {
 			'invalid' : 'Insira um valor válido.',
 }
 
+class Html5DateInput(forms.DateInput):
+    input_type = 'date'
 def validate_maioridade(arg):
 	now = datetime.datetime.now()
 	now = datetime.date(now.year,now.month,now.day)
@@ -25,12 +27,16 @@ def validate_maioridade(arg):
 
 
 class UserSignupForm(UserCreationForm):
-	nascimento = forms.DateField(required=True,label=_('Birthdate'))
-	nascimento.validators=[validate_maioridade]
+	nascimento = forms.DateField(label='')
+	nascimento.widget.input_type='date'
+	nascimento.help_text = _("Birthdate")
+	# nascimento.widget = Html5DateInput()
+
+	# nascimento.validators=[validate_maioridade]
 	# nascimento.widget	.attrs = {
 	#     'class':'datepicker'
 	# }
-	class Meta:
+	class 	Meta:
 		model = User
 		fields = ("username", "email", 'first_name','password1','password2')
 		labels = { 
@@ -51,13 +57,14 @@ class UserSignupForm(UserCreationForm):
 		self.fields['email'].widget.attrs = {
 			'placeholder': 'example@example.com'
 		}
-		self.fields['nascimento'].widget.attrs = {
-			'placeholder': formats.get_format("SHORT_DATE_FORMAT", lang=get_language())
-		}
+		# self.fields['nascimento'].widget.attrs = {
+		# 	'placeholder': formats.get_format("SHORT_DATE_FORMAT", lang=get_language())
+		# }
+
 
 	def save(self, commit=True):
-		user = User.objects.create_user(self.cleaned_data['username'],
-			email = self.cleaned_data['email'],
+		user = User.objects.create_user(self.cleaned_data['username'],	
+		email = self.cleaned_data['email'],
 			password = self.cleaned_data['password1'],
 			first_name = self.cleaned_data['first_name'])
 		uu = Ubet_user()

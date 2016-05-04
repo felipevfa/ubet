@@ -10,7 +10,8 @@
 			<form enctype="multipart/form-data"  action="{% url 'signup' %}" method="POST" name="signup-form" class="form" id="signup-form">
 				{% csrf_token %}
 
-				<ul id="form-fields">{{ form.as_ul }}</ul>				
+				<ul id="form-fields">{{ form.as_ul }}
+				</ul>				
 
 				<div class="g-recaptcha" data-sitekey="6Ld3zx4TAAAAALiGsdo6DCDy9-6noYYabMbwaZh6"></div>
 
@@ -19,7 +20,7 @@
 				<div class="input-field center-align">
 					<input type="submit" value="{% trans 'Submit' %}"  class="submit-button btn" id="signup-btn">
 
-					<a href="{% url 'login' %}" class="btn-flat">{% trans "Cancel" %}</a>
+					<a href="{% url 'login' %}"  type="hidden" class="btn-flat">{% trans "Cancel" %}</a>
 				</div>	
 			</form>
 		</div>	
