@@ -62,7 +62,7 @@
 				<tbody>
 					{% for g in user_groups|slice:":10" reversed %}
 						<tr>
-							<td>{{ g.name }}</td>
+							<td><a href="{% url 'group_info' g.id %}">{{ g.name }}</a></td>
 							<td>{{ g.date_of_birth|date:"SHORT_DATE_FORMAT" }}</td>
 							<td>{{ g.date_of_birth|date:"H:i" }}</td>
 							<td>{{ g.cur_size }}</td>

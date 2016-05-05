@@ -14,6 +14,7 @@
 		{% if error_msg %}
 			<p>{{ error_msg }}</p>
 		{% else %}
+			<p class="toll"><i class="material-icons text-accent-4 yellow-text">toll</i> {{group.bet_value}}</p>
 
 			<p class="members"><i class="material-icons">people</i> {{ group.cur_size }} / {{ group.max_size }}</p>
 
@@ -26,19 +27,22 @@
 					<i class="red-text">{% trans "canceled" %}</i> <br>
 				{% elif group.status == 'FINISHED' %}
 					<i class="green-text">{% trans "finished" %}</i> <br>
-					{% trans 'Winner:'%} {{ group.winner}}<br>
-					{% trans 'Reward:'%} {{ reward}}
+					{% trans 'Winner:'%} {{ group.winner }}<br>
+					{% trans 'Reward:'%} {{ reward }}
 				{% endif %}
 			</p>
 			{% if group.status == 'WAITING' %}
 				{%trans 'Remaining time' %}: {{remaining}}m.
 			{% endif %}
-			<p class="toll"><i class="material-icons text-accent-4 yellow-text">toll</i> {{group.bet_value}}</p>
-
+			
 			<ul class="collection">
 					{% for p in sim_list %}
 						{% if p %}
+							{% if p == request.user %}
+								<li class="collection-item active">{% trans "Position" %} {{ forloop.counter }}: {{ p }}</li>
+							{% else %}
 								<li class="collection-item">{% trans "Position" %} {{ forloop.counter }}: {{ p }}</li>
+							{% endif %}
 						{% else %}
 								<li class="collection-item">{% trans "Position" %} {{ forloop.counter }}: {% trans "open" %}</li>
 						{% endif %}
