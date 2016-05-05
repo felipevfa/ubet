@@ -75,7 +75,7 @@ def signup(request):
 		s = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
 
 		form = UserSignupForm(request.POST)
-		logger.debut(form)
+		logger.debug(form)
 
 		if not s.json()['success']:
 			return render(request,'ubet/signup.html',{'form':form,'toast':_("Check the reCaptcha, please")})
