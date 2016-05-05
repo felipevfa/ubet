@@ -6,9 +6,9 @@
 {% block main_content %}
 	<div id="group-list-controller">		
 		<div class="container row">
-			<a href="{% url 'list_waiting' %}" type="button" class="btn-flat col s6">{% trans "Recent Groups" %}</a>
+			<div class="btn-flat col s6 {{ waiting_active }}"><a href="{% url 'list_waiting' %}" type="button" class="center-align">{% trans "Recent Groups" %}</a></div>
 		
-			<a href="{% url 'list_my_active_bets' %}" type="button" class="btn-flat col s6">{% trans "My bets" %}</a>
+			<div class="btn-flat col s6 {{ bets_active }}"><a href="{% url 'list_my_active_bets' %}" type="button" class="center-align">{% trans "My bets" %}</a></div>
 		</div>
 	</div>
 

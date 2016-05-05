@@ -31,7 +31,7 @@ def list_waiting(request):
 		messages.add_message(request, messages.INFO, 'Hello world.')
 		print Notification.objects.filter(user=request.user).count()
 	logger.debug('list_waiting')
-	return render(request,'ubet/list_all_groups.html', {'grupos': groups, 'waiting': True })
+	return render(request,'ubet/list_all_groups.html', {'grupos': groups, 'waiting': True, 'waiting_active': 'active' })
 
 @login_required()
 def list_my_active_bets(request):
@@ -40,7 +40,7 @@ def list_my_active_bets(request):
 		messages.add_message(request, messages.INFO, 'Hello world.')
 		print Notification.objects.filter(user=request.user).count()
 	logger.debug('list_all_groups')
-	return render(request,'ubet/list_all_groups.html', {'grupos': groups, 'my_bets': True })
+	return render(request,'ubet/list_all_groups.html', {'grupos': groups, 'my_bets': True, 'bets_active': 'active' })
 
 @login_required()
 def new_group(request):

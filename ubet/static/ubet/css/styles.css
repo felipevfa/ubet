@@ -161,13 +161,21 @@ nav {
 #group-list-controller a[type="button"] { 
 	padding: 0;
 	border-radius: 0; 
-	transition: 0.2s;
-	text-align: center; 
+	color: black; 
 }
 
-#group-list-controller a[type="button"].active { 
+#group-list-controller div.row div.btn-flat {
+	border-radius: 0;
+	text-align: center;
+	cursor: initial;
+}
+
+#group-list-controller div.row div.btn-flat.active  { 
 	font-weight: bold; 
-	border-bottom: 2px solid rgb(68,55,79); }
+	border-bottom: 2px solid rgb(59,89,152);
+}
+
+}
 
 #group-list-wrapper {
 	width: 80%;
