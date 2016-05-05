@@ -17,6 +17,10 @@ nav ul a:hover {
 	background-color: rgba(0,0,0,0);
 }
 
+nav ul {
+	height: inherit;
+}
+
 @media (max-width: 620px) {
 	.container.mobile-container {
 		width: 100%;
@@ -111,15 +115,24 @@ nav {
 	background-color: rgb(255,255,255);
 }
 
+.form p {
+	margin: 0;
+	margin-top: 1.5em;
+	text-align: justify;
+}
+
 .form .btn-flat {
 	margin-top: 1em;
 	color: rgb(0,0,0);
 }
 
+.errorlist {
+	color: red;
+}
+
 .register-text { margin-top: 2em; color: rgb(0,0,0); }
 .register-text a { color: rgb(59,89,152);   }
 #login-title { margin-top: 1em; }
-.rc-anchor { margin: 0 auto; text-align: center; }
 
 /* 2. Datepicker */
 #signup-form .picker__date-display {
@@ -368,4 +381,17 @@ li.collection-item a p {
 
 .history-collection {
 	margin-bottom: 1em;
+}
+
+/* 7. ReCaptcha */
+
+.g-recaptcha div div {
+	margin: 0 auto;
+}
+
+.g-recaptcha div div iframe {
+	height: 95px;
+}
+.g-recaptcha .rc-anchor-alert {
+	color: yellow;
 }
