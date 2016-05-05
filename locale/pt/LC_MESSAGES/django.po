@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-04 21:05-0300\n"
+"POT-Creation-Date: 2016-05-05 11:17-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,7 +47,7 @@ msgstr ""
 
 #: ubet/forms.py:54
 msgid "max. 30 chars. Letters, digits and @/./+/-/_ only."
-msgstr ""
+msgstr "max 30 carac, (A)a-(Z)z, 0-9, digitos e @/./+/-/_."
 
 #: ubet/forms.py:104
 msgid "Username"
@@ -107,34 +107,35 @@ msgstr "Criar Grupo"
 msgid "Betting"
 msgstr "Apostas"
 
-#: ubet/templates/ubet/bet.html:9
+#: ubet/templates/ubet/bet.html:10
 msgid "Betting on group"
 msgstr "Apostando no grupo"
 
-#: ubet/templates/ubet/bet.html:10
+#: ubet/templates/ubet/bet.html:11
 msgid "The toll is"
 msgstr "Valor da aposta"
 
-#: ubet/templates/ubet/bet.html:21 ubet/templates/ubet/bet.html.py:24
-#: ubet/templates/ubet/group_info.html:41
-#: ubet/templates/ubet/group_info.html:43
+#: ubet/templates/ubet/bet.html:22 ubet/templates/ubet/bet.html.py:25
+#: ubet/templates/ubet/group_info.html:42
+#: ubet/templates/ubet/group_info.html:44
+#: ubet/templates/ubet/group_info.html:47
 msgid "Position"
 msgstr "Posição"
 
-#: ubet/templates/ubet/bet.html:24 ubet/templates/ubet/group_info.html:43
+#: ubet/templates/ubet/bet.html:25 ubet/templates/ubet/group_info.html:47
 msgid "open"
 msgstr "aberto"
 
-#: ubet/templates/ubet/bet.html:31
+#: ubet/templates/ubet/bet.html:32
 msgid "Confirm"
 msgstr "Confirmar"
 
-#: ubet/templates/ubet/bet.html:36 ubet/templates/ubet/new_group.html.py:19
+#: ubet/templates/ubet/bet.html:37 ubet/templates/ubet/new_group.html.py:19
 #: ubet/templates/ubet/signup.html:23
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: ubet/templates/ubet/bet.html:36
+#: ubet/templates/ubet/bet.html:37
 msgid "Bet Later"
 msgstr "Apostar Depois"
 
@@ -142,32 +143,32 @@ msgstr "Apostar Depois"
 msgid "Group Details"
 msgstr "Detalhes do grupo"
 
-#: ubet/templates/ubet/group_info.html:24
+#: ubet/templates/ubet/group_info.html:25
 msgid "active"
 msgstr "ativo"
 
-#: ubet/templates/ubet/group_info.html:26
+#: ubet/templates/ubet/group_info.html:27
 msgid "canceled"
 msgstr "cancelado"
 
-#: ubet/templates/ubet/group_info.html:28
+#: ubet/templates/ubet/group_info.html:29
 msgid "finished"
 msgstr "concluído"
 
-#: ubet/templates/ubet/group_info.html:29
+#: ubet/templates/ubet/group_info.html:30
 msgid "Winner:"
 msgstr "Vencedor:"
 
-#: ubet/templates/ubet/group_info.html:30
+#: ubet/templates/ubet/group_info.html:31
 msgid "Reward:"
 msgstr "Prêmio:"
 
-#: ubet/templates/ubet/group_info.html:34
+#: ubet/templates/ubet/group_info.html:35
 msgid "Remaining time"
 msgstr "Tempo restante"
 
-#: ubet/templates/ubet/group_info.html:53
-#: ubet/templates/ubet/group_info.html:60
+#: ubet/templates/ubet/group_info.html:57
+#: ubet/templates/ubet/group_info.html:64
 msgid "I want to bet"
 msgstr "Eu quero apostar"
 
@@ -175,31 +176,31 @@ msgstr "Eu quero apostar"
 msgid "All"
 msgstr "Todos"
 
-#: ubet/templates/ubet/list_all_groups.html:10
+#: ubet/templates/ubet/list_all_groups.html:11
 msgid "My bets"
 msgstr "Minhas apostas"
 
-#: ubet/templates/ubet/list_all_groups.html:22
+#: ubet/templates/ubet/list_all_groups.html:23
 msgid "Members:"
 msgstr "Membros:"
 
-#: ubet/templates/ubet/list_all_groups.html:23
+#: ubet/templates/ubet/list_all_groups.html:24
 msgid "Value:"
 msgstr "Valor:"
 
-#: ubet/templates/ubet/list_all_groups.html:24
+#: ubet/templates/ubet/list_all_groups.html:25
 msgid "Time left:"
 msgstr "Tempo restante:"
 
-#: ubet/templates/ubet/list_all_groups.html:28
+#: ubet/templates/ubet/list_all_groups.html:29
 msgid "Creator:"
 msgstr "Criador:"
 
-#: ubet/templates/ubet/list_all_groups.html:32
+#: ubet/templates/ubet/list_all_groups.html:33
 msgid "More"
 msgstr "Mais"
 
-#: ubet/templates/ubet/list_all_groups.html:42
+#: ubet/templates/ubet/list_all_groups.html:43
 msgid "There are no active groups."
 msgstr "Não há grupos ativos."
 
@@ -303,6 +304,40 @@ msgstr "cancelado"
 #: ubet/templates/ubet/user_cp.html:48
 msgid "History"
 msgstr "Histórico"
+
+#: ubet/templates/ubet/user_cp.html:53
+#, fuzzy
+#| msgid "Groups"
+msgid "Group"
+msgstr "Grupos"
+
+#: ubet/templates/ubet/user_cp.html:54
+msgid "Date"
+msgstr ""
+
+#: ubet/templates/ubet/user_cp.html:55
+msgid "Time"
+msgstr ""
+
+#: ubet/templates/ubet/user_cp.html:56
+msgid "Users"
+msgstr ""
+
+#: ubet/templates/ubet/user_cp.html:57
+#, fuzzy
+#| msgid "Winner:"
+msgid "Winner"
+msgstr "Vencedor:"
+
+#: ubet/templates/ubet/user_cp.html:58
+#, fuzzy
+#| msgid "Value:"
+msgid "Bet Value"
+msgstr "Valor:"
+
+#: ubet/templates/ubet/user_cp.html:59
+msgid "Total Prize"
+msgstr ""
 
 #: ubet/views.py:81
 msgid "Check the reCaptcha, please"

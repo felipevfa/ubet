@@ -16,8 +16,7 @@ my_default_errors = {
 			'invalid' : 'Insira um valor válido.',
 }
 
-class Html5DateInput(forms.DateInput):
-    input_type = 'date'
+
 def validate_maioridade(arg):
 	now = datetime.datetime.now()
 	now = datetime.date(now.year,now.month,now.day)
@@ -28,6 +27,7 @@ def validate_maioridade(arg):
 
 class UserSignupForm(UserCreationForm):
 	nascimento = forms.DateField(label='')
+	nascimento.validators.append(validate_maioridade)
 	nascimento.widget.input_type='date'
 	nascimento.help_text = _("Birthdate")
 	# nascimento.widget = Html5DateInput()
@@ -110,14 +110,12 @@ class new_group_Form(ModelForm):
 	
 	class Meta:
 		model = Group	
-		fields = {'name', 'max_size','bet_value'}
+		fields = {, 'max_size','bet_value'}
 		labels = {
-			'name' : _('Group\'s name'),
 			'max_size' : _('Number of members'),
 			'bet_value' : _('Bet'),
 		}
 		
-
 
 	def clean_bet_value(self):
 		bet_value = self.cleaned_data['bet_value']

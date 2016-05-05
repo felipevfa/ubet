@@ -163,10 +163,10 @@ def user_cp(request):
 			'datejoined' : request.user.date_joined.date(),
 			'notification' : notificacoes,
 		}
-		logger.debug('user' +str( request.user))
-		logger.debug('user_groups' +str(  user_groups))
-		logger.debug('datejoined' +str( request.user.date_joined.date()))
-		logger.debug('notification' +str( notificacoes))
+		logger.debug('user' +unicode( request.user))
+		logger.debug('user_groups' +unicode(  user_groups))
+		logger.debug('datejoined' +unicode( request.user.date_joined.date()))
+		logger.debug('notification' +unicode( notificacoes))
 
 		return render(request, 'ubet/user_cp.html', contexto)
 	else:
@@ -242,14 +242,14 @@ def group_info(request,group_id):
 	 	'sim_list' : sl,
 	 	'reward' : g.max_size*g.bet_value,
 	}
-	logger.debug('users' + str(contexto['users']))
-	logger.debug('group' + str(contexto['group']))
-	logger.debug('p_title' + str(contexto['p_title']))
-	logger.debug('canBet' + str(contexto['canBet']))
-	logger.debug('warning' + str(contexto['warning']))
-	logger.debug('toast' + str(contexto['toast']))
-	logger.debug('remaining' + str(contexto['remaining']))
-	logger.debug('sim_list' + str(contexto['sim_list']))
+	logger.debug('users ' + unicode(contexto['users']))
+	logger.debug('group ' + unicode(contexto['group']))
+	logger.debug('p_title ' + unicode(((contexto['p_title']))))
+	logger.debug('canBet ' + unicode(contexto['canBet']))
+	logger.debug('warning ' + unicode(contexto['warning']))
+	logger.debug('toast ' + unicode(contexto['toast']))
+	logger.debug('remaining ' + unicode(contexto['remaining']))
+	logger.debug('sim_list ' + unicode(contexto['sim_list']))
 
 	return render(request, 'ubet/group_info.html',contexto )
 
@@ -287,10 +287,10 @@ def bet(request,group_id):
 				'canBet' : canBet,
 				'reason' : reason
 			}
-			logger.debug('group' + str(contexto['group']))
-			logger.debug('available' + str(contexto['available']))
-			logger.debug('canBet' + str(contexto['canBet']))
-			logger.debug('reason' + str(contexto['reason']))
+			logger.debug('group' + unicode(contexto['group']))
+			logger.debug('available' + unicode(contexto['available']))
+			logger.debug('canBet' + unicode(contexto['canBet']))
+			logger.debug('reason' + unicode(contexto['reason']))
 			return render(request, 'ubet/bet.html', contexto)
 	elif request.method == 'POST':
 		logger.debug('bet post')
