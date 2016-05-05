@@ -99,6 +99,10 @@ class Group(models.Model):
 			return expire-active
 		return 0
 
+	def get_prize(self):
+		"""retorna o valor do prêmio."""
+		return self.bet_value*self.max_size;
+
 	@staticmethod
 	def active_groups(user,waiting=False):
 		"""Mostra os grupos ativos para um usuario. 

@@ -47,51 +47,32 @@
 			
 			<h5>{% trans 'History' %}</h5>
 
-			<ul class="collection history-collection hide-on-small-only">
-				{% for g in user_groups|slice:":10" reversed %}
-					<li class="collection-item">
-						<a href="{% url 'group_info' g.id %}">
-						
-							{{ g.name }} 
-							
-							<span>
-								<i class="material-icons">person</i> {{ g.cur_size }}
-								<i class="material-icons">toll</i> {{ g.bet_value }}
-								{% if g.winner %} 
-									 <i class="material-icons">star</i> {{ g.winner }}
-								{% endif %}
-								<i class="material-icons">date_range</i> {{ g.date_of_birth|date:"SHORT_DATE_FORMAT"}}
-							</span>
-						</a>
-					</li>
-				{% endfor %}
-			</ul>
-
-			<ul class="collection history-collection hide-on-med-and-up">
-				{% for g in user_groups|slice:":10" reversed %}
-					<li class="collection-item">
-						<a class="collection-card hide-on-med-and-up" href="{% url 'group_info' g.id %}">
-							<div class="collection-card-title">
-								{{ g.name|truncatechars:25 }}
-								<span class="right-align">
-									{% if g.winner %} 
-										<i class="material-icons">star</i> {{ g.winner }} 
-									{% endif %}
-								</span>
-							</div>
-
-							<div class="collection-card-info">
-								<i class="material-icons">person</i> {{ g.cur_size }}
-								<i class="material-icons">toll</i> {{ g.bet_value }}
-								{% if g.winner %} 
-									 <i class="material-icons">star</i> {{ g.winner }}
-								{% endif %}
-								<i class="material-icons">date_range</i> {{ g.date_of_birth|date:"SHORT_DATE_FORMAT"}}
-							</div>
-						</a>
-					</li>
-				{% endfor %}
-			</ul>
+			<table class="striped responsive-table">
+				<thead>
+					<tr>
+						<th data-field="id">{% trans "Group" %}</th>
+						<th data-field="creation-date">{% trans "Date" %}</th>
+						<th data-field="creation-time">{% trans "Time" %}</th>
+						<th data-field="group-members">{% trans "Users" %}</th>
+						<th data-field="winner">{% trans "Winner" %}</th>
+						<th data-field="bet-value">{% trans "Bet Value" %}</th>
+						<th data-field="prize">{% trans "Total Prize" %}</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for g in user_groups|slice:":10" reversed %}
+						<tr>
+							<td>{{ g.name }}</td>
+							<td>{{ g.date_of_birth|date:"SHORT_DATE_FORMAT" }}</td>
+							<td>{{ g.date_of_birth|date:"H:i" }}</td>
+							<td>{{ g.cur_size }}</td>
+							<td>{{ g.winner }}</td>
+							<td>{{ g.bet_value }}</td>
+							<td>{{ g.get_prize }}</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
 		</div>
 	</div>
 
