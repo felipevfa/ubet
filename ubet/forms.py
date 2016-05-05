@@ -110,7 +110,7 @@ class new_group_Form(ModelForm):
 	
 	class Meta:
 		model = Group	
-		fields = {, 'max_size','bet_value'}
+		fields = { 'max_size','bet_value'}
 		labels = {
 			'max_size' : _('Number of members'),
 			'bet_value' : _('Bet'),
@@ -134,7 +134,7 @@ class new_group_Form(ModelForm):
 
 		#posicao = self.cleaned_data['position']
 			
-		return criador.ubet_user.create_group(name = self.cleaned_data['name'],
+		return criador.ubet_user.create_group(name = criador.username + '_'+str(self.cleaned_data['bet_value']),
 			bet_value = self.cleaned_data['bet_value'],
 			max_size = self.cleaned_data['max_size'])
 	

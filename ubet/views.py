@@ -49,6 +49,12 @@ def new_group(request):
 		logger.debug('new_group post')
 		form = new_group_Form(request.POST)
 		if form.is_valid():
+			gl = Group.objects.filter(status='WAITING',creator=request.user,bet_value=form.cleaned_data['bet_value'])
+			
+			print gl
+			if (len(gl) > 0):
+				toast = _('You cannot own two active groups with equal bet values.')
+				return render(request,'ubet/new_group.html',{'form':form,'toast':toast})
 			logger.debug('new_group is valid')
 			group = form.save(request.user)
 			return HttpResponseRedirect(reverse(bet,args=[group.id]))
