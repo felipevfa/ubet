@@ -33,7 +33,7 @@
   						{% endif%}
 
 						<ul class="right hide-on-med-and-down">
-							<li>{% trans "Créditos" %}: {{ request.user.ubet_user.creditos }}</li>	
+							<li>{% trans "Credits" %}: {{ request.user.ubet_user.creditos }}</li>	
 				       		<li><a  class='tooltipped' href="{% url 'user_cp' %}"
 				       		data-tooltip="{% trans "Verify your info like credits and your groups"%}">{% trans "My profile" %}</a></li>
 				       		<li><a href="{% url 'list_waiting' %}">{% trans "Groups" %}</a></li>
