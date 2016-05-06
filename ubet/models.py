@@ -7,7 +7,16 @@ from random import choice
 import datetime
 from django.utils import timezone
 from django.db import IntegrityError
-from rayquasa.settings import TIME_TO_EXPIRE as expire 
+
+class Admin_settings(models.Model):
+	time_to_expire = models.IntegerField(default=30)
+	group_max_capacity = models.IntegerField(default=10)
+	max_bet_value = models.IntegerField(default=0)
+	# >=
+	min_bet_value = models.IntegerField(default=1)
+	win_tax = models.FloatField(default=0.04)
+
+
 class Ubet_user(models.Model):
 	# ligacao com User do django. user.first_name eh o nome completo
 
@@ -69,6 +78,9 @@ class Group(models.Model):
 		return self.name
 
 	def update(self):
+		sets = Admin_settings.objects.get(id=1)
+		expire = sets.time_to_expire
+		desconto = sets.win_tax
 		now = timezone.now()
 		if self.status == "WAITING":
 			if  (now - self.date_of_birth).seconds / 60 >= expire or self.users.count() == self.max_size:
@@ -76,7 +88,10 @@ class Group(models.Model):
 					self.status =  'FINISHED'
 					self.date_of_death = timezone.now()
 					self.winner = choice(self.users.all())	
-					self.winner.ubet_user.creditos += self.users.count()*self.bet_value
+					k = 1
+					if self.max_size > 2:
+						k = k - desconto
+					self.winner.ubet_user.creditos += self.users.count()*self.bet_value*k
 					self.winner.ubet_user.save()
 				else:
 					self.status = 'CANCELED'
@@ -92,6 +107,7 @@ class Group(models.Model):
 				self.save()
 	def time_left(self):
 		"""retorna o tempo restante do grupo em minutos."""
+		expire = Admin_settings.objects.get(id=1).time_to_expire
 		if self.status == 'WAITING':
 			now = timezone.now()
 			active = (now - self.date_of_birth).seconds / 60
