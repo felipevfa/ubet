@@ -42,11 +42,24 @@ nav ul {
 /* 1. Navbar */
 nav {
 	background-color: rgb(59,89,152);
-	max-height: 60px;	
+	max-height: 64px;	
 }
 
 .nav-wrapper {
 	margin: 0 auto;	
+}
+
+.nav-wrapper ul li:first-child {
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+.nav-wrapper ul li a: {
+	transition: 0.2s;
+}
+
+.nav-wrapper ul li a:hover {
+	background-color: rgb(109,132,180);
 }
 
 .nav-collapse {
