@@ -45,7 +45,7 @@
 				<div class="divider"></div>
 			{% endif %}
 			
-			<h5>{% trans 'History' %}</h5>
+			<h5>{% trans 'History' %} <a href="{% url 'group_log' %}">({% trans "view complete history" %})</a></h5> 
 
 			{% if user_groups %}
 				<table class="striped responsive-table">

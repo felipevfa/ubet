@@ -30,7 +30,7 @@
 							</div>
 
 							<div class="group-options">
-								<a href="{% url 'group_info' g.id%}" class="btn-flat">{% trans "More" %}</a>
+								<a href="{% url 'group_info' g.id%}" class="btn-flat right">{% trans "Bet Here" %}</a>
 							</div>
 						
 							<div class="clear"></div>
@@ -42,7 +42,7 @@
 			<div class="card-panel">
 				{% if not groups %}
 					{% if waiting %}
-						<p>{% trans "There are no active groups. Why don't you" %} <a href="{% url 'new_group' %}">{% trans "start one" %}?</a></p>
+						<p>{% trans "There are no active groups or you are participating in all active groups. Why don't you" %} <a href="{% url 'new_group' %}">{% trans "start a new one" %}?</a></p>
 					{% else %}
 						<p>{% trans "You didn't bet in any groups." %} <a href="{% url 'list_waiting' %}">{% trans "Why don't you take a look at the active groups?" %}</a></p>
 					{% endif %}

@@ -36,7 +36,8 @@
 							<li>{% trans "Créditos" %}: {{ request.user.ubet_user.creditos }}</li>	
 				       		<li><a  class='tooltipped' href="{% url 'user_cp' %}"
 				       		data-tooltip="{% trans "Verify your info like credits and your groups"%}">{% trans "My profile" %}</a></li>
-				       		<li><a href="{% url 'list_waiting' %}">{% trans "Groups" %}				       				</a></li>
+				       		<li><a href="{% url 'list_waiting' %}">{% trans "Groups" %}</a></li>
+				       		<li><a href="{% url 'group_log' %}">{% trans "Group History" %}</a></li>
 				       		<li><a href="{% url 'logout' %}">{% trans "Logout" %}</a></li>
 				     	</ul>
 						<div class="clear"></div>

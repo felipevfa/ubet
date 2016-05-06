@@ -7,6 +7,7 @@ from django.contrib.auth import get_user_model, authenticate, login as auth_logi
 from django.http import HttpResponseRedirect,HttpResponse
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from ubet.models import Ubet_user,User,Group,Notification
 import urllib2
 from rayquasa.settings import TIME_TO_EXPIRE as expire
@@ -315,3 +316,26 @@ def bet(request,group_id):
 		except:
 			raise
 	return HttpResponse("welcome to limbo")
+
+@login_required()
+def group_log(request):
+	logger.debug('group history')
+	
+	groups = Group.groups_by_user(request.user)
+	paginator = Paginator(groups, 15)
+	page = request.GET.get('page')
+
+
+	try:
+		group_list = paginator.page(page)
+	except PageNotAnInteger:
+		group_list = paginator.page(1)
+	except EmptyPage:
+		group_list = paginator.page(paginator.num_pages);
+
+	contexto = {
+		'page': group_list,
+		'paginator': paginator
+	}
+
+	return render(request, 'ubet/group_log.html', contexto)

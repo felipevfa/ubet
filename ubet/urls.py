@@ -15,6 +15,7 @@ urlpatterns = [
     url(r'^bet/(?P<group_id>[0-9]+)$', views.bet, name='bet'),
     url(r'^notification/(?P<group_id>[0-9]+)$', views.notification,name='notification'),
     url(r'^group_info/(?P<group_id>[0-9]+)$', views.group_info,name='group_info'),
+    url(r'^group_log$', views.group_log, name='group_log'),
     
     
 ]
