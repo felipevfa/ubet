@@ -44,11 +44,11 @@
 					{% if waiting %}
 						<p>{% trans "There are no active groups or you are participating in all active groups. Why don't you" %} <a href="{% url 'new_group' %}">{% trans "start a new one" %}?</a></p>
 
-						<button type="button" class="waves-effect btn-large ubet-btn"><a href="{% url 'new_group' %}">{% trans "Create new group" %}</a></button>
+						<a href="{% url 'new_group' %}"><button type="button" class="waves-effect btn-large ubet-btn">{% trans "Create new group" %}</button></a>
 					{% else %}
 						<p>{% trans "You didn't bet in any groups." %} <a href="{% url 'list_waiting' %}">{% trans "Why don't you take a look at the active groups?" %}</a></p>
 
-						<button type="button" class="waves-effect btn-large ubet-btn"><a href="{% url 'new_group' %}">{% trans "Create new group" %}</a></button>
+						<a href="{% url 'new_group' %}"><button type="button" class="waves-effect btn-large ubet-btn">{% trans "Create new group" %}</button></a>
 					{% endif %}
 				{% endif %}
 			</div>
