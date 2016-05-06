@@ -33,18 +33,18 @@
   						{% endif%}
 
 						<ul class="right hide-on-med-and-down">
-							<li>{% trans "Créditos" %}: {{ request.user.ubet_user.creditos }}</li>	
-				       		<li><a  class='tooltipped' href="{% url 'user_cp' %}"
+							<li class="waves-effect">{% trans "Credits" %}: {{ request.user.ubet_user.creditos }}</li>	
+				       		<li class="waves-effect"><a  class='tooltipped' href="{% url 'user_cp' %}"
 				       		data-tooltip="{% trans "Verify your info like credits and your groups"%}">{% trans "My profile" %}</a></li>
-				       		<li><a href="{% url 'list_waiting' %}">{% trans "Groups" %}</a></li>
-				       		<li><a href="{% url 'group_log' %}">{% trans "Group History" %}</a></li>
-				       		<li><a href="{% url 'logout' %}">{% trans "Logout" %}</a></li>
+				       		<li class="waves-effect"><a href="{% url 'list_waiting' %}">{% trans "Groups" %}</a></li>
+				       		<li class="waves-effect"><a href="{% url 'group_log' %}">{% trans "Group History" %}</a></li>
+				       		<li class="waves-effect"><a href="{% url 'logout' %}">{% trans "Logout" %}</a></li>
 				     	</ul>
 						<div class="clear"></div>
 				     	<ul id="nav-mobile" class="side-nav">
-				       		<li><a href="{% url 'user_cp' %}">{% trans "My profile" %}</a></li>
-				       		<li><a href="{% url 'list_waiting' %}">{% trans "Groups" %}</a></li>
-				       		<li><a href="{% url 'logout' %}">{% trans "Logout" %}</a></li>
+				       		<li class="waves-effect"><a href="{% url 'user_cp' %}">{% trans "My profile" %}</a></li>
+				       		<li class="waves-effect"><a href="{% url 'list_waiting' %}">{% trans "Groups" %}</a></li>
+				       		<li class="waves-effect"><a href="{% url 'logout' %}">{% trans "Logout" %}</a></li>
 				     	</ul>
 					</div>
 				</nav>
