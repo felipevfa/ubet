@@ -39,6 +39,24 @@ nav ul {
 .container { width: 85%; max-width: 900px; }
 .helptext { color: red; }
 
+.ubet-btn {
+	background-color: rgb(59,89,152);
+}
+
+.ubet-btn:hover {
+	background-color: rgb(109,132,180);
+}
+
+.ubet-floating {
+	background-color: rgba(255,255,255,0.8);
+	color: rgb(59,89,152);
+	transition: 0.2s;
+}
+
+.ubet-floating:hover {
+	background-color: rgba(255,255,255,1);
+}
+
 /* 1. Navbar */
 nav {
 	background-color: rgb(59,89,152);
@@ -210,6 +228,15 @@ nav {
 	margin-right: 1.5em;
 	margin-bottom: 0.85em;
 }
+
+#group-list-wrapper .ubet-btn {
+	text-align: center;
+	margin-top: 0.5em;
+}
+#group-list-wrapper .ubet-btn a {
+	color: rgb(255,255,255);
+}
+
 .group-info h5 { margin-top: 0; }
 .group-options {
 	position: absolute;

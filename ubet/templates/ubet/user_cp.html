@@ -30,8 +30,8 @@
 
 								<span>
 									<i class="material-icons">star</i>
-									{% if g.winner %} 
-										 {{ g.winner }}
+									{% if n.group.winner %} 
+										 {{ n.group.winner }}
 									{% else %}
 										{% trans "Canceled" %}
 									{% endif %}
