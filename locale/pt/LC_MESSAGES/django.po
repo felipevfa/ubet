@@ -43,7 +43,7 @@ msgstr "Nome completo"
 
 #: ubet/forms.py:53
 msgid "The credential you use to log into the site"
-msgstr ""
+msgstr "As credenciais que você usa para logar no site"
 
 #: ubet/forms.py:54
 msgid "max. 30 chars. Letters, digits and @/./+/-/_ only."

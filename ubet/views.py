@@ -169,10 +169,10 @@ def user_cp(request):
 			'datejoined' : request.user.date_joined.date(),
 			'notification' : notificacoes,
 		}
-		logger.debug('user' +unicode( request.user))
-		logger.debug('user_groups' +unicode(  user_groups))
-		logger.debug('datejoined' +unicode( request.user.date_joined.date()))
-		logger.debug('notification' +unicode( notificacoes))
+		logger.debug('user' +str( request.user))
+		logger.debug('user_groups' +str(  user_groups))
+		logger.debug('datejoined' +str( request.user.date_joined.date()))
+		logger.debug('notification' +str( notificacoes))
 
 		return render(request, 'ubet/user_cp.html', contexto)
 	else:

@@ -8,6 +8,9 @@ import datetime
 from django.utils import timezone
 from django.db import IntegrityError
 from rayquasa.settings import TIME_TO_EXPIRE as expire 
+class Settings(models.Model):
+	taxa_de_comissao = models.FloatField(default=30)
+
 class Ubet_user(models.Model):
 	# ligacao com User do django. user.first_name eh o nome completo
 
