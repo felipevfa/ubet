@@ -89,7 +89,7 @@ DATABASES = {
     # }
     ### fim do bloco
 
-    inclua o bloco a seguir , no lugar do sqlite3, para usar o banco heroku
+    # inclua o bloco a seguir , no lugar do sqlite3, para usar o banco heroku
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'dd81t233j9esee',                      # Or path to database file if using sqlite3.
