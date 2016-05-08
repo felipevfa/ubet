@@ -30,8 +30,8 @@
 
 								<span>
 									<i class="material-icons">star</i>
-									{% if g.winner %} 
-										 {{ g.winner }}
+									{% if n.group.winner %} 
+										 {{ n.group.winner }}
 									{% else %}
 										{% trans "Canceled" %}
 									{% endif %}
@@ -45,36 +45,41 @@
 				<div class="divider"></div>
 			{% endif %}
 			
-			<h5>{% trans 'History' %}</h5>
+			<h5>{% trans 'History' %} <a href="{% url 'group_log' %}">({% trans "view complete history" %})</a></h5> 
 
-			<table class="striped responsive-table">
-				<thead>
-					<tr>
-						<th data-field="id">{% trans "Group" %}</th>
-						<th data-field="creation-date">{% trans "Date" %}</th>
-						<th data-field="creation-time">{% trans "Time" %}</th>
-						<th data-field="group-members">{% trans "Users" %}</th>
-						<th data-field="winner">{% trans "Winner" %}</th>
-						<th data-field="bet-value">{% trans "Bet Value" %}</th>
-						<th data-field="prize">{% trans "Total Prize" %}</th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for g in user_groups|slice:":10" reversed %}
+			{% if user_groups %}
+				<table class="striped responsive-table">
+					<thead>
 						<tr>
-							<td><a href="{% url 'group_info' g.id %}">{{ g.name }}</a></td>
-							<td>{{ g.date_of_birth|date:"SHORT_DATE_FORMAT" }}</td>
-							<td>{{ g.date_of_birth|date:"H:i" }}</td>
-							<td>{{ g.cur_size }}</td>
-							<td>{{ g.winner }}</td>
-							<td>{{ g.bet_value }}</td>
-							<td>{{ g.get_prize }}</td>
+							<th data-field="id">{% trans "Group" %}</th>
+							<th data-field="creation-date">{% trans "Date" %}</th>
+							<th data-field="creation-time">{% trans "Time" %}</th>
+							<th data-field="group-members">{% trans "Users" %}</th>
+							<th data-field="winner">{% trans "Winner" %}</th>
+							<th data-field="bet-value">{% trans "Bet Value" %}</th>
+							<th data-field="prize">{% trans "Total Prize" %}</th>
 						</tr>
-					{% endfor %}
-				</tbody>
-			</table>
+					</thead>
+					<tbody>
+						{% for g in user_groups|slice:":10" reversed %}
+							<tr>
+								<td><a href="{% url 'group_info' g.id %}">{{ g.name }}</a></td>
+								<td>{{ g.date_of_birth|date:"SHORT_DATE_FORMAT" }}</td>
+								<td>{{ g.date_of_birth|date:"H:i" }}</td>
+								<td>{{ g.cur_size }}</td>
+								<td>{{ g.winner }}</td>
+								<td>{{ g.bet_value }}</td>
+								<td>{{ g.get_prize }}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			{% else %}
+				<p>{% trans "You never took part in a group. Why don't you " %}<a href="{% url 'list_waiting' %}"> {% trans "start now?" %}</a></p>
+			{% endif %}
 		</div>
 	</div>
 
+	{% block fab %} {% endblock fab %} 
 {% endblock main_content %}
 

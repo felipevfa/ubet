@@ -6,9 +6,9 @@
 {% block main_content %}
 	<div id="group-list-controller">		
 		<div class="container row">
-			<a href="{% url 'list_waiting' %}" type="button" class="btn-flat col s6">{% trans "Recent Groups" %}</a>
+			<a href="{% url 'list_waiting' %}" type="button" class="center-align"><div class="btn-flat waves-effect col s6 {{ waiting_active }}">{% trans "Recent Groups" %}</div></a>
 		
-			<a href="{% url 'list_my_active_bets' %}" type="button" class="btn-flat col s6">{% trans "My bets" %}</a>
+			<a href="{% url 'list_my_active_bets' %}" type="button" class="center-align"><div class="btn-flat waves-effect col s6 {{ bets_active }}">{% trans "My bets" %}</div></a>
 		</div>
 	</div>
 
@@ -30,7 +30,7 @@
 							</div>
 
 							<div class="group-options">
-								<a href="{% url 'group_info' g.id%}" class="btn-flat">{% trans "More" %}</a>
+								<a href="{% url 'group_info' g.id%}" class="btn-flat right">{% trans "Bet Here" %}</a>
 							</div>
 						
 							<div class="clear"></div>
@@ -39,8 +39,18 @@
 				{%endfor%}
 			</ul>
 		{% else %}
-			<div class="card-panel">
-				<p>{% trans "There are no active groups." %}</p>
+			<div class="card-panel center">
+				{% if not groups %}
+					{% if waiting %}
+						<p>{% trans "There are no active groups or you are participating in all active groups. Why don't you" %} <a href="{% url 'new_group' %}">{% trans "start a new one" %}?</a></p>
+
+						<a href="{% url 'new_group' %}"><button type="button" class="waves-effect btn-large ubet-btn">{% trans "Create new group" %}</button></a>
+					{% else %}
+						<p>{% trans "You didn't bet in any groups." %} <a href="{% url 'list_waiting' %}">{% trans "Why don't you take a look at the active groups?" %}</a></p>
+
+						<a href="{% url 'new_group' %}"><button type="button" class="waves-effect btn-large ubet-btn">{% trans "Create new group" %}</button></a>
+					{% endif %}
+				{% endif %}
 			</div>
 		{% endif %}
 		

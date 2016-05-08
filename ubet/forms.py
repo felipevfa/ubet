@@ -2,14 +2,13 @@
 from django import forms
 from django.forms import ModelForm 
 from django.contrib.auth.forms import AuthenticationForm,UserCreationForm
-from ubet.models import Group,Ubet_user
+from ubet.models import Group,Ubet_user,Admin_settings
 from django.contrib.auth.models import User, UserManager
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import get_language
 from django.utils import formats
 import datetime
-from rayquasa.settings import GROUP_MAX_CAPACITY as gmaxcap
 import logging
 my_default_errors = {
 			'required' : 'Campo obrigatório.',
@@ -124,6 +123,7 @@ class new_group_Form(ModelForm):
 		
 		return bet_value
 	def clean_max_size(self):
+		gmaxcap = Admin_settings.objects.get(id=1).group_max_capacity
 		max_size = self.cleaned_data['max_size']
 		if max_size<=1 or max_size >  gmaxcap :
 			raise forms.ValidationError(_("A group must have two members at least, and at most ")+ str(gmaxcap),code='max_size_tam')
