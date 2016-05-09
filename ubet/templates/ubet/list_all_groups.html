@@ -16,13 +16,13 @@
 		{% if grupos %}
 			<ul id="group-list">
 				{% for g in grupos %}
-					<li onclick="window.location.href= '{% url 'group_info' g.id %}' ">
+					<li onclick="window.location.href= '{% url 'bet' g.id %}' ">
 						<div class="card-panel z-depth-5">
 							<div class="group-info left">
 								<h5 class="group-name">{{g.name}}</h5> 
 								<p><strong>{% trans "Members:" %}</strong> {{ g.cur_size }} / {{ g.max_size }}</p>
-								<p><strong>{% trans "Value:" %}</strong> {{ g.bet_value }}</p>
 								<p><strong>{% trans "Time left:" %}</strong> {{g.time_left}}m</p>
+								<p><strong><font color='red'>{% trans "Value:" %} {{ g.bet_value }}</font></strong>	</p>
 							</div>
 							
 							<div class="group-info ">

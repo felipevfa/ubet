@@ -1,6 +1,6 @@
 # coding: utf-8
 from django.db.models import F
-
+from django.utils.translation import ugettext as _
 from django.db import models
 from django.contrib.auth.models import User,BaseUserManager, AbstractBaseUser
 from random import choice
@@ -184,19 +184,22 @@ class Group(models.Model):
 		reason = ""
 		if self.status != "WAITING":
 			possible = False
-			reason = "Grupo Inativo"
+			reason = _("Inactive Group")
 			return possible,reason
 		if self.cur_size() >= self.max_size:
 			possible = False
-			reason = "Grupo Cheio"
+			reason = _("Full Group")
 			return possible,reason
 		if user.ubet_user.creditos < self.bet_value:
 			possible = False
-			reason = "Creditos Insuficientes"
+			reason = _("Not enough credits")
 			return possible,reason
+		if user in self.users_by_group()[0]:
+			possible = False
+			reason = _("You've already betted in this group")
 		if not user.is_active:
 			possible = False
-			reason = "Usuario Offline"
+			reason = _("Offline User")
 			return possible,reason
 		return possible,reason
 

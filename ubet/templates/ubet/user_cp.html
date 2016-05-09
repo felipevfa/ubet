@@ -1,6 +1,7 @@
 {% extends "ubet/base.html" %}
 {% load i18n %}
 {% load l10n %}
+{% load tz %}
 {% block page_title %} {% trans "My profile" %} {% endblock %}
 
 {% block main_content %}
@@ -64,7 +65,7 @@
 						{% for g in user_groups|slice:":10" reversed %}
 							<tr>
 								<td><a href="{% url 'group_info' g.id %}">{{ g.name }}</a></td>
-								<td>{{ g.date_of_birth|date:"SHORT_DATE_FORMAT" }}</td>
+								<td>{{ g.date_of_birth|localtime|date:"SHORT_DATE_FORMAT" }}</td>
 								<td>{{ g.date_of_birth|date:"H:i" }}</td>
 								<td>{{ g.cur_size }}</td>
 								<td>{{ g.winner }}</td>

@@ -10,7 +10,7 @@ local:
 migrations:
 	python manage.py makemigrations ubet
 	python manage.py migrate 
-	python manage.py loaddata settings.yaml
+	python manage.py loaddata settings.json
 shell:
 	python manage.py shell
 messages:

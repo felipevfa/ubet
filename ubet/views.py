@@ -292,10 +292,10 @@ def bet(request,group_id):
 				'canBet' : canBet,
 				'reason' : reason
 			}
-			logger.debug('group' + unicode(contexto['group']))
-			logger.debug('available' + unicode(contexto['available']))
-			logger.debug('canBet' + unicode(contexto['canBet']))
-			logger.debug('reason' + unicode(contexto['reason']))
+			logger.debug('group' + str(contexto['group']))
+			logger.debug('available' + str(contexto['available']))
+			logger.debug('canBet' + str(contexto['canBet']))
+			logger.debug(('reason' + unicode(contexto['reason'])))	
 			return render(request, 'ubet/bet.html', contexto)
 	elif request.method == 'POST':
 		logger.debug('bet post')
