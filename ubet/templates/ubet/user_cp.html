@@ -26,12 +26,12 @@
 				<ul class="collection">
 					{% for n in notification %}
 						<li class="collection-item">
-							<a href="{% url 'notification' n.id %}">
+							<a href="{% url 'notification' n.id %}"  >
 								{{ n.group.name }}
 
 								<span>
-									<i class="material-icons">star</i>
 									{% if n.group.winner %} 
+										<i class="material-icons">star</i>
 										 {{ n.group.winner }}
 									{% else %}
 										{% trans "Canceled" %}

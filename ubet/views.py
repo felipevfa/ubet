@@ -74,7 +74,8 @@ def signup(request):
 		logger.debug('signup post')
 		data = {
 			'secret' : '6Ld3zx4TAAAAAFqv0XY3skJWCVO4_DTSRLBU3IOZ',
-			'response' : request.POST['g-recaptcha-response'],
+			## para testes, apague essa linha (1/2)
+			# 'response' : request.POST['g-recaptcha-response'],
 			'remoteip' : get_ip(request),
 		}
 		s = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
@@ -82,8 +83,11 @@ def signup(request):
 		form = UserSignupForm(request.POST)
 		logger.debug(form)
 
-		if not s.json()['success']:
-			return render(request,'ubet/signup.html',{'form':form,'toast':_("Check the reCaptcha, please")})
+		### para testes, apague essas linhas (2/2)
+		# if not s.json()['success']:
+		# 	return render(request,'ubet/signup.html',{'form':form,'toast':_("Check the reCaptcha, please")})
+
+
 		if form.is_valid():
 			logger.debug('signup e valido')
 			user = form.save()
@@ -308,7 +312,7 @@ def bet(request,group_id):
 			contexto = {
 				'toast' : b[1],
 			}
-			return render(request,'ubet/list_all_groups.html',contexto)
+			return render(request,'ubet/list_waiting.html',contexto)
 
 
 		except:

@@ -1,7 +1,0 @@
-- model: ubet.Admin_settings
-  pk: 1
-  fields:
-    group_max_capacity : 10 
-    max_bet_value : 0
-    min_bet_value : 1
-    win_tax : 0.04

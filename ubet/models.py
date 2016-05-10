@@ -197,6 +197,8 @@ class Group(models.Model):
 		if user in self.users_by_group()[0]:
 			possible = False
 			reason = _("You've already betted in this group")
+			return possible,reason
+		
 		if not user.is_active:
 			possible = False
 			reason = _("Offline User")
