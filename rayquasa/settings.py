@@ -99,7 +99,7 @@ DATABASES = {
         'PASSWORD': 'VsTSljeQpO01PzjXyYn8WIvgQv',
         'HOST': 'ec2-54-163-240-97.compute-1.amazonaws.com',# Empty for localhost through domain sockets or           '127.0.0.1' for localhost through TCP.
         'PORT': '5432',                      # Set to empty string for default.
-    # }
+    }
 
     ###     fim do blocopfix
 }
