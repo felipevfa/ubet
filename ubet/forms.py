@@ -29,6 +29,7 @@ class UserSignupForm(UserCreationForm):
 	nascimento.validators.append(validate_maioridade)
 	nascimento.widget.input_type='date'
 	nascimento.help_text = _("Birthdate")
+	
 	# nascimento.widget = Html5DateInput()
 
 	# nascimento.validators=[validate_maioridade]

@@ -85,6 +85,9 @@ nav {
 	cursor: pointer;
 }
 
+#nav-mobile li:first-child { padding: 0 30px; color: black; }
+#nav-mobile li { display: block; }
+
 .button-collapse {
 	cursor: pointer;
 	margin-left: 0.9em;
@@ -165,7 +168,7 @@ nav {
 	color: red;
 }
 
-.register-text { margin-top: 2em; color: rgb(0,0,0); }
+.register-text { margin-top: 2em; color: rgb(0,0,0); text-align: center !important; }
 .register-text a { color: rgb(59,89,152);   }
 #login-title { margin-top: 1em; }
 
@@ -210,13 +213,11 @@ nav {
 	border-bottom: 2px solid rgb(59,89,152);
 }
 
+#group-list-wrapper {
+	background-color: rgb(255,255,255);
+	min-height: 100vh;	
 }
 
-#group-list-wrapper {
-	width: 80%;
-	margin: 0 auto;
-	
-}
 #group-list-wrapper p { margin: 0; }
 
 #group-list .card-panel { position: relative; cursor: pointer; }
@@ -233,7 +234,11 @@ nav {
 	text-align: center;
 	margin-top: 0.5em;
 }
-#group-list-wrapper .ubet-btn a {
+#group-list-wrapper .group-list {
+	padding-top: 1em;
+}
+
+.fixed-action-btn a.ubet-btn {
 	color: rgb(255,255,255);
 }
 
@@ -380,7 +385,7 @@ nav {
 #user-profile {
 	margin: 0;
 	padding: 0;
-	min-height: calc(100vh - 56px);
+	min-height: 100vh;
 	height: 100%;
 	background-color: white;
 }
@@ -400,6 +405,10 @@ nav {
 	font-weight: normal;
 	font-size: 0.5em;
 	display: inline-block;
+}
+
+#user-profile .ubet-btn {
+	margin-bottom: 1em;
 }
 
 .collection li.collection-item a {

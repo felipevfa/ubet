@@ -21,7 +21,21 @@
 
 				{% csrf_token %}
 
-				<ul id="form-fields">{{ form.as_ul }}</ul>
+				<ul id="form-fields">
+					{% for field in form %}
+						<li>{{ field.errors }}</li>
+						<li>
+							<div class="input-field">
+								{% if field.help_text %}
+									<p>{{ field.help_text }}</p>
+								{% endif %}
+								{{ field.label_tag }}
+								{{ field }}
+								
+							</div>
+						</li>
+					{% endfor %}
+				</ul>
 
 				</center>
 

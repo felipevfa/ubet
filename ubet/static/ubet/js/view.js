@@ -5,7 +5,7 @@
 var correct_forms = function() {
 	"use strict";
 
-	$('#form-fields li').wrap("<div class='input-field'></div>");
+	$('#form-fields li').not(".errorlist li").wrap("<div class='input-field'></div>");
 };
 
 /**
@@ -21,7 +21,7 @@ var toast = function() {
 };
 
 $(document).ready(function() {
-	correct_forms();
+	//correct_forms();
 	toast();
 	
 	$(".button-collapse").sideNav();

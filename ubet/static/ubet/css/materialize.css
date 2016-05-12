@@ -5473,7 +5473,8 @@ select:focus {
 
 button:focus {
   outline: none;
-  background-color: #2ab7a9;
+  background-color: rgba(255,255,255,0.8);
+  color: rgb(59,89,152);
 }
 
 label {

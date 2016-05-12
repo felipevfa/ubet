@@ -1,5 +1,7 @@
 {% extends "ubet/base.html" %}
 {% load i18n %}
+{% load l10n %}
+{% load tz %}
 {% block page_title %} {% trans "Groups" %} {% endblock page_title %}
 
 
@@ -12,48 +14,51 @@
 		</div>
 	</div>
 
-	<div id="group-list-wrapper" class="container mobile-container">
-		{% if grupos %}
-			<ul id="group-list">
-				{% for g in grupos %}
-					<li onclick="window.location.href= '{% url 'bet' g.id %}' ">
-						<div class="card-panel z-depth-5">
-							<div class="group-info left">
-								<h5 class="group-name">{{g.name}}</h5> 
-								<p><strong>{% trans "Members:" %}</strong> {{ g.cur_size }} / {{ g.max_size }}</p>
-								<p><strong>{% trans "Time left:" %}</strong> {{g.time_left}}m</p>
-								<p><strong><font color='red'>{% trans "Value:" %} {{ g.bet_value }}</font></strong>	</p>
-							</div>
-							
-							<div class="group-info ">
-								<div class=" right"> <strong> {%trans 'Creator:'%} </strong> {{g.creator}}</h5> 
-							</div>
+	<div id="group-list-wrapper">
+		<div class="container mobile-container">
+			{% if grupos %}
+				<table class="striped responsive-table">
+					<thead>
+						<tr>
+							<th data-field="id">{% trans "Group" %}</th>
+							<th data-field="creation-date">{% trans "Date" %}</th>
+							<th data-field="creation-time">{% trans "Time" %}</th>
+							<th data-field="group-members">{% trans "Users" %}</th>
+							<th data-field="bet-value">{% trans "Bet Value" %}</th>
+							<th data-field="prize">{% trans "Total Prize" %}</th>
+							<th data-field="time-left">{% trans "Time Left" %}</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for g in grupos %}
+							<tr>
+								<td><a href="{% url 'group_info' g.id %}">{{ g.name }}</a></td>
+								<td>{{ g.date_of_birth|localtime|date:"SHORT_DATE_FORMAT" }}</td>
+								<td>{{ g.date_of_birth|date:"H:i" }}</td>
+								<td>{{ g.cur_size }}</td>
+								<td>{{ g.bet_value }}</td>
+								<td>{{ g.get_prize }}</td>
+								<td>{{ g.time_left }}m</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			{% else %}
+				<div class="group-list center-align">
+					{% if not groups %}
+						{% if waiting %}
+							<p>{% trans "There are no active groups or you are participating in all active groups. Why don't you" %} <a href="{% url 'new_group' %}">{% trans "start a new one" %}?</a></p>
 
-							<div class="group-options">
-								<a href="{% url 'group_info' g.id%}" class="btn-flat right">{% trans "Bet Here" %}</a>
-							</div>
-						
-							<div class="clear"></div>
-						</div>
-					</li>
-				{%endfor%}
-			</ul>
-		{% else %}
-			<div class="card-panel center">
-				{% if not groups %}
-					{% if waiting %}
-						<p>{% trans "There are no active groups or you are participating in all active groups. Why don't you" %} <a href="{% url 'new_group' %}">{% trans "start a new one" %}?</a></p>
+							<a href="{% url 'new_group' %}"><button type="button" class="waves-effect btn-large ubet-btn">{% trans "Create new group" %}</button></a>
+						{% else %}
+							<p>{% trans "You didn't bet in any groups." %} <a href="{% url 'list_waiting' %}">{% trans "Why don't you take a look at the active groups?" %}</a></p>
 
-						<a href="{% url 'new_group' %}"><button type="button" class="waves-effect btn-large ubet-btn">{% trans "Create new group" %}</button></a>
-					{% else %}
-						<p>{% trans "You didn't bet in any groups." %} <a href="{% url 'list_waiting' %}">{% trans "Why don't you take a look at the active groups?" %}</a></p>
-
-						<a href="{% url 'new_group' %}"><button type="button" class="waves-effect btn-large ubet-btn">{% trans "Create new group" %}</button></a>
+							<a href="{% url 'new_group' %}"><button type="button" class="waves-effect btn-large ubet-btn">{% trans "Create new group" %}</button></a>
+						{% endif %}
 					{% endif %}
-				{% endif %}
-			</div>
-		{% endif %}
-		
+				</div>
+			{% endif %}
+		</div>
 	</div>
 	
 {% endblock main_content %}

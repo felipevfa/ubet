@@ -18,6 +18,8 @@
 
 			<p><strong>{% trans 'Credits' %}:</strong> {{ user.ubet_user.creditos }}</p>
 
+			<button type="button" data-target="contact-admin" class="btn ubet-btn modal-trigger">{% trans "Deposit and Withdrawal" %}</button>
+			
 			<div class="divider"></div>
 
 			{% if notification %}
@@ -82,5 +84,16 @@
 	</div>
 
 	{% block fab %} {% endblock fab %} 
+
+	<div id="contact-admin" class="modal">
+		<div class="modal-content">
+			<h5>{% trans "Deposits and Withdrawals" %}</h5>
+
+			<p>{% trans "To deposit credits or to withdraw your credits, please send and e-mail to " %} <a href="mailto:placeholder@email.com">placeholder@email.com</a> {% trans "informing the desired operation in the subject and the number of credits in the body of the message." %}</p>
+		</div>
+		<div class="modal-footer">
+			<a href="#!" class="modal-action modal-close waves-effect btn-flat">{% trans "Close" %}</a>
+		</div>
+	</div>
 {% endblock main_content %}
 

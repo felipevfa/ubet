@@ -25,27 +25,35 @@
   							<a  href="#!" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
   						{% endblock menu_action %}
 
-  						{% if messages %}
-  						<a href="{%url 'user_cp'%}" data-activates='nav-mobile' class="right notifications tooltipped" data-tooltip="{%trans 'There are unread notifications'%}"><i class="material-icons">notifications_none</i></a>
-						
-						<!-- essa linha eh necessaria para apagar a message -->
-  						{%for message in messages%}{%endfor%}
-  						{% endif%}
-
+  						<div class="hide-on-med-and-up">
+	  						{% if messages %}
+	  							<a href="{%url 'user_cp'%}" data-activates='nav-mobile' class="right notifications tooltipped" data-tooltip="{%trans 'There are unread notifications'%}"><i class="material-icons">notifications</i></a>
+	  						{% else %}
+	  							<a href="" class="right notifications tooltipped" data-tooltip="{% trans 'There are no new notifications' %}"><i class="material-icons">notifications_none</i></a>
+							{% endif %}
+						</div>
+  						
 						<ul class="right hide-on-med-and-down">
 							<li class="waves-effect">{% trans "Credits" %}: {{ request.user.ubet_user.creditos }}</li>	
 				       		<li class="waves-effect"><a  class='tooltipped' href="{% url 'user_cp' %}"
-				       		data-tooltip="{% trans "Verify your info like credits and your groups"%}">{% trans "My profile" %}</a></li>
+				       		data-tooltip="{% trans 'Verify your info like credits and your groups' %}">{% trans "My profile" %}</a></li>
 				       		<li class="waves-effect"><a href="{% url 'list_waiting' %}">{% trans "Groups" %}</a></li>
 				       		<li class="waves-effect"><a href="{% url 'group_log' %}">{% trans "Group History" %}</a></li>
+				       		<li class="waves-effect"><a href="{% url 'user_cp' %}">{% trans "Notifications " %} ({{ messages|length }})</a></li>
 				       		<li class="waves-effect"><a href="{% url 'logout' %}">{% trans "Logout" %}</a></li>
 				     	</ul>
 						<div class="clear"></div>
 				     	<ul id="nav-mobile" class="side-nav">
+				     		<li class="waves-effect">{% trans "Credits" %}: {{ request.user.ubet_user.creditos }}</li>
+				     		<div class="divider"></div>
 				       		<li class="waves-effect"><a href="{% url 'user_cp' %}">{% trans "My profile" %}</a></li>
 				       		<li class="waves-effect"><a href="{% url 'list_waiting' %}">{% trans "Groups" %}</a></li>
+				       		<li class="waves-effect"><a href="{% url 'group_log' %}">{% trans "Group History" %}</a></li>
 				       		<li class="waves-effect"><a href="{% url 'logout' %}">{% trans "Logout" %}</a></li>
 				     	</ul>
+
+				     	<!-- essa linha eh necessaria para apagar a message -->
+  						{%for message in messages%}{%endfor%}
 					</div>
 				</nav>
 			{% endblock menu %}
@@ -58,7 +66,7 @@
 			{% block fab %}
 				{% if request.user.is_authenticated %}
 					<div class="fixed-action-btn" style="bottom: 45px; right: 24px">
-						<a class="ubet-floating btn-flat waves-effect" type="button" href="{% url 'new_group' %}">
+						<a class="ubet-btn btn-flat waves-effect" type="button" href="{% url 'new_group' %}">
 							{% trans "Create New Group" %}
 						</a>
 					</div>
