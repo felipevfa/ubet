@@ -25,32 +25,27 @@ from ipware.ip import get_ip
 
 @login_required()
 def list_waiting(request):
-	groups = Group.active_groups(request.user);
-	if Notification.objects.filter(user=request.user).count() > 0:
-		messages.add_message(request, messages.INFO, 'Hello world.')
-		print Notification.objects.filter(user=request.user).count()
+	"""mostra ao usuario os grupos ativos em que ele ainda nao apostou"""
 	logger.debug('list_waiting')
+	groups = Group.active_groups(request.user);
 	return render(request,'ubet/list_all_groups.html', {'grupos': groups, 'waiting': True, 'waiting_active': 'active' })
 
 @login_required()
 def list_my_active_bets(request):
-	groups = Group.active_groups(request.user,waiting=True);
-	if Notification.objects.filter(user=request.user).count() > 0:
-		messages.add_message(request, messages.INFO, 'Hello world.')
-		print Notification.objects.filter(user=request.user).count()
+	"""mostra ao usuario os grupos ativos em que ele ja apostou"""
 	logger.debug('list_all_groups')
+	groups = Group.active_groups(request.user,waiting=True);
 	return render(request,'ubet/list_all_groups.html', {'grupos': groups, 'my_bets': True, 'bets_active': 'active' })
 
 @login_required()
 def new_group(request):
+	
 	logger.debug('new_group')
 	if request.method == 'POST':
 		logger.debug('new_group post')
 		form = new_group_Form(request.POST)
 		if form.is_valid():
 			gl = Group.objects.filter(status='WAITING',creator=request.user,bet_value=form.cleaned_data['bet_value'])
-			
-			print gl
 			if (len(gl) > 0):
 				toast = _('You cannot own two active groups with equal bet values.')
 				return render(request,'ubet/new_group.html',{'form':form,'toast':toast})
@@ -67,6 +62,10 @@ def new_group(request):
 	logger.debug('new_group limbo')
 
 def signup(request):
+	"""gerencia o formulario para um novo usuario.
+	Aqui se encontra o recaptcha do google. Recomenda-se alterar sua propriedades para uma conta
+	do administrador do site. (O recaptcha e gratuito)
+	Esta view e o login sao as unicas views que nao exigem login."""
 	logger.debug('signup')
 	error_msg = ''
 
@@ -74,8 +73,8 @@ def signup(request):
 		logger.debug('signup post')
 		data = {
 			'secret' : '6Ld3zx4TAAAAAFqv0XY3skJWCVO4_DTSRLBU3IOZ',
-			## para testes, apague essa linha (1/2)
-			# 'response' : request.POST['g-recaptcha-response'],
+			# para testes, apague essa linha (1/2)
+			'response' : request.POST['g-recaptcha-response'],
 			'remoteip' : get_ip(request),
 		}
 		s = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
@@ -84,8 +83,8 @@ def signup(request):
 		logger.debug(form)
 
 		### para testes, apague essas linhas (2/2)
-		# if not s.json()['success']:
-		# 	return render(request,'ubet/signup.html',{'form':form,'toast':_("Check the reCaptcha, please")})
+		if not s.json()['success']:
+			return render(request,'ubet/signup.html',{'form':form,'toast':_("Check the reCaptcha, please")})
 
 
 		if form.is_valid():
@@ -109,33 +108,18 @@ def signup(request):
 		return render(request, 'ubet/signup.html', {'form': form })
 	logger.debug('signup limbo')
 
-def get_client_ip(request):
-    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-    if x_forwarded_for:
-        ip = x_forwarded_for.split(',')[0]
-    else:
-        ip = request.META.get('REMOTE_ADDR')
-    return ip
-
 def login(request):
 	form = UserAuthenticationForm()
 	logger.debug('login')
-
-	msg = _('original')
-	if request.method == 'POST':
-		
+	if request.method == 'POST':		
 		username = request.POST['username']
 		password = request.POST['password']
-
 		logger.debug(username + 'logandoo')
 		user = authenticate(username=username, password=password)
 
 		if user is not None:
 			if user.is_active:
 				auth_login(request, user)
-				msg = _('Hello, ')
-				msg += "{}".format(user.username)
-				# request.LANGUAGE_CODE = 'pt-br'
 				return redirect(reverse('list_waiting'))
 			else:
 				return render(request, 'ubet/login.html', { 'toast': _('Account disabled'), 'form': form })
@@ -148,54 +132,53 @@ def login(request):
 		return render(request, 'ubet/login.html', { 'form': form ,'toast':msg})
 
 @login_required()
-def list_all_users(request):
-
-	return render(request,'ubet/list_all_users.html', {'li':Ubet_user.objects.all()})
-
-@login_required()
 def logout(request):
-	# logger.debug('logout')
+	logger.debug('logout')
 	auth_logout(request)
 	return HttpResponseRedirect(reverse('login'))
 
 
 @login_required()
 def user_cp(request):
+	"""user command panel: painel de controle
+	nessa pagina o usuario pode ver suas informacoes, as ultimas notificacoes 
+	e ter acesso a seu historico"""
 	logger.debug('user_cp')
 	user_groups = Group.groups_by_user(request.user)
 			
 	notificacoes =  Notification.objects.filter(user=request.user)
-	if request.user.is_authenticated():
-		contexto = {
-			'user': request.user, 
-			'user_groups': user_groups,
-			'datejoined' : request.user.date_joined.date(),
-			'notification' : notificacoes,
-		}
-		logger.debug('user' +str( request.user))
-		logger.debug('user_groups' +str(  user_groups))
-		logger.debug('datejoined' +str( request.user.date_joined.date()))
-		logger.debug('notification' +str( notificacoes))
+	contexto = {
+		'user': request.user, 
+		'user_groups': user_groups,
+		'datejoined' : request.user.date_joined.date(),
+		'notification' : notificacoes,
+	}
+	logger.debug('user' +str( request.user))
+	logger.debug('user_groups' +str(  user_groups))
+	logger.debug('datejoined' +str( request.user.date_joined.date()))
+	logger.debug('notification' +str( notificacoes))
 
-		return render(request, 'ubet/user_cp.html', contexto)
-	else:
-		form = UserAuthenticationForm()
-		return render(request, 'ubet/login.html', { 'login_msg': _('Only logged users can access this page'),
-												 'form': form })
+	return render(request, 'ubet/user_cp.html', contexto)
 
 @login_required()
 def notification(request,group_id):
+	""" esta view existe para redirecionar do user_cp para o grupo adequado, 
+	quando o usuario clica em uma notificacao. Sua existencia se faz necessaria
+	para apagar a notificacao do banco."""
 	logger.debug('notification')
 	n = Notification.objects.get(id=group_id)
 	g = n.group.id
 	logger.debug(n)
 	logger.debug(g)
 	n.delete()
-
 	return HttpResponseRedirect(reverse(group_info,args=[g]))
 
 @login_required()	
 def group_info(request,group_id):
+	"""exibe informacoes acerca do grupo
+	casos a se tratar: 
+	- o group_id e invalido.
+	- o usuario nao pode apostar no grupo que esta observando, tornando indisponivel o botao de aposta"""
 	logger.debug('group_info ' + str(group_id))
 	try:
 		g = Group.objects.get(id=group_id)
@@ -210,9 +193,8 @@ def group_info(request,group_id):
 	position_list = u[1]
 	canBet = False
 	warning = ""
-	toast = "masqbelo toast"
+	toast = ""
 	remaining = ''
-	
 	if g.status == 'WAITING':
 		remaining =  g.time_left()
 		if request.user in user_list:
@@ -221,7 +203,7 @@ def group_info(request,group_id):
 			toast = _("You are not in this group")
 	elif g.status == "FINISHED":
 		u = request.user
-		if request.user in g.users_by_group()[0]:
+		if request.user in user_list:
 			if request.user != g.winner:
 				toast = _("You lost this bet")
 			else:
@@ -230,7 +212,6 @@ def group_info(request,group_id):
 		toast = _("Group canceled")
 
 	if request.user in user_list:
-
 		warning = _('You\'ve already betted in this group.')
 	else:
 		if request.user.ubet_user.creditos < g.bet_value:
@@ -243,34 +224,36 @@ def group_info(request,group_id):
 	sl = g.sim_list()
 	contexto = {'group': g, 
 		'users': zip(user_list, position_list), 
-		'p_title': g.name, 
+		'groupname': g.name, 
 		'canBet': canBet, 
 	 	'warning': warning ,
 	 	'toast' : toast,
 	 	'remaining' : remaining,
 	 	'sim_list' : sl,
-	 	'reward' : g.max_size*g.bet_value,
+	 	'reward' : g.get_prize(),
 	}
 	logger.debug('users ' + unicode(contexto['users']))
 	logger.debug('group ' + unicode(contexto['group']))
-	logger.debug('p_title ' + unicode(((contexto['p_title']))))
+	logger.debug('groupname ' + unicode(((contexto['groupname']))))
 	logger.debug('canBet ' + unicode(contexto['canBet']))
 	logger.debug('warning ' + unicode(contexto['warning']))
 	logger.debug('toast ' + unicode(contexto['toast']))
 	logger.debug('remaining ' + unicode(contexto['remaining']))
 	logger.debug('sim_list ' + unicode(contexto['sim_list']))
-
+	logger.debug('reward ' + unicode(contexto['reward']))
 	return render(request, 'ubet/group_info.html',contexto )
 
 
-	#else:
-	#	form = UserAuthenticationForm()
-	#	return render(request, reverse('login'), { 'login_msg': 'Você precisa conectar-se para ver os grupos.',
-	#												'form': form })
-
 @login_required()
 def bet(request,group_id):
-	# Se há um novo grupo sendo criado, recupera ele através de Sessions.
+	"""pagina com posicoes dos participantes em um grupo, dando ao usuario a possibilidade de apostar.
+	A diferenca basica entre a view group_info, alem da possibilidade de apostar, e que essa pagina
+	nao e focada em mostrar informacoes do grupo. Ela se torna irrelevante qunando o grupo esta finalizado.
+	Casos a tratar:
+	- o group_id nao pertence a nenhum grupo
+	- o usuario nao pode apostar nesse grupo
+	- a aposta deixa de ser possivel no intervalo entre o get e o post
+	"""
 	logger.debug('bet')
 	if request.method == 'GET':
 		logger.debug('bet get')	
@@ -301,6 +284,8 @@ def bet(request,group_id):
 			logger.debug('canBet' + str(contexto['canBet']))
 			logger.debug(('reason' + unicode(contexto['reason'])))	
 			return render(request, 'ubet/bet.html', contexto)
+		else:
+			return render(request,'ubet/bet.html',{'toast':_('Sorry, this group does not exist.')})
 	elif request.method == 'POST':
 		logger.debug('bet post')
 		try:
@@ -321,6 +306,7 @@ def bet(request,group_id):
 
 @login_required()
 def group_log(request):
+	"""gera a pagina com historico completo de grupos do usuario"""
 	logger.debug('group history')
 	
 	groups = Group.groups_by_user(request.user)

@@ -11,8 +11,6 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
-TIME_TO_EXPIRE = 15
-GROUP_MAX_CAPACITY = 10
 LOGIN_URL = '/login'
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)

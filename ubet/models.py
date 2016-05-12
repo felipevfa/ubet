@@ -9,19 +9,25 @@ from django.utils import timezone
 from django.db import IntegrityError
 
 class Admin_settings(models.Model):
+	"""Configuracoes gerais do servico. Para melhor desempenho, precisam ser armazenadas em cache"""
+
 	time_to_expire = models.IntegerField(default=30)
+	"""tempo de duracao maxima de um grupo"""
+
 	group_max_capacity = models.IntegerField(default=10)
-	max_bet_value = models.IntegerField(default=0)
-	# >=
-	min_bet_value = models.IntegerField(default=1)
 	win_tax = models.FloatField(default=0.04)
+	"""um valor entre 0 e 1 que representa o percentual de comissao sobre o premio
+	 do vencedor"""
 
 
 class Ubet_user(models.Model):
-	# ligacao com User do django. user.first_name eh o nome completo
+	""" Classe que faz ligacao com classe User do django. 
+	user.first_name eh na verdade o nome completo"""
 
+	""" ligacao do Ubet_user com User"""
 	django_user = models.OneToOneField(User,
 		on_delete = models.CASCADE)
+
 	date_of_birth = models.DateField()
 	creditos = models.FloatField(default=100)
 	
@@ -42,6 +48,13 @@ class Ubet_user(models.Model):
 		return g
 
 	def bet(self, group,position):
+		""" levanta excecao se alguma condicao for quebrada durante o processo
+		tenha em mente que uma aposta pode estar autorizada no inicio da chamada mas
+		nao mais no fim da chamada da funcao
+
+		retorna sucess,reason, onde
+		sucess: true/false, se a aposta foi concluida com sucesso ou nao
+		reason: motivo pelo qual a aposta nao ocorreu, ou \"\" caso contrario """
 		success,reason = group.possible_bet(self.django_user)
 		if success:
 			try:
@@ -57,17 +70,29 @@ class Ubet_user(models.Model):
 
 	
 class Group(models.Model):
-	"""Um grupo é uma coleção na qual ocorrem as apostas.
-	Possui um numero maximo de membros, o numero atual de membros, um valor de aposta, e
-	data_inicio sendo um datetime indicando quando o primeiro membro entrou no grupo.
-	"""
+	"""Um grupo e uma coleção na qual ocorrem as apostas."""
 
 	status_list = (('END','FINISHED'),('ABORT','CANCELED'),('WAIT','WAITING'))
+	"""
+	Grupo finalizado: O grupo tem a maxima quantidade de usuarios e o sorteio foi realizado
+	Grupo abortado: O grupo nao atingiu a maxima quantidade de usuarios antes do prazo de tempo e foi
+	cancelado
+	Grupo em espera: O grupo esta ativo e esperando usuarios
+	 """
+
 	creator = models.ForeignKey(User,null=True,on_delete=models.SET_NULL,related_name='group_creator_user')
+	""" por conta dos testes, um grupo pode ficar sem criador.
+		Como um criador nao possui papel central na aposta, essa caracteristica
+		foi mantida. """
 	winner = models.ForeignKey(User,null=True,on_delete=models.SET_NULL,related_name='group_winner_user')
 	name = models.CharField(max_length=50)
+
 	max_size = models.IntegerField()
+	"""quantidade maxima de usuarios no grupo"""
+
 	bet_value = models.IntegerField()
+	"""valor que se paga para entrar no grupo"""
+
 	date_of_birth = models.DateTimeField(auto_now = True)
 	date_of_death = models.DateTimeField(null=True)
 
@@ -78,6 +103,15 @@ class Group(models.Model):
 		return self.name
 
 	def update(self):
+		"""
+		O metodo update e chamado no grupo sempre que se deseja atualiza-lo 
+		para verificar se o grupo atingiu a idade maxima ou numero maximo de membros.
+		Se o grupo ficar cheio, um usuario dentro dele e sorteado para ser o vencedor, e o
+		premio lhe e dado. 
+		Se o grupo ficar velho, os creditos sao extornados aos usuarios
+
+		"""
+	
 		sets = Admin_settings.objects.get(id=1)
 		expire = sets.time_to_expire
 		desconto = sets.win_tax
@@ -130,14 +164,18 @@ class Group(models.Model):
 			return glist.filter(status='WAITING').filter(group_link__user=user)
 		else:
 			return glist.filter(status='WAITING').exclude(group_link__user=user)
+
+
 	@staticmethod	
 	def total_active_groups():
+		"""Mostra todos os grupos que estao ativos no momento"""
 		glist = Group.objects.filter(status='WAITING')
 		for g in glist:
 			g.update()
 		return glist
 
 	def add_user(self,user,position):
+		""" adiciona o usuario no grupo numa determinada posicao. Nao confundir com bet()"""
 		gp = Group_link(user=user,group=self,position=position)
 
 		try:
@@ -147,6 +185,8 @@ class Group(models.Model):
 			raise
 		
 	def available_positions(self):
+		"""retorna uma lista com os indices (comecando de 1) de quais posicoes estao abertas
+		para aposta no grupo."""
 		usuarios= Group.users_by_group(self)[0]
 		user_positions = [Group_link.objects.get(user=u,group=self).position for u in usuarios]
 		posicoes = range(1,self.max_size+1)
@@ -156,21 +196,28 @@ class Group(models.Model):
 
 
 	def users_by_group(self):
+		"""retorna uma tupla com duas listas: a primeira componente possui uma lista 
+		com os usuarios daquele grupo. A segunda componente e uma lista com as posicoes ocupadas 
+		pelos usuarios (comecando de 1). O isemo usuario na lista user_list esta na posicao
+		determinada pelo isemo elemento em position_list"""
 		user_list = self.users.all()
 		position_list = [Group_link.objects.get(user=u,group=self).position for u in user_list]
 		return user_list,position_list
 
 	def nicks_by_group(self):
+		"""Retorna uma lista com os usernames dos usuarios participantes do grupo"""
 		user_list = self.users.all()
 		position_list = [Group_link.objects.get(user=u,group=self).position for u in user_list]
 		return [u.username for u in user_list],position_list
 
 
 	def cur_size(self):
+		"""numero de usuarios presentes no grupo"""
 		return self.users.count()
 
 	@staticmethod
 	def groups_by_user(user):
+		""" retorna uma lista com os grupos aos quais o usuario faz parte"""
 		glist = Group.objects.filter(users=user)
 		for g in glist:
 			g.update()
@@ -179,6 +226,9 @@ class Group(models.Model):
 	
 
 	def possible_bet(self,user):
+		"""retorna uma tupla: possible,reason
+		Se possible for True, reason e uma string vazia.
+		Caso contrario, reason contem uma string com justificativa de falha"""
 		self.update()
 		possible = True
 		reason = ""
@@ -206,13 +256,23 @@ class Group(models.Model):
 		return possible,reason
 
 	def sim_list(self):
+		"""retorna uma lista simulada do grupo.
+		Uma lista simulada e uma lista de tamanho igual ao numero maximo de usuarios do grupo.
+		Se x e y sao usuarios nas posicoes 2  e 4 de um grupo de tamanho 5, entao o metodo retornara
+		a seguinte lista:
+		[None,x,None,y,None]
+		 . 
+		"""
 		l = [None]*self.max_size
 		for u,p in zip(self.users_by_group()[0],self.users_by_group()[1]):
 			l[p-1] = u
 		return l
+
 class Group_link(models.Model):
-	"""uma relacao descreve o conjunto de elementos de um grupo. Nao é possivel ter
-	dois usuarios numa mesma posicao, nem um mesmo usuario em duas posicoes."""
+	"""um link descreve as participacoes de usuarios em um grupo. Nao é possivel ter
+	dois usuarios numa mesma posicao, nem um mesmo usuario em duas posicoes no mesmo grupo.
+	Essa classe representa o agregamento em SQL, e portanto so existe para representar 
+	um banco relacional"""
 	class Meta:
 		unique_together = (	( "group",'position'),('user','group'))
 	user = models.ForeignKey(User, on_delete = models.CASCADE)
@@ -221,6 +281,9 @@ class Group_link(models.Model):
 	creation_time = models.DateTimeField(auto_now=True)
 	
 class Notification(models.Model):
+	"""Uma notificacao e uma classe que representa que ha um aviso para o usuario de que
+	um dos grupos dos quais ele participa mudou de status. A linha correspondente na tabela
+	deve ser apagada quando o usuario visualizar a notificacao"""
 	group = models.ForeignKey(Group,on_delete=models.CASCADE)
 	user = models.ForeignKey(User,on_delete=models.CASCADE)
 	

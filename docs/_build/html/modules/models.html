@@ -1,0 +1,283 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Models &mdash; rayquasa 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="rayquasa 0.1 documentation" href="../index.html" />
+    <link rel="next" title="&lt;no title&gt;" href="views.html" />
+    <link rel="prev" title="Welcome to rayquasa’s documentation!" href="../index.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-ubet.models">
+<span id="models"></span><h1>Models<a class="headerlink" href="#module-ubet.models" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="ubet.models.Admin_settings">
+<em class="property">class </em><code class="descclassname">ubet.models.</code><code class="descname">Admin_settings</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#ubet.models.Admin_settings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Configuracoes gerais do servico. Para melhor desempenho, precisam ser armazenadas em cache</p>
+<dl class="attribute">
+<dt id="ubet.models.Admin_settings.time_to_expire">
+<code class="descname">time_to_expire</code><em class="property"> = None</em><a class="headerlink" href="#ubet.models.Admin_settings.time_to_expire" title="Permalink to this definition">¶</a></dt>
+<dd><p>tempo de duracao maxima de um grupo</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ubet.models.Admin_settings.win_tax">
+<code class="descname">win_tax</code><em class="property"> = None</em><a class="headerlink" href="#ubet.models.Admin_settings.win_tax" title="Permalink to this definition">¶</a></dt>
+<dd><p>um valor entre 0 e 1 que representa o percentual de comissao sobre o premio
+do vencedor</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="ubet.models.Group">
+<em class="property">class </em><code class="descclassname">ubet.models.</code><code class="descname">Group</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#ubet.models.Group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Um grupo e uma coleção na qual ocorrem as apostas.</p>
+<dl class="staticmethod">
+<dt id="ubet.models.Group.active_groups">
+<em class="property">static </em><code class="descname">active_groups</code><span class="sig-paren">(</span><em>user</em>, <em>waiting=False</em><span class="sig-paren">)</span><a class="headerlink" href="#ubet.models.Group.active_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mostra os grupos ativos para um usuario. 
+Por padrao, mostra apenas os que ele nao esta incluso. 
+Se waiting for True, retorna apenas os que ele esta incluso.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ubet.models.Group.add_user">
+<code class="descname">add_user</code><span class="sig-paren">(</span><em>user</em>, <em>position</em><span class="sig-paren">)</span><a class="headerlink" href="#ubet.models.Group.add_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>adiciona o usuario no grupo numa determinada posicao. Nao confundir com bet()</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ubet.models.Group.available_positions">
+<code class="descname">available_positions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ubet.models.Group.available_positions" title="Permalink to this definition">¶</a></dt>
+<dd><p>retorna uma lista com os indices (comecando de 1) de quais posicoes estao abertas
+para aposta no grupo.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ubet.models.Group.bet_value">
+<code class="descname">bet_value</code><em class="property"> = None</em><a class="headerlink" href="#ubet.models.Group.bet_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>valor que se paga para entrar no grupo</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ubet.models.Group.creator">
+<code class="descname">creator</code><a class="headerlink" href="#ubet.models.Group.creator" title="Permalink to this definition">¶</a></dt>
+<dd><p>por conta dos testes, um grupo pode ficar sem criador.
+Como um criador nao possui papel central na aposta, essa caracteristica
+foi mantida.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ubet.models.Group.cur_size">
+<code class="descname">cur_size</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ubet.models.Group.cur_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>numero de usuarios presentes no grupo</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ubet.models.Group.get_prize">
+<code class="descname">get_prize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ubet.models.Group.get_prize" title="Permalink to this definition">¶</a></dt>
+<dd><p>retorna o valor do prêmio.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="ubet.models.Group.groups_by_user">
+<em class="property">static </em><code class="descname">groups_by_user</code><span class="sig-paren">(</span><em>user</em><span class="sig-paren">)</span><a class="headerlink" href="#ubet.models.Group.groups_by_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>retorna uma lista com os grupos aos quais o usuario faz parte</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ubet.models.Group.max_size">
+<code class="descname">max_size</code><em class="property"> = None</em><a class="headerlink" href="#ubet.models.Group.max_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>quantidade maxima de usuarios no grupo</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ubet.models.Group.nicks_by_group">
+<code class="descname">nicks_by_group</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ubet.models.Group.nicks_by_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retorna uma lista com os usernames dos usuarios participantes do grupo</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ubet.models.Group.possible_bet">
+<code class="descname">possible_bet</code><span class="sig-paren">(</span><em>user</em><span class="sig-paren">)</span><a class="headerlink" href="#ubet.models.Group.possible_bet" title="Permalink to this definition">¶</a></dt>
+<dd><p>retorna uma tupla: possible,reason
+Se possible for True, reason e uma string vazia.
+Caso contrario, reason contem uma string com justificativa de falha</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ubet.models.Group.sim_list">
+<code class="descname">sim_list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ubet.models.Group.sim_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>retorna uma lista simulada do grupo.
+Uma lista simulada e uma lista de tamanho igual ao numero maximo de usuarios do grupo.
+Se x e y sao usuarios nas posicoes 2  e 4 de um grupo de tamanho 5, entao o metodo retornara
+a seguinte lista:
+[None,x,None,y,None]</p>
+<blockquote>
+<div>.</div></blockquote>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ubet.models.Group.status_list">
+<code class="descname">status_list</code><em class="property"> = (('END', 'FINISHED'), ('ABORT', 'CANCELED'), ('WAIT', 'WAITING'))</em><a class="headerlink" href="#ubet.models.Group.status_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Grupo finalizado: O grupo tem a maxima quantidade de usuarios e o sorteio foi realizado
+Grupo abortado: O grupo nao atingiu a maxima quantidade de usuarios antes do prazo de tempo e foi
+cancelado
+Grupo em espera: O grupo esta ativo e esperando usuarios</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ubet.models.Group.time_left">
+<code class="descname">time_left</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ubet.models.Group.time_left" title="Permalink to this definition">¶</a></dt>
+<dd><p>retorna o tempo restante do grupo em minutos.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="ubet.models.Group.total_active_groups">
+<em class="property">static </em><code class="descname">total_active_groups</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ubet.models.Group.total_active_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mostra todos os grupos que estao ativos no momento</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ubet.models.Group.update">
+<code class="descname">update</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ubet.models.Group.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>O metodo update e chamado no grupo sempre que se deseja atualiza-lo 
+para verificar se o grupo atingiu a idade maxima ou numero maximo de membros.
+Se o grupo ficar cheio, um usuario dentro dele e sorteado para ser o vencedor, e o
+premio lhe e dado. 
+Se o grupo ficar velho, os creditos sao extornados aos usuarios</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ubet.models.Group.users_by_group">
+<code class="descname">users_by_group</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ubet.models.Group.users_by_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>retorna uma tupla com duas listas: a primeira componente possui uma lista 
+com os usuarios daquele grupo. A segunda componente e uma lista com as posicoes ocupadas 
+pelos usuarios (comecando de 1). O isemo usuario na lista user_list esta na posicao
+determinada pelo isemo elemento em position_list</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="ubet.models.Group_link">
+<em class="property">class </em><code class="descclassname">ubet.models.</code><code class="descname">Group_link</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#ubet.models.Group_link" title="Permalink to this definition">¶</a></dt>
+<dd><p>um link descreve as participacoes de usuarios em um grupo. Nao é possivel ter
+dois usuarios numa mesma posicao, nem um mesmo usuario em duas posicoes no mesmo grupo.
+Essa classe representa o agregamento em SQL, e portanto so existe para representar 
+um banco relacional</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="ubet.models.Notification">
+<em class="property">class </em><code class="descclassname">ubet.models.</code><code class="descname">Notification</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#ubet.models.Notification" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uma notificacao e uma classe que representa que ha um aviso para o usuario de que
+um dos grupos dos quais ele participa mudou de status. A linha correspondente na tabela
+deve ser apagada quando o usuario visualizar a notificacao</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="ubet.models.Ubet_user">
+<em class="property">class </em><code class="descclassname">ubet.models.</code><code class="descname">Ubet_user</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#ubet.models.Ubet_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Classe que faz ligacao com classe User do django. 
+user.first_name eh na verdade o nome completo</p>
+<dl class="method">
+<dt id="ubet.models.Ubet_user.bet">
+<code class="descname">bet</code><span class="sig-paren">(</span><em>group</em>, <em>position</em><span class="sig-paren">)</span><a class="headerlink" href="#ubet.models.Ubet_user.bet" title="Permalink to this definition">¶</a></dt>
+<dd><p>levanta excecao se alguma condicao for quebrada durante o processo
+tenha em mente que uma aposta pode estar autorizada no inicio da chamada mas
+nao mais no fim da chamada da funcao</p>
+<p>retorna sucess,reason, onde
+sucess: true/false, se a aposta foi concluida com sucesso ou nao
+reason: motivo pelo qual a aposta nao ocorreu, ou &#8220;&#8221; caso contrario</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="../index.html" title="previous chapter">Welcome to rayquasa&#8217;s documentation!</a></li>
+      <li>Next: <a href="views.html" title="next chapter">&lt;no title&gt;</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/modules/models.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, nilo.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+      |
+      <a href="../_sources/modules/models.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

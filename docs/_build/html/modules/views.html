@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Views &mdash; rayquasa 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="rayquasa 0.1 documentation" href="../index.html" />
+    <link rel="next" title="Settings" href="settings.html" />
+    <link rel="prev" title="Models" href="models.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="views">
+<h1>Views<a class="headerlink" href="#views" title="Permalink to this headline">¶</a></h1>
+<p>Sobre o <strong>toast</strong>
+Sobre o <strong>logger</strong></p>
+<span class="target" id="module-ubet.views"></span><dl class="function">
+<dt id="ubet.views.bet">
+<code class="descclassname">ubet.views.</code><code class="descname">bet</code><span class="sig-paren">(</span><em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#ubet.views.bet" title="Permalink to this definition">¶</a></dt>
+<dd><p>pagina com posicoes dos participantes em um grupo, dando ao usuario a possibilidade de apostar.
+A diferenca basica entre a view group_info, alem da possibilidade de apostar, e que essa pagina
+nao e focada em mostrar informacoes do grupo. Ela se torna irrelevante qunando o grupo esta finalizado.
+Casos a tratar:
+- o group_id nao pertence a nenhum grupo
+- o usuario nao pode apostar nesse grupo
+- a aposta deixa de ser possivel no intervalo entre o get e o post</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="ubet.views.group_info">
+<code class="descclassname">ubet.views.</code><code class="descname">group_info</code><span class="sig-paren">(</span><em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#ubet.views.group_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>exibe informacoes acerca do grupo
+casos a se tratar: 
+- o group_id e invalido.
+- o usuario nao pode apostar no grupo que esta observando, tornando indisponivel o botao de aposta</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="ubet.views.group_log">
+<code class="descclassname">ubet.views.</code><code class="descname">group_log</code><span class="sig-paren">(</span><em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#ubet.views.group_log" title="Permalink to this definition">¶</a></dt>
+<dd><p>gera a pagina com historico completo de grupos do usuario</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="ubet.views.list_my_active_bets">
+<code class="descclassname">ubet.views.</code><code class="descname">list_my_active_bets</code><span class="sig-paren">(</span><em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#ubet.views.list_my_active_bets" title="Permalink to this definition">¶</a></dt>
+<dd><p>mostra ao usuario os grupos ativos em que ele ja apostou</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="ubet.views.list_waiting">
+<code class="descclassname">ubet.views.</code><code class="descname">list_waiting</code><span class="sig-paren">(</span><em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#ubet.views.list_waiting" title="Permalink to this definition">¶</a></dt>
+<dd><p>mostra ao usuario os grupos ativos em que ele ainda nao apostou</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="ubet.views.notification">
+<code class="descclassname">ubet.views.</code><code class="descname">notification</code><span class="sig-paren">(</span><em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#ubet.views.notification" title="Permalink to this definition">¶</a></dt>
+<dd><p>esta view existe para redirecionar do user_cp para o grupo adequado, 
+quando o usuario clica em uma notificacao. Sua existencia se faz necessaria
+para apagar a notificacao do banco.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="ubet.views.signup">
+<code class="descclassname">ubet.views.</code><code class="descname">signup</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="headerlink" href="#ubet.views.signup" title="Permalink to this definition">¶</a></dt>
+<dd><p>gerencia o formulario para um novo usuario.
+Aqui se encontra o recaptcha do google. Recomenda-se alterar sua propriedades para uma conta
+do administrador do site. (O recaptcha e gratuito)
+Esta view e o login sao as unicas views que nao exigem login.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="ubet.views.user_cp">
+<code class="descclassname">ubet.views.</code><code class="descname">user_cp</code><span class="sig-paren">(</span><em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#ubet.views.user_cp" title="Permalink to this definition">¶</a></dt>
+<dd><p>user command panel: painel de controle
+nessa pagina o usuario pode ver suas informacoes, as ultimas notificacoes 
+e ter acesso a seu historico</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="models.html" title="previous chapter">Models</a></li>
+      <li>Next: <a href="settings.html" title="next chapter">Settings</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/modules/views.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, nilo.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+      |
+      <a href="../_sources/modules/views.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
