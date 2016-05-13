@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect,HttpResponse
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from ubet.models import Ubet_user,User,Group,Notification
+from ubet.models import Ubet_user,User,Group,Notification,Admin_settings
 import urllib2
 import requests
 from django.contrib import messages
@@ -145,13 +145,14 @@ def user_cp(request):
 	e ter acesso a seu historico"""
 	logger.debug('user_cp')
 	user_groups = Group.groups_by_user(request.user)
-			
 	notificacoes =  Notification.objects.filter(user=request.user)
+	email_admin = Admin_settings.objects.get(id=1).email_admin
 	contexto = {
 		'user': request.user, 
 		'user_groups': user_groups,
 		'datejoined' : request.user.date_joined.date(),
 		'notification' : notificacoes,
+		'email_admin' : email_admin,
 	}
 	logger.debug('user' +str( request.user))
 	logger.debug('user_groups' +str(  user_groups))

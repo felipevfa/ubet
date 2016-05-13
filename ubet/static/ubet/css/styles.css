@@ -251,7 +251,8 @@ nav {
 
 @media (max-width: 600px) {
 	#group-list-controller .row { width: 100%; }
-	#group-list-wrapper { width: 93%; }
+	#group-list-wrapper .mobile-container {width: 93%;}
+
 }
 
 /* 4. Group Profile */

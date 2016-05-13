@@ -6,7 +6,9 @@
     "fields": {
       "group_max_capacity": 10,
       "time_to_expire"    : 30,
-      "win_tax" : 0.04
+      "win_tax" : 0.04,
+      "email_admin" : "naomandeemail@paraesseendereco.com",
+      "user_default_credit" : 100
     }
   }
 ]

@@ -19,6 +19,11 @@ class Admin_settings(models.Model):
 	"""um valor entre 0 e 1 que representa o percentual de comissao sobre o premio
 	 do vencedor"""
 
+	email_admin = models.EmailField()
+	"""email para ser exibido no modal de contato no user_cp"""
+
+	user_default_credit = models.FloatField(default=0)
+	"""com quantos creditos novas contas devem ser iniciadas"""
 
 class Ubet_user(models.Model):
 	""" Classe que faz ligacao com classe User do django. 
@@ -29,7 +34,9 @@ class Ubet_user(models.Model):
 		on_delete = models.CASCADE)
 
 	date_of_birth = models.DateField()
-	creditos = models.FloatField(default=100)
+
+	# udc = Admin_settings.objects.get(id=1).user_default_credit
+	creditos = models.FloatField(default=10)
 	
 	def __unicode__(self):
 		return 'ubet_user: ' +  str(self.django_user)
