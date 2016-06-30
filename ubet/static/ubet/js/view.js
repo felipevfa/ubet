@@ -45,3 +45,15 @@ $(document).ready(function() {
 	}
 });
 
+
+if(remaining){
+	$('#timecounter').runner({
+			autostart : true,
+			startAt : remaining*60*1000,
+			stopAt: 0,
+			countdown : true,
+			milliseconds : false,
+		}).on('runnerFinish',function(){
+			location.reload()
+		})
+}

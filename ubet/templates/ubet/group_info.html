@@ -32,7 +32,7 @@
 				{% endif %}
 			</p>
 			{% if group.status == 'WAITING' %}
-				{%trans 'Remaining time' %}: {{remaining}}m.
+				{%trans 'Remaining time' %}: <text id='timecounter'></text> 
 			{% endif %}
 			
 			<ul class="collection">
@@ -68,6 +68,12 @@
 		{% endif %}
 		</div>
 	</div>
+
+{% if remaining %}
+<script type="text/javascript">
+	var remaining = {{remaining}}
+</script>
+{% endif%}
 
 	{% block fab %} {% endblock fab %}
 {% endblock main_content %}
