@@ -1,10 +1,5 @@
-### **uBet** eh o nome da aplicacao
-### **rayquasa** eh o nome do projeto
-# Configuracao
-```sh
-$ git clone https://github.com/a0th/ubet
-$ pip install -r requirements.txt
-$ make local
-```
-Para execucao local, conectada ao banco, exige-se o Postgresql.
-Para armazenar localmente em vez disso, modifique o DATABASE em rayquasa/settings.py conforme indicam os comentarios.
+# uBet
+
+uBet is an web application made for betting with friends in a 'russian roulette' fashion. The players make their bets and the system randomly selects a winner, awarding them all points that were bet in the round. The users can then use game points as they please.
+
+The application is currently running at [uBet](https://ubetgame.herokuapp.com) at Heroku.
