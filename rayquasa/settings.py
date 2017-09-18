@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+import dj_database_url
 LOGIN_URL = '/login'
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -21,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '$c6%&lymi%lmap2njy*5k#gfzg6_i8=e%9v(x%e(z!==v#m0fm'
+SECRET_KEY = os.environ["API_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -89,15 +90,15 @@ DATABASES = {
     ### fim do bloco
 
     # inclua o bloco a seguir , no lugar do sqlite3, para usar o banco heroku
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'dd81t233j9esee',                      # Or path to database file if using sqlite3.
-        # The following settings are not used with sqlite3:
-        'USER': 'teeermbjlkggzr',
-        'PASSWORD': 'VsTSljeQpO01PzjXyYn8WIvgQv',
-        'HOST': 'ec2-54-163-240-97.compute-1.amazonaws.com',# Empty for localhost through domain sockets or           '127.0.0.1' for localhost through TCP.
-        'PORT': '5432',                      # Set to empty string for default.
-    }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+    #     'NAME': 'dd81t233j9esee',                      # Or path to database file if using sqlite3.
+    #     # The following settings are not used with sqlite3:
+    #     'USER': 'teeermbjlkggzr',
+    #     'PASSWORD': 'VsTSljeQpO01PzjXyYn8WIvgQv',
+    #     'HOST': 'ec2-54-163-240-97.compute-1.amazonaws.com',# Empty for localhost through domain sockets or           '127.0.0.1' for localhost through TCP.
+    #     'PORT': '5432',                      # Set to empty string for default.
+    # }
 
     ###     fim do blocopfix
 }
@@ -105,9 +106,9 @@ DATABASES = {
 
 
 ###     inclua esse bloco para upar para o heroku, comente caso contrario
-import dj_database_url
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
+DATABASES['default'] = dj_database_url.config(default=os.environ["DATABASE_URL"])
+# db_from_env = dj_database_url.config(conn_max_age=500)
+# DATABASES['default'].update(db_from_env)
 ###     fim do bloco
 
 
