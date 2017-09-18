@@ -72,7 +72,7 @@ def signup(request):
 	if request.method == 'POST':
 		logger.debug('signup post')
 		data = {
-			'secret' : '6Ld3zx4TAAAAAFqv0XY3skJWCVO4_DTSRLBU3IOZ',
+			'secret' : os.environ["CAPTCHA_KEY"],
 			# para testes, apague essa linha (1/2)
 			'response' : request.POST['g-recaptcha-response'],
 			'remoteip' : get_ip(request),
