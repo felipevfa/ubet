@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 
 from ipware.ip import get_ip
 
-
+import os
 
 @login_required()
 def list_waiting(request):
